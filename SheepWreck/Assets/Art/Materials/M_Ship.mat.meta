@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 65b81fa01c416de46ae781906d8e6535
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 331237
+  packageName: Voxel Pirate Boat Interior - 3D pixel art - monogon
+  packageVersion: 1.0
+  assetPath: Assets/Monogon/VoxelPirateShipInterior/Materials/Pirate Ship Interior
+    - NoDuplicates - Packed_0.mat
+  uploadId: 790676
