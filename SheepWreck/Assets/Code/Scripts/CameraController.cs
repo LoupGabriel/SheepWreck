@@ -4,6 +4,9 @@ using UnityEngine.Rendering;
 
 public class CameraController : MonoBehaviour
 {
+    //Control the movement of the camera
+
+    
     [SerializeField] private InputActionAsset m_actionAsset;
     [SerializeField] private float m_movementSpeed;
     [SerializeField] private float m_zoomSensitifity;
