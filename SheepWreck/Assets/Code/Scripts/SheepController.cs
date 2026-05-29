@@ -7,18 +7,29 @@ public class SheepController : MonoBehaviour,ISelectable
 {
 
 
-    private ShipSystem m_shipSystem;
 
-    private RoomInstance m_currentRoom;
+
+
+
+    private SheepInstance m_sheepData;
+    private UiSheepPanel m_sheepPanel;
+
+    private Animator m_animator;
     private static bool m_isGrab = false;
+
     private Vector3 m_originalPos;
+
     private float m_timeSinceClick = 0;
     private float m_timeBeforeDrag = 0.15f;
 
     private void Start()
     {
+        m_animator = GetComponent<Animator>();
         m_originalPos = transform.localPosition;
-        m_shipSystem = FindAnyObjectByType<ShipSystem>();
+        m_sheepData = GetComponent<SheepInstance>();
+        m_sheepPanel = FindFirstObjectByType<UiSheepPanel>();
+        m_animator.SetBool("isGrab", m_isGrab);
+
     }
 
 
@@ -55,7 +66,7 @@ public class SheepController : MonoBehaviour,ISelectable
         }
 
         m_timeSinceClick = 0;
-        Debug.Log("You click on a sheep");
+        m_sheepPanel.EnableSheepPanel(m_sheepData.m_sheepName);
 
 
     }
@@ -67,7 +78,9 @@ public class SheepController : MonoBehaviour,ISelectable
 
         if (m_timeSinceClick >= m_timeBeforeDrag)
         {
+            
             m_isGrab = true;
+            m_animator.SetBool("isGrab", m_isGrab);
 
             gameObject.transform.position = GetMousePosition();
 
@@ -86,6 +99,7 @@ public class SheepController : MonoBehaviour,ISelectable
 
 
         m_isGrab = false;
+        m_animator.SetBool("isGrab", m_isGrab);
         m_timeSinceClick = 0;
 
 

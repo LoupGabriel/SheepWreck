@@ -30,10 +30,10 @@ public class SelectionManager : MonoBehaviour
         if (Physics.Raycast(m_rayFromCam, out RaycastHit hit))
         {
             newHoveredRoom = hit.collider.GetComponent<RoomInstance>();
-        } 
+        }
 
 
-        if(newHoveredRoom != m_currentHoveredRoom )
+        if (newHoveredRoom != m_currentHoveredRoom)
         {
 
             if (m_currentHoveredRoom != null)
@@ -75,7 +75,7 @@ public class SelectionManager : MonoBehaviour
                     return;
 
                 }
-                
+
 
 
             }
@@ -104,8 +104,20 @@ public class SelectionManager : MonoBehaviour
         {
             if (currentSelectedSheep != null)
             {
-                currentSelectedSheep.Drop(m_currentHoveredRoom.transform.position);
-                currentSelectedSheep = null;
+                if (m_currentHoveredRoom != null)
+                {
+                    currentSelectedSheep.Drop(m_currentHoveredRoom.transform.position);
+                    //add current sheep to room list
+                    if(currentSelectedSheep != null)
+                    {
+                        m_currentHoveredRoom.AddSheepToRoom(currentSelectedSheep.gameObject.GetComponent<SheepInstance>());
+                    }
+                   
+                    currentSelectedSheep = null;
+
+                }
+
+
             }
 
 

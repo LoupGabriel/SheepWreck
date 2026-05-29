@@ -11,7 +11,10 @@ GameObject:
   - component: {fileID: 5940310853318208549}
   - component: {fileID: 6553259829003815086}
   - component: {fileID: 8909728613794562799}
-  m_Layer: 0
+  - component: {fileID: 6374838104712961979}
+  - component: {fileID: 1423770562892001360}
+  - component: {fileID: 2396237087638145614}
+  m_Layer: 6
   m_Name: Sheep
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,7 +32,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.08, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1698851715755686790}
   m_Father: {fileID: 0}
@@ -78,7 +81,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 49c5ec1685eefc040b822b4cb31d64f2, type: 3}
+  m_Sprite: {fileID: -1506502766, guid: a900ccb45425efa49b0162f7d0e821b4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,6 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_sheepNames: {fileID: 11400000, guid: 0cdb00ad87fabf04f952b20819aa1ce8, type: 2}
+  m_sheepName: 
   m_currentHp: 5
   m_MaxHp: 5
   level: 1
@@ -109,6 +113,61 @@ MonoBehaviour:
   m_hunger: 100
   m_thirst: 100
   assignedRoom: {fileID: 0}
+--- !u!65 &6374838104712961979
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4094666879089242883}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.78893965, y: 0.56908673, z: 0.2}
+  m_Center: {x: -0.003704071, y: 0.25831628, z: -0.000000023841858}
+--- !u!114 &1423770562892001360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4094666879089242883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e22b48e2bce03c74b9e2c223212981a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &2396237087638145614
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4094666879089242883}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9edf4d21551b2d340b53e54e9d4a6431, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6302348712503849676
 GameObject:
   m_ObjectHideFlags: 0
@@ -119,7 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1698851715755686790}
   - component: {fileID: 1709869604718024113}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,7 +195,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -0.002, z: 0}
-  m_LocalScale: {x: 1.171198, y: 2.359349, z: 1.6953}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5940310853318208549}
@@ -185,7 +244,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8526882d7dc84e44e93a9f5a169bc38c, type: 3}
+  m_Sprite: {fileID: 610420661, guid: a900ccb45425efa49b0162f7d0e821b4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
