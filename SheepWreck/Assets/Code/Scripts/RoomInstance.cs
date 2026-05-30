@@ -18,12 +18,12 @@ public class RoomInstance : MonoBehaviour, ISelectable
 
     public bool m_isCurrentRoom = false;
 
-
+    
     private void Start()
     {
         m_renderer = GetComponent<MeshRenderer>();
         m_renderer.enabled = false;
-
+        ShipSystem.Instance.AddRoomToList(this);
     }
 
     public void AddSheepToRoom(SheepInstance sheepInstance)

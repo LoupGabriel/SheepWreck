@@ -141,7 +141,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixelCardAssest_2
+      name: CardBack
       rect:
         serializedVersion: 2
         x: 250
@@ -150,7 +150,7 @@ TextureImporter:
         height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 20, y: 13, z: 19, w: 17}
       customData: 
       outline: []
       physicsShape: []
@@ -1540,6 +1540,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
+      CardBack: 222507115
       pixelCardAssest_0: 1423694987
       pixelCardAssest_1: -1224920471
       pixelCardAssest_10: 1656131847
@@ -1552,7 +1553,6 @@ TextureImporter:
       pixelCardAssest_17: -442924183
       pixelCardAssest_18: -869958470
       pixelCardAssest_19: 1762459143
-      pixelCardAssest_2: 222507115
       pixelCardAssest_20: -281649393
       pixelCardAssest_21: 456647050
       pixelCardAssest_22: 1045947764

@@ -9,9 +9,9 @@ public class SheepController : MonoBehaviour,ISelectable
 
 
 
+    
 
-
-    private SheepInstance m_sheepData;
+    public SheepInstance m_sheepData;
     private UiSheepPanel m_sheepPanel;
 
     private Animator m_animator;
@@ -104,6 +104,9 @@ public class SheepController : MonoBehaviour,ISelectable
 
 
     }
+
+
+    
 
 
 
