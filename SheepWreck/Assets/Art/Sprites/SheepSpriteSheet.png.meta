@@ -100,10 +100,10 @@ TextureImporter:
       name: SheepSpriteSheet_0
       rect:
         serializedVersion: 2
-        x: 9
-        y: 11
-        width: 15
-        height: 11
+        x: 0
+        y: 0
+        width: 16
+        height: 16
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -122,10 +122,10 @@ TextureImporter:
       name: SheepSpriteSheet_1
       rect:
         serializedVersion: 2
-        x: 41
-        y: 11
-        width: 15
-        height: 12
+        x: 16
+        y: 0
+        width: 16
+        height: 16
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -144,10 +144,10 @@ TextureImporter:
       name: SheepSpriteSheet_2
       rect:
         serializedVersion: 2
-        x: 73
-        y: 11
-        width: 15
-        height: 12
+        x: 32
+        y: 0
+        width: 16
+        height: 16
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,10 +166,10 @@ TextureImporter:
       name: SheepSpriteSheet_3
       rect:
         serializedVersion: 2
-        x: 105
-        y: 11
-        width: 15
-        height: 10
+        x: 48
+        y: 0
+        width: 16
+        height: 16
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -188,10 +188,10 @@ TextureImporter:
       name: SheepSpriteSheet_4
       rect:
         serializedVersion: 2
-        x: 137
-        y: 11
-        width: 15
-        height: 9
+        x: 64
+        y: 0
+        width: 16
+        height: 16
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -200,8 +200,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e420006d804d64f408ca0e906b409006
-      internalID: -873686632
+      spriteID: 3b26060925ba2914f845a0f2075a0964
+      internalID: -188180538
       vertices: []
       indices: 
       edges: []
@@ -210,10 +210,10 @@ TextureImporter:
       name: SheepSpriteSheet_5
       rect:
         serializedVersion: 2
-        x: 169
-        y: 11
-        width: 15
-        height: 9
+        x: 80
+        y: 0
+        width: 16
+        height: 16
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -222,8 +222,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a61d2e63325a2354cb8b9e73e54c869b
-      internalID: 2040048483
+      spriteID: b5ed815e9ac30cf4aaa3070c54d72e67
+      internalID: -1404355135
       vertices: []
       indices: 
       edges: []
@@ -232,10 +232,10 @@ TextureImporter:
       name: SheepSpriteSheet_6
       rect:
         serializedVersion: 2
-        x: 201
-        y: 11
-        width: 15
-        height: 10
+        x: 96
+        y: 0
+        width: 16
+        height: 16
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -244,8 +244,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9b60095a4c072bb459020fc2810bee5e
-      internalID: -230760384
+      spriteID: 823ef95f474a41d418d6cebeae40e931
+      internalID: 1871771907
       vertices: []
       indices: 
       edges: []
@@ -254,20 +254,20 @@ TextureImporter:
       name: SheepSpriteSheet_7
       rect:
         serializedVersion: 2
-        x: 234
-        y: 9
-        width: 13
+        x: 112
+        y: 0
+        width: 16
         height: 16
       alignment: 9
-      pivot: {x: 0.2650886, y: 0.84172654}
+      pivot: {x: 0.4375, y: 0.75}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7583a6a085bf3e1489c628e3ecfdb8dc
-      internalID: 1932867213
+      spriteID: badf4769cad0ddd43b708f20b00cf97c
+      internalID: 1793194639
       vertices: []
       indices: 
       edges: []
@@ -290,10 +290,10 @@ TextureImporter:
       SheepSpriteSheet_1: 1983674260
       SheepSpriteSheet_2: -245360739
       SheepSpriteSheet_3: 1476519623
-      SheepSpriteSheet_4: -873686632
-      SheepSpriteSheet_5: 2040048483
-      SheepSpriteSheet_6: -230760384
-      SheepSpriteSheet_7: 1932867213
+      SheepSpriteSheet_4: -188180538
+      SheepSpriteSheet_5: -1404355135
+      SheepSpriteSheet_6: 1871771907
+      SheepSpriteSheet_7: 1793194639
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

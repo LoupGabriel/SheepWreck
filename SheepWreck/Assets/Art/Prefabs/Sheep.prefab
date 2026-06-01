@@ -106,13 +106,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_sheepNames: {fileID: 11400000, guid: 0cdb00ad87fabf04f952b20819aa1ce8, type: 2}
   m_sheepName: 
+  m_hungerTimer: 5
+  m_thirstTimer: 2
+  m_productionRate: 5
+  m_spriteRenderer: {fileID: 0}
   m_currentHp: 5
   m_MaxHp: 5
   level: 1
   m_currentMorale: 100
   m_hunger: 100
   m_thirst: 100
-  assignedRoom: {fileID: 0}
+  m_assignedRoom: {fileID: 0}
 --- !u!65 &6374838104712961979
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -146,6 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e22b48e2bce03c74b9e2c223212981a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_sheepData: {fileID: 0}
 --- !u!95 &2396237087638145614
 Animator:
   serializedVersion: 7
