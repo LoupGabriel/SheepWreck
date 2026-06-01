@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
+
 
 public class SelectionManager : MonoBehaviour
 {
@@ -18,7 +20,8 @@ public class SelectionManager : MonoBehaviour
 
         HandleHover();
         HandleClick();
-
+        HandleDrag();
+        HandleReleaseClick();
 
     }
 
@@ -87,6 +90,15 @@ public class SelectionManager : MonoBehaviour
 
         }
 
+
+
+
+
+    }
+
+
+    private void HandleDrag()
+    {
         if (Mouse.current.leftButton.isPressed)
         {
 
@@ -98,8 +110,9 @@ public class SelectionManager : MonoBehaviour
 
 
         }
-
-
+    }
+    private void HandleReleaseClick()
+    {
         if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
             if (currentSelectedSheep != null)
@@ -108,11 +121,11 @@ public class SelectionManager : MonoBehaviour
                 {
                     currentSelectedSheep.Drop(m_currentHoveredRoom.transform.position);
                     //add current sheep to room list
-                    if(currentSelectedSheep != null)
+                    if (currentSelectedSheep != null)
                     {
                         m_currentHoveredRoom.AddSheepToRoom(currentSelectedSheep.gameObject.GetComponent<SheepInstance>());
                     }
-                   
+
                     currentSelectedSheep = null;
 
                 }
@@ -123,6 +136,11 @@ public class SelectionManager : MonoBehaviour
 
         }
     }
+
+
+
+
+
 
 
 }

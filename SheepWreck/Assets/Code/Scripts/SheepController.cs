@@ -20,7 +20,7 @@ public class SheepController : MonoBehaviour,ISelectable
     private Vector3 m_originalPos;
 
     private float m_timeSinceClick = 0;
-    private float m_timeBeforeDrag = 0.15f;
+    private float m_timeBeforeDrag = 0.25f;
 
     private void Start()
     {
@@ -66,7 +66,7 @@ public class SheepController : MonoBehaviour,ISelectable
         }
 
         m_timeSinceClick = 0;
-        m_sheepPanel.EnableSheepPanel(m_sheepData.m_sheepName);
+        m_sheepPanel.EnableSheepPanel(m_sheepData.m_sheepName,m_sheepData);
 
 
     }

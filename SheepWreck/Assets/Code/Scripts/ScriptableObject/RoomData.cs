@@ -28,11 +28,11 @@ public class RoomData : ScriptableObject
     [SerializeField] private int m_buildCost;
     [SerializeField] private int m_upkeepCost;
     [SerializeField] private int m_maxSheeoCapacity;
-
+    //
     [SerializeField] private float m_productionRate;
     [SerializeField] private float m_energyConsumption;
 
-    [SerializeField] private RessourceProduced m_ressourceProduced = RessourceProduced.energy;
+    [SerializeField] public RessourceProduced m_ressourceProduced = RessourceProduced.energy;
 
     [SerializeField] private int m_level;
     

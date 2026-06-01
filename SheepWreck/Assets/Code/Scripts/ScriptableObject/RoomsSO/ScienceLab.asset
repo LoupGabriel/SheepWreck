@@ -20,5 +20,5 @@ MonoBehaviour:
   m_maxSheeoCapacity: 3
   m_productionRate: 50
   m_energyConsumption: 20
-  m_ressourceProduced: 4
+  m_ressourceProduced: 3
   m_level: 1

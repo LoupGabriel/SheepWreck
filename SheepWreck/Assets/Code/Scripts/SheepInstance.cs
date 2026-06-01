@@ -3,7 +3,13 @@ using UnityEngine;
 public class SheepInstance : MonoBehaviour
 {
 
-
+    private enum SheepState
+    {
+        idle,
+        getRessource,
+        produce,
+        die
+    }
 
     [SerializeField] private SheepNamesDataBase m_sheepNames;
     [SerializeField] public string m_sheepName;
@@ -11,6 +17,9 @@ public class SheepInstance : MonoBehaviour
     [SerializeField] private float m_hungerTimer = 5f;
     [SerializeField] private float m_thirstTimer = 2f;
 
+
+    public float m_productionRate = 1;
+    public SpriteRenderer m_spriteRenderer;
     public int m_currentHp;
     public int m_MaxHp;
 
@@ -24,14 +33,17 @@ public class SheepInstance : MonoBehaviour
     public int m_hunger;
     public int m_thirst;
 
-    public RoomInstance assignedRoom;
+    public RoomInstance m_assignedRoom;
     private float m_hungerElapse = 0;
     private float m_thirstElapse = 0;
-    private void Awake()
-    {
-        GenerateRandomName();
-        CrewManager.Instance.AddSheep(this);
 
+    private void Start()
+    {
+        m_spriteRenderer = GetComponent<SpriteRenderer>();
+        GenerateRandomName();
+        GenerateRandomColor();
+        CrewManager.Instance.AddSheep(this);
+        
     }
 
     private void Update()
@@ -52,12 +64,20 @@ public class SheepInstance : MonoBehaviour
         transform.gameObject.name = m_sheepName;
     }
 
+    private void GenerateRandomColor()
+    {
+
+        m_spriteRenderer.color = Random.ColorHSV(1f,1f,0f,0.5f,0.5f,1f);
+
+
+    }
     private void Hunger()
     {
 
 
         m_hungerElapse += Time.deltaTime;
 
+        m_hunger = Mathf.Clamp(m_hunger, 0, 100);
         if(m_hungerElapse >= m_hungerTimer)
         {
             m_hunger--;
@@ -90,6 +110,15 @@ public class SheepInstance : MonoBehaviour
 
 
     }
+
+
+    private void Produced()
+    {
+
+
+
+
+    }
     public void ConsumeWater(int ressource)
     {
         m_thirst += ressource;
@@ -100,5 +129,23 @@ public class SheepInstance : MonoBehaviour
         CrewManager.Instance.RemoveSheep(this);
     }
 
+    public int GetHunger()
+    {
+        return m_hunger;
+    }
+    public int GetThirst()
+    {
+        return m_thirst;
+    }
 
+
+    //Return the average of hunger and thirst 
+    //To do make a better system with a paycheck
+    public float GetMorale()
+    {
+
+        
+
+        return (m_hunger + m_thirst) / 2;
+    }
 }
