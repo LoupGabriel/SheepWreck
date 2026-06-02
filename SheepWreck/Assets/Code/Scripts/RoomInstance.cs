@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static RoomData;
 
 public class RoomInstance : MonoBehaviour, ISelectable
 {
@@ -31,17 +32,18 @@ public class RoomInstance : MonoBehaviour, ISelectable
     }
     private void Update()
     {
-        if(m_assignedSheep.Count <= 0)
+        if(m_assignedSheep.Count <= 0 || isEmptyRoom())
         {
             return;
         }
+        
         Produce();
     }
     public void AddSheepToRoom(SheepInstance sheepInstance)
     {
 
        m_assignedSheep.Add(sheepInstance);
-
+        SetSheepWorking();
 
     }
 
@@ -72,7 +74,7 @@ public class RoomInstance : MonoBehaviour, ISelectable
     // Produce X ressource per sheep each m_roomProductionTime
     private void Produce()
     {
-
+       
         m_roomTimeSinceLastProduce += Time.deltaTime;
 
         if(m_roomTimeSinceLastProduce >= m_roomProductionTime)
@@ -88,6 +90,35 @@ public class RoomInstance : MonoBehaviour, ISelectable
         }
        
         
+    }
+
+    private void SetSheepWorking()
+    {
+
+
+        foreach(SheepInstance sheep in m_assignedSheep)
+        {
+
+            sheep.m_stateMachine.ChangeState(sheep.m_workinState);
+
+        }
+
+
+    }
+
+    private void SetSheepWaitForWork()
+    {
+
+
+
+    }
+
+    private bool isEmptyRoom()
+    {
+
+        return m_roomData.m_ressourceProduced == RessourceProduced.nothing;
+
+
     }
 
    

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using System.Collections;
 
 
 public class SelectionManager : MonoBehaviour
@@ -9,11 +10,14 @@ public class SelectionManager : MonoBehaviour
 
 
     [SerializeField] private Camera m_cam;
-
-    private SheepController currentSelectedSheep = null;
+    public GameObject m_currentSelectedObject;
+    public SheepController m_currentSelectedSheep = null;
     public RoomInstance m_currentHoveredRoom;
     private Ray m_rayFromCam;
+    public SheepController m_lastSelectedSheep;
 
+    [SerializeField] private float m_doubleClickTime = 0.3f;
+    private float m_lastClickTime;
     private void Update()
     {
         m_rayFromCam = m_cam.ScreenPointToRay(Mouse.current.position.ReadValue());
@@ -60,28 +64,52 @@ public class SelectionManager : MonoBehaviour
         {
 
 
+
+            float timeSinceLastClick = Time.time - m_lastClickTime;
+
+
+
+
+
             RaycastHit[] hits = Physics.RaycastAll(m_rayFromCam);
+
+
+            //calcul time between click
+            if (m_currentSelectedSheep == m_lastSelectedSheep &&
+                timeSinceLastClick <= m_doubleClickTime)
+            {
+                HandleDoubleClick();
+            }
+            m_lastClickTime = Time.time;
 
             //look for sheep
             foreach (RaycastHit hit in hits)
             {
+                m_currentSelectedObject = hit.collider.gameObject;
+
                 if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Sheep"))
                 {
 
-                    currentSelectedSheep = hit.collider.gameObject.GetComponent<SheepController>();
 
-                    currentSelectedSheep.Select();
-                    currentSelectedSheep.StartGrab();
+                    m_currentSelectedSheep = hit.collider.gameObject.GetComponent<SheepController>();
+                    m_lastSelectedSheep = m_currentSelectedSheep;
+                    m_currentSelectedSheep.Select();
+                    
+
 
 
 
                     return;
 
                 }
+                
 
 
 
             }
+
+
+
 
 
 
@@ -96,15 +124,31 @@ public class SelectionManager : MonoBehaviour
 
     }
 
+    private void HandleDoubleClick()
+    {
+
+        //focus on selected item
+       
+
+        if (m_lastSelectedSheep != null)
+        {
+
+            CameraController camControl = m_cam.GetComponent<CameraController>();
+            camControl.NotifyFocus(m_currentSelectedObject.transform);
+
+        }
+
+
+    }
 
     private void HandleDrag()
     {
         if (Mouse.current.leftButton.isPressed)
         {
 
-            if (currentSelectedSheep != null)
+            if (m_currentSelectedSheep != null)
             {
-                currentSelectedSheep.StartGrab();
+                m_currentSelectedSheep.StartGrab();
             }
 
 
@@ -115,18 +159,18 @@ public class SelectionManager : MonoBehaviour
     {
         if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
-            if (currentSelectedSheep != null)
+            if (m_currentSelectedSheep != null)
             {
                 if (m_currentHoveredRoom != null)
                 {
-                    currentSelectedSheep.Drop(m_currentHoveredRoom.transform.position);
+                    m_currentSelectedSheep.Drop(m_currentHoveredRoom.transform.position);
                     //add current sheep to room list
-                    if (currentSelectedSheep != null)
+                    if (m_currentSelectedSheep != null)
                     {
-                        m_currentHoveredRoom.AddSheepToRoom(currentSelectedSheep.gameObject.GetComponent<SheepInstance>());
+                        m_currentHoveredRoom.AddSheepToRoom(m_currentSelectedSheep.gameObject.GetComponent<SheepInstance>());
                     }
 
-                    currentSelectedSheep = null;
+                    //m_currentSelectedSheep = null;
 
                 }
 

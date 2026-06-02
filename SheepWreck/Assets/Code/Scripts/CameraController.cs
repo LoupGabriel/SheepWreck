@@ -8,36 +8,42 @@ public class CameraController : MonoBehaviour
 
     
     [SerializeField] private InputActionAsset m_actionAsset;
+
+    private Vector3 m_sheepAnchor = new Vector3(0, 0.65f, -5f);
+    private Vector3 m_originalPos;
+    private CameraManager m_camManager;
     [SerializeField] private float m_movementSpeed;
     [SerializeField] private float m_zoomSensitifity;
 
-    private Camera m_cam;
-    [SerializeField] private float minZoom = 30f;
-    [SerializeField] private float maxZoom = 70f;
-
-    private float m_targetZoom;
     private InputAction m_moveCam;
     private InputAction m_zoom;
+    private InputAction m_resetCam;
     
     private Vector2 m_movement;
     private Vector2 m_zoomAmount;
-    
+    private bool m_reset;
+    public bool m_wasFocus = false;
    
 
 
     private void Start()
     {
-        m_cam = GetComponent<Camera>();
+        m_originalPos= transform.position;
         m_moveCam = m_actionAsset.FindAction("Move");
         m_zoom = m_actionAsset.FindAction("Zoom");
-        m_targetZoom = m_cam.fieldOfView;
+        m_resetCam = m_actionAsset.FindAction("Reset");
+        m_camManager = GetComponent<CameraManager>();
     }
 
     private void Update()
     {
         HandleInput();
         MoveCamera();
-        //ZoomCamera();
+        if (m_reset)
+        {
+            ResetCamera();
+        }
+     
     }
         
     private void HandleInput()
@@ -46,11 +52,11 @@ public class CameraController : MonoBehaviour
 
         m_movement = m_moveCam.ReadValue<Vector2>();
         m_zoomAmount = m_zoom.ReadValue<Vector2>();
-
+        m_reset = m_resetCam.WasPerformedThisFrame();
 
     }
-   
-    
+
+
     private void MoveCamera()
     {
 
@@ -58,18 +64,28 @@ public class CameraController : MonoBehaviour
         float moveY = m_movement.y * m_movementSpeed * Time.deltaTime;
         float moveZ = m_zoomAmount.y * m_zoomSensitifity * Time.deltaTime;
 
-       
-        
-        
-        transform.Translate(moveX,moveY, moveZ);
 
+
+
+        transform.Translate(moveX, moveY, moveZ);
+
+     
 
     }
-    private void ZoomCamera()
+    public void ResetCamera()
     {
-        //use a small number because wheel make large number
-        m_targetZoom -= m_zoomAmount.y * m_zoomSensitifity * 0.05f;
-        m_targetZoom = Mathf.Clamp(m_targetZoom, minZoom, maxZoom);
-        m_cam.fieldOfView = m_targetZoom;
+
+        transform.position = m_originalPos;
     }
+
+
+    
+
+    //notify focus bool
+    public void NotifyFocus(Transform focusCameraPos)
+    {
+        m_wasFocus = true;
+        transform.position = focusCameraPos.position + m_sheepAnchor;
+    }
+   
 }

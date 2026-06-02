@@ -3,20 +3,24 @@ using UnityEngine;
 public class SheepInstance : MonoBehaviour
 {
 
-    private enum SheepState
-    {
-        idle,
-        getRessource,
-        produce,
-        die
-    }
 
+    
+  
+    
     [SerializeField] private SheepNamesDataBase m_sheepNames;
     [SerializeField] public string m_sheepName;
 
     [SerializeField] private float m_hungerTimer = 5f;
     [SerializeField] private float m_thirstTimer = 2f;
+    #region State Machine Variables
+    public SheepStateMachine m_stateMachine { get; set; }
+    public SheepIdleState m_idleState { get; set; }
+    public SheepWorkingState m_workinState { get; set; }
+    public SheepWaitForWorkState m_waitForWorkState { get; set; }
+    public SheepRestingState m_restingState { get; set; }
+    public SheepEatingState m_eatingState { get; set; }
 
+    #endregion
 
     public float m_productionRate = 1;
     public SpriteRenderer m_spriteRenderer;
@@ -37,13 +41,30 @@ public class SheepInstance : MonoBehaviour
     private float m_hungerElapse = 0;
     private float m_thirstElapse = 0;
 
+
+
+    private void Awake()
+    {
+        m_stateMachine = new SheepStateMachine();
+
+        m_idleState = new SheepIdleState(this,m_stateMachine);
+        m_workinState = new SheepWorkingState(this, m_stateMachine);
+        m_waitForWorkState = new SheepWaitForWorkState(this, m_stateMachine);
+        m_restingState = new SheepRestingState(this, m_stateMachine);
+        m_eatingState = new SheepEatingState(this, m_stateMachine);
+    }
     private void Start()
     {
+
+        m_stateMachine.Initialize(m_idleState);
         m_spriteRenderer = GetComponent<SpriteRenderer>();
         GenerateRandomName();
         GenerateRandomColor();
         CrewManager.Instance.AddSheep(this);
         
+
+
+
     }
 
     private void Update()
@@ -52,7 +73,7 @@ public class SheepInstance : MonoBehaviour
         Thirst();
     }
 
-
+    
     private void GenerateRandomName()
     {
 
@@ -64,6 +85,7 @@ public class SheepInstance : MonoBehaviour
         transform.gameObject.name = m_sheepName;
     }
 
+
     private void GenerateRandomColor()
     {
 
@@ -71,6 +93,8 @@ public class SheepInstance : MonoBehaviour
 
 
     }
+
+
     private void Hunger()
     {
 
@@ -112,13 +136,7 @@ public class SheepInstance : MonoBehaviour
     }
 
 
-    private void Produced()
-    {
-
-
-
-
-    }
+ 
     public void ConsumeWater(int ressource)
     {
         m_thirst += ressource;
@@ -148,4 +166,8 @@ public class SheepInstance : MonoBehaviour
 
         return (m_hunger + m_thirst) / 2;
     }
+
+
+
+   
 }

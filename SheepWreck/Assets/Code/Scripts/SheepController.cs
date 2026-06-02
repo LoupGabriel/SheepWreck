@@ -9,8 +9,8 @@ public class SheepController : MonoBehaviour,ISelectable
 
 
 
-    
 
+    public SheepState m_sheepState;
     public SheepInstance m_sheepData;
     private UiSheepPanel m_sheepPanel;
 
@@ -29,6 +29,7 @@ public class SheepController : MonoBehaviour,ISelectable
         m_sheepData = GetComponent<SheepInstance>();
         m_sheepPanel = FindFirstObjectByType<UiSheepPanel>();
         m_animator.SetBool("isGrab", m_isGrab);
+        m_sheepState = m_sheepData.m_stateMachine.m_currentSheepState;
 
     }
 
@@ -67,6 +68,7 @@ public class SheepController : MonoBehaviour,ISelectable
 
         m_timeSinceClick = 0;
         m_sheepPanel.EnableSheepPanel(m_sheepData.m_sheepName,m_sheepData);
+       
 
 
     }

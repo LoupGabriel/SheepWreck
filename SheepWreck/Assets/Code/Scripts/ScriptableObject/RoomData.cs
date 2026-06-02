@@ -15,7 +15,8 @@ public class RoomData : ScriptableObject
         morale,
         energy,
         food,
-        water
+        water,
+        nothing
 
     }
 
@@ -27,7 +28,7 @@ public class RoomData : ScriptableObject
 
     [SerializeField] private int m_buildCost;
     [SerializeField] private int m_upkeepCost;
-    [SerializeField] private int m_maxSheeoCapacity;
+    [SerializeField] private int m_maxSheepCapacity;
     //
     [SerializeField] private float m_productionRate;
     [SerializeField] private float m_energyConsumption;
