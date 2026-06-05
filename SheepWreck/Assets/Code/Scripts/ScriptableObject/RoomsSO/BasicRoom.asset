@@ -15,10 +15,12 @@ MonoBehaviour:
   m_roomName: EmptyRoom
   m_description: Empty Room
   m_roomIcon: {fileID: 0}
+  m_ressourceProduced: 5
+  m_buildingType: 2
   m_buildCost: 0
   m_upkeepCost: 0
-  m_maxSheeoCapacity: 3
+  m_maxSheepCapacity: 0
   m_productionRate: 0
   m_energyConsumption: 0
-  m_ressourceProduced: 0
+  m_capacity: 0
   m_level: 1

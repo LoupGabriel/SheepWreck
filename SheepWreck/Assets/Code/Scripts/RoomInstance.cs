@@ -42,8 +42,14 @@ public class RoomInstance : MonoBehaviour, ISelectable
     public void AddSheepToRoom(SheepInstance sheepInstance)
     {
 
-       m_assignedSheep.Add(sheepInstance);
-        SetSheepWorking();
+        m_assignedSheep.Add(sheepInstance);
+       
+
+    }
+    public void RemoveSheepFromRoom(SheepInstance sheepInstance)
+    {
+
+        m_assignedSheep.Remove(sheepInstance);
 
     }
 
@@ -106,17 +112,12 @@ public class RoomInstance : MonoBehaviour, ISelectable
 
     }
 
-    private void SetSheepWaitForWork()
-    {
-
-
-
-    }
+ 
 
     private bool isEmptyRoom()
     {
 
-        return m_roomData.m_ressourceProduced == RessourceProduced.nothing;
+        return m_roomData.m_buildingType == EBuildingType.EMPTY;
 
 
     }

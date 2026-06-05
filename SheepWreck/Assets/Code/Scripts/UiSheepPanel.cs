@@ -16,6 +16,10 @@ public class UiSheepPanel : MonoBehaviour
 
     private bool m_panelIsActive = false;
 
+    private void Start()
+    {
+        gameObject.SetActive(false);
+    }
     private void Update()
     {
         if (m_panelIsActive)

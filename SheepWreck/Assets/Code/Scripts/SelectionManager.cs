@@ -1,7 +1,8 @@
-using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.EventSystems;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using static RoomData;
 
 
 public class SelectionManager : MonoBehaviour
@@ -149,6 +150,7 @@ public class SelectionManager : MonoBehaviour
             if (m_currentSelectedSheep != null)
             {
                 m_currentSelectedSheep.StartGrab();
+                m_currentSelectedSheep.m_sheepData.m_assignedRoom.RemoveSheepFromRoom(m_currentSelectedSheep.m_sheepData);
             }
 
 
@@ -159,22 +161,24 @@ public class SelectionManager : MonoBehaviour
     {
         if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
-            if (m_currentSelectedSheep != null)
+            if (m_currentSelectedSheep != null )
             {
                 if (m_currentHoveredRoom != null)
                 {
                     m_currentSelectedSheep.Drop(m_currentHoveredRoom.transform.position);
-                    //add current sheep to room list
-                    if (m_currentSelectedSheep != null)
-                    {
-                        m_currentHoveredRoom.AddSheepToRoom(m_currentSelectedSheep.gameObject.GetComponent<SheepInstance>());
-                    }
-
-                    //m_currentSelectedSheep = null;
-
+                    m_currentHoveredRoom.AddSheepToRoom(m_currentSelectedSheep.m_sheepData);
+                    m_currentSelectedSheep.m_sheepData.SetSheepAssignedRoom(m_currentHoveredRoom);
                 }
+                else
+                {
+                    m_currentSelectedSheep.DropSheepInAir();
+                }
+                    
 
-
+            }
+            else
+            {
+                return;
             }
 
 

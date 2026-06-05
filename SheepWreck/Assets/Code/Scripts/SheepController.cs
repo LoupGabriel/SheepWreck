@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class SheepController : MonoBehaviour,ISelectable
+public class SheepController : MonoBehaviour, ISelectable
 {
 
 
@@ -25,7 +25,7 @@ public class SheepController : MonoBehaviour,ISelectable
     private void Start()
     {
         m_animator = GetComponent<Animator>();
-        m_originalPos = transform.localPosition;
+        m_originalPos = transform.position;
         m_sheepData = GetComponent<SheepInstance>();
         m_sheepPanel = FindFirstObjectByType<UiSheepPanel>();
         m_animator.SetBool("isGrab", m_isGrab);
@@ -35,9 +35,9 @@ public class SheepController : MonoBehaviour,ISelectable
 
 
 
- 
 
- 
+
+
 
 
 
@@ -53,10 +53,10 @@ public class SheepController : MonoBehaviour,ISelectable
         return Camera.main.ScreenToWorldPoint(mousePos);
     }
 
-   
 
 
-   
+
+
 
     public void Select()
     {
@@ -67,8 +67,8 @@ public class SheepController : MonoBehaviour,ISelectable
         }
 
         m_timeSinceClick = 0;
-        m_sheepPanel.EnableSheepPanel(m_sheepData.m_sheepName,m_sheepData);
-       
+        m_sheepPanel.EnableSheepPanel(m_sheepData.m_sheepName, m_sheepData);
+
 
 
     }
@@ -80,7 +80,7 @@ public class SheepController : MonoBehaviour,ISelectable
 
         if (m_timeSinceClick >= m_timeBeforeDrag)
         {
-            
+
             m_isGrab = true;
             m_animator.SetBool("isGrab", m_isGrab);
 
@@ -91,14 +91,16 @@ public class SheepController : MonoBehaviour,ISelectable
 
     }
 
-    public void Drop(Vector3 roomY)
+    public void Drop(Vector3 room)
     {
+
+
         Vector3 dropPos = transform.position;
-        dropPos.y= roomY.y + 0.1f;
+        dropPos.y = room.y + 0.1f;
+        m_originalPos = dropPos;
 
 
-        gameObject.transform.position = dropPos ;
-
+        gameObject.transform.position = dropPos;
 
         m_isGrab = false;
         m_animator.SetBool("isGrab", m_isGrab);
@@ -106,9 +108,16 @@ public class SheepController : MonoBehaviour,ISelectable
 
 
     }
+    public void DropSheepInAir()
+    {
+        m_isGrab = false;
+        transform.position = m_originalPos;
+        m_animator.SetBool("isGrab", m_isGrab);
+
+    }
 
 
-    
+
 
 
 

@@ -12,6 +12,8 @@ public class SheepInstance : MonoBehaviour
 
     [SerializeField] private float m_hungerTimer = 5f;
     [SerializeField] private float m_thirstTimer = 2f;
+
+    private Vector3 m_originalPos;
     #region State Machine Variables
     public SheepStateMachine m_stateMachine { get; set; }
     public SheepIdleState m_idleState { get; set; }
@@ -52,14 +54,24 @@ public class SheepInstance : MonoBehaviour
         m_waitForWorkState = new SheepWaitForWorkState(this, m_stateMachine);
         m_restingState = new SheepRestingState(this, m_stateMachine);
         m_eatingState = new SheepEatingState(this, m_stateMachine);
+
+
     }
     private void Start()
     {
+        //set original pos
 
+        m_originalPos = transform.position;
+        //initialize state machine
         m_stateMachine.Initialize(m_idleState);
+
         m_spriteRenderer = GetComponent<SpriteRenderer>();
+
+        //visual
         GenerateRandomName();
         GenerateRandomColor();
+
+        //add sheep to the crew list
         CrewManager.Instance.AddSheep(this);
         
 
@@ -167,6 +179,13 @@ public class SheepInstance : MonoBehaviour
         return (m_hunger + m_thirst) / 2;
     }
 
+
+
+    public void SetSheepAssignedRoom(RoomInstance newAssignedRoom)
+    {
+
+        m_assignedRoom = newAssignedRoom;
+    }
 
 
    
