@@ -6,7 +6,7 @@ public class ShipSystem : MonoBehaviour
 
 
     public static ShipSystem Instance;
-    [SerializeField] private List<RoomInstance> m_shipCurrentRooms = new();
+    [SerializeField] public List<RoomInstance> m_shipCurrentRooms = new();
 
 
     private void Awake()

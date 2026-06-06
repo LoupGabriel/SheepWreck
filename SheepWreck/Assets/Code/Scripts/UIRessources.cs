@@ -18,23 +18,16 @@ public class UIRessources : MonoBehaviour
     [SerializeField] CrewManager m_crewManager;
 
     private Dictionary<ERessourceType, TMP_Text> m_ressourceText = new Dictionary<ERessourceType, TMP_Text>();
-    public void NotifyMoraleChange(int morale)
+
+    private void OnEnable()
     {
-        m_currentMoraleText.text = morale.ToString();
+        RessourceSystem.Instance.OnRessourceChange += NotifyRessourceChange;
     }
 
-    public void NotifyFoodChange(int food)
+    private void OnDisable()
     {
-        m_currentFoodText.text = food.ToString();
+        RessourceSystem.Instance.OnRessourceChange -= NotifyRessourceChange;
     }
-
-    public void NotifyWaterChange(int water)
-    {
-
-        m_currentWaterText.text = water.ToString();
-    }
-
-
     private void Start()
     {
         m_ressourceText.Add(ERessourceType.GOLD, m_currentGoldText);
@@ -65,7 +58,9 @@ public class UIRessources : MonoBehaviour
         m_currentSheepText.text = CrewManager.Instance.m_currentSheepOnBoard.Count.ToString();
     }
 
-
+    /// <summary>
+    /// Return the average Morale off all sheep in crewManager
+    /// </summary>
     public int GetAverageMorale()
     {
 
