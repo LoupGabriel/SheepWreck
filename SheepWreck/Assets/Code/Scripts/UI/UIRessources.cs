@@ -35,7 +35,10 @@ public class UIRessources : MonoBehaviour
         m_ressourceText.Add(ERessourceType.WATER, m_currentWaterText);
         m_ressourceText.Add(ERessourceType.ENERGY, m_currentEnergyText);
         m_ressourceText.Add(ERessourceType.MORALE, m_currentMoraleText);
-        
+
+        m_currentEnergyText.text = RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.ENERGY].ToString();
+
+
     }
 
 

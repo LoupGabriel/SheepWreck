@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44142fdea8c351044911fdd7961466ac, type: 3}
+  m_Name: DeliverWater
+  m_EditorClassIdentifier: 
+  m_questID: D18692d25-cab6-4f0f-87e5-af393a29ae7d
+  m_questName: In need of Rhum
+  m_description: 
+  m_recompense: 150
+  m_objectives:
+  - m_objectiveID: 2
+    m_description: Deliver 100 water
+    m_type: 0
+    m_ressource: 2
+    m_requiredAmount: 100
+    m_currentAmount: 0
+    m_questDestination: {x: 1, y: 0}
