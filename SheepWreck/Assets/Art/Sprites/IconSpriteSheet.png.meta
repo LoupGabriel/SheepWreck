@@ -514,6 +514,94 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: ConstructionModeButton
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 66
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fa5fe5b6e73b8248a45644e6868bb33
+      internalID: 2102130007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_info01
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 33
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17aac90f9585b2c4ca9cb0d68a22a4af
+      internalID: -14221072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_info02
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 33
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58b45b20100819d4880ec921606812bb
+      internalID: 1043973166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_info03
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 33
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1f6ab8f2396bc4478194b5f3162473e
+      internalID: 1766081748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -530,6 +618,7 @@ TextureImporter:
     nameFileIdTable:
       Bar_blue: -397262613
       Bar_red: 2042205348
+      ConstructionModeButton: 2102130007
       IconFlag: 155198134
       IconShip: 963032411
       IconSpriteSheet_0: -223451050
@@ -545,6 +634,9 @@ TextureImporter:
       IconSpriteSheet_8: -591965669
       IconSpriteSheet_9: 233503677
       Icon_food: 1191969467
+      Icon_info01: -14221072
+      Icon_info02: 1043973166
+      Icon_info03: 1766081748
       bar_green: 1279976953
       bar_yellow: 1304504519
   mipmapLimitGroupName: 

@@ -272,6 +272,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: SheepSpriteSheet_8
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 0
+        width: 13
+        height: 16
+      alignment: 9
+      pivot: {x: 0.48713332, y: 0.013868374}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bdb28273051aa945a5bcff75707e001
+      internalID: 1335937244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -294,6 +316,7 @@ TextureImporter:
       SheepSpriteSheet_5: -1404355135
       SheepSpriteSheet_6: 1871771907
       SheepSpriteSheet_7: 1793194639
+      SheepSpriteSheet_8: 1335937244
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

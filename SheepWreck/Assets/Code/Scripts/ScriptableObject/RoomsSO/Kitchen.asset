@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: Kitchen
   m_EditorClassIdentifier: 
   m_roomName: Kitchen
-  m_description: Produce food
-  m_roomIcon: {fileID: 0}
+  m_description: Produce food over Time
+  m_roomIcon: {fileID: 1191969467, guid: 28f0b48e99cfd93499df39ce82aa83ae, type: 3}
   m_ressourceProduced: 3
   m_buildingType: 0
-  m_buildCost: 30
+  m_buildCost: 20
   m_upkeepCost: 10
   m_maxSheepCapacity: 2
   m_productionRate: 10
   m_energyConsumption: 10
+  m_capacity: 0
   m_level: 1

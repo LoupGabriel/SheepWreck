@@ -11,12 +11,12 @@ public enum ERessourceType
     WATER,
     MORALE,
     ENERGY,
-  
+
 }
 
 public class RessourceSystem : MonoBehaviour
 {
-  
+
     public static RessourceSystem Instance;
     public Dictionary<ERessourceType, int> m_ressourceDictionary = new Dictionary<ERessourceType, int>();
 
@@ -45,7 +45,7 @@ public class RessourceSystem : MonoBehaviour
 
     [SerializeField] private UIRessources m_ressourcesUI;
 
-  
+
     private void Awake()
     {
         Instance = this;
@@ -53,24 +53,27 @@ public class RessourceSystem : MonoBehaviour
         m_shipSystem = ShipSystem.Instance;
 
 
+        
+        
 
-       
 
-    }
-    
-    private void OnEnable()
-    {
-        //TimeManager.Instance.OnDayPast += GlobalFoodConsumption;
-      //  TimeManager.Instance.OnDayPast += GlobalWaterConsumption;
-
-        //TimeManager.Instance.OnWeekPast += UpkeepPayment;
 
     }
-    private void OnDisable()
+
+    private void Start()
     {
-       // TimeManager.Instance.OnDayPast -= GlobalFoodConsumption;
-       // TimeManager.Instance.OnDayPast -= GlobalWaterConsumption;
-        //TimeManager.Instance.OnWeekPast -= UpkeepPayment;
+        if (TimeManager.Instance == null) return;
+        TimeManager.Instance.OnDayPast += GlobalFoodConsumption;
+        TimeManager.Instance.OnDayPast += GlobalWaterConsumption;
+        TimeManager.Instance.OnWeekPast += UpkeepPayment;
+    }
+
+    private void OnDestroy()
+    {
+        if (TimeManager.Instance == null) return;
+        TimeManager.Instance.OnDayPast -= GlobalFoodConsumption;
+        TimeManager.Instance.OnDayPast -= GlobalWaterConsumption;
+        TimeManager.Instance.OnWeekPast -= UpkeepPayment;
 
     }
     private void Update()
@@ -82,11 +85,11 @@ public class RessourceSystem : MonoBehaviour
     }
 
 
-    private void GlobalFoodConsumption()
+    private void GlobalFoodConsumption(int months, int weeks, int days)
     {
 
 
-        if ( m_ressourceDictionary[ERessourceType.FOOD] != 0)
+        if (m_ressourceDictionary[ERessourceType.FOOD] != 0)
         {
             // current food minus food consumption time number of sheep
 
@@ -97,8 +100,8 @@ public class RessourceSystem : MonoBehaviour
             //notify Hud
 
             OnRessourceChange?.Invoke(ERessourceType.FOOD);
-           
-           
+
+
             //call Consumefood for each sheep
             foreach (SheepInstance sheep in CrewManager.Instance.m_currentSheepOnBoard)
             {
@@ -107,24 +110,24 @@ public class RessourceSystem : MonoBehaviour
         }
 
     }
-    private void GlobalWaterConsumption()
+    private void GlobalWaterConsumption(int months, int weeks, int days)
     {
 
-        if ( m_ressourceDictionary[ERessourceType.WATER] != 0)
+        if (m_ressourceDictionary[ERessourceType.WATER] != 0)
         {
             // current water minus water consumption time number of sheep
-           
+
 
             m_ressourceDictionary[ERessourceType.WATER] -= m_WaterConsumptionBySheep * m_currentNumberOfSheep;
             //clamp the value at 0 
             m_ressourceDictionary[ERessourceType.WATER] = Mathf.Clamp(m_ressourceDictionary[ERessourceType.WATER], 0, m_maxWaterStock);
-           
-        
+
+
 
             //notify Hud
             OnRessourceChange?.Invoke(ERessourceType.WATER);
-            
-            
+
+
 
             foreach (SheepInstance sheep in CrewManager.Instance.m_currentSheepOnBoard)
             {
@@ -134,7 +137,7 @@ public class RessourceSystem : MonoBehaviour
 
     }
 
-    private void UpkeepPayment()
+    private void UpkeepPayment(int months, int weeks, int days)
     {
 
 
@@ -162,26 +165,26 @@ public class RessourceSystem : MonoBehaviour
     public void AddRessource(int ressourceAmount, RoomData roomData)
     {
         ERessourceType type = ERessourceType.GOLD;
-      
+
         switch (roomData.m_ressourceProduced)
         {
             case RoomData.ERessourceProduced.food:
 
                 type = ERessourceType.FOOD;
                 m_ressourceDictionary[ERessourceType.FOOD] += ressourceAmount;
-                
+
                 break;
 
             case RoomData.ERessourceProduced.water:
                 type = ERessourceType.WATER;
                 m_ressourceDictionary[ERessourceType.WATER] += ressourceAmount;
-               
+
                 break;
 
             case RoomData.ERessourceProduced.energy:
                 type = ERessourceType.ENERGY;
                 m_ressourceDictionary[ERessourceType.ENERGY] += ressourceAmount;
-                
+
                 break;
 
         }
@@ -191,7 +194,7 @@ public class RessourceSystem : MonoBehaviour
 
     public void GainRessource(int ressourceAmount, ERessourceType type)
     {
-       
+
 
         switch (type)
         {
@@ -232,7 +235,7 @@ public class RessourceSystem : MonoBehaviour
         m_ressourceDictionary.Add(ERessourceType.FOOD, 100);
         m_ressourceDictionary.Add(ERessourceType.WATER, 100);
         m_ressourceDictionary.Add(ERessourceType.ENERGY, 0);
-        
+
 
     }
 

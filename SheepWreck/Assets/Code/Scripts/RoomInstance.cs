@@ -30,6 +30,10 @@ public class RoomInstance : MonoBehaviour, ISelectable
 
        
     }
+    private void OnDestroy()
+    {
+        ShipSystem.Instance.RemoveRoomFromList(this);
+    }
     private void Update()
     {
         if(m_assignedSheep.Count <= 0 || isEmptyRoom())

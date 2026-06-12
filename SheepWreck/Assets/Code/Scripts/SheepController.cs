@@ -22,17 +22,25 @@ public class SheepController : MonoBehaviour, ISelectable
     private float m_timeSinceClick = 0;
     private float m_timeBeforeDrag = 0.25f;
 
-    private void Start()
+    private void Awake()
     {
         m_animator = GetComponent<Animator>();
-        m_originalPos = transform.position;
-        m_sheepData = GetComponent<SheepInstance>();
         m_sheepPanel = FindFirstObjectByType<UiSheepPanel>();
-        m_animator.SetBool("isGrab", m_isGrab);
-        m_sheepState = m_sheepData.m_stateMachine.m_currentSheepState;
+        
 
     }
 
+
+    private void Start()
+    {
+        m_animator.SetBool("isGrab", m_isGrab);
+        m_sheepData = GetComponent<SheepInstance>();
+        m_sheepState = m_sheepData.m_stateMachine.m_currentSheepState;
+
+      
+        m_originalPos = transform.position;
+       
+    }
 
 
 
@@ -67,6 +75,9 @@ public class SheepController : MonoBehaviour, ISelectable
         }
 
         m_timeSinceClick = 0;
+
+
+        
         m_sheepPanel.EnableSheepPanel(m_sheepData.m_sheepName, m_sheepData);
 
 

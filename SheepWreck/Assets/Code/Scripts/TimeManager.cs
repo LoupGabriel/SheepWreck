@@ -13,9 +13,9 @@ public class TimeManager : MonoBehaviour
     private int m_weekPast = 0;
     private int m_MonthPast = 0;
 
-    public Action OnDayPast;
-    public Action OnWeekPast;
-    public Action OnMonthPast;
+    public Action<int,int,int> OnDayPast;
+    public Action<int, int, int> OnWeekPast;
+    public Action<int, int, int> OnMonthPast;
     private void Awake()
     {
         Instance = this;
@@ -30,27 +30,27 @@ public class TimeManager : MonoBehaviour
         {
 
             // a day past
-            Debug.Log("A day past");
-            OnDayPast?.Invoke();
+            
+            OnDayPast?.Invoke(m_MonthPast,m_weekPast,m_dayPast);
             m_dayPast++;
             m_elapse = 0;
         }
 
-        if (m_dayPast / 7 == 1)
+        if (m_dayPast >= 7)
         {
             //week past
-            Debug.Log("A week past");
+           
             m_weekPast++;
             m_dayPast = 0;
-            OnWeekPast?.Invoke();
+            OnWeekPast?.Invoke(m_MonthPast, m_weekPast, m_dayPast);
         }
-        else if (m_dayPast / 30 == 1)
+        else if (m_dayPast >= 30 )
         {
-            Debug.Log("A Month past");
+            
             //month past 
             m_MonthPast++;
             m_weekPast = 0;
-            OnMonthPast?.Invoke();
+            OnMonthPast?.Invoke(m_MonthPast, m_weekPast, m_dayPast);
         }
 
 

@@ -17,16 +17,25 @@ public class SelectionManager : MonoBehaviour
     private Ray m_rayFromCam;
     public SheepController m_lastSelectedSheep;
 
+
+    
     [SerializeField] private float m_doubleClickTime = 0.3f;
     private float m_lastClickTime;
+
+   
     private void Update()
     {
         m_rayFromCam = m_cam.ScreenPointToRay(Mouse.current.position.ReadValue());
-
-        HandleHover();
         HandleClick();
-        HandleDrag();
+        if (!PauseController.m_isPaused)
+        {
+            HandleHover(); 
+            HandleDrag();
+        }
         HandleReleaseClick();
+
+
+
 
     }
 
@@ -68,8 +77,15 @@ public class SelectionManager : MonoBehaviour
 
             float timeSinceLastClick = Time.time - m_lastClickTime;
 
+            //construction mode : click on a room switch the room 
+            if (GameManager.Instance.m_isConstructionModeActive )
+            {
+                if(m_currentHoveredRoom != null)
+                {
 
-
+                ShipSystem.Instance.SwitchRoom(m_currentHoveredRoom);
+                }
+            }
 
 
             RaycastHit[] hits = Physics.RaycastAll(m_rayFromCam);
@@ -80,6 +96,10 @@ public class SelectionManager : MonoBehaviour
                 timeSinceLastClick <= m_doubleClickTime)
             {
                 HandleDoubleClick();
+            }
+            if(timeSinceLastClick > m_doubleClickTime)
+            {
+                m_currentSelectedSheep = null;
             }
             m_lastClickTime = Time.time;
 
@@ -184,6 +204,9 @@ public class SelectionManager : MonoBehaviour
 
         }
     }
+
+
+  
 
 
 

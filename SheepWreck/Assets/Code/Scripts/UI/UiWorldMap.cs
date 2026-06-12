@@ -10,12 +10,13 @@ public class UiWorldMap : MonoBehaviour
     [SerializeField] private GameObject m_travelPanel;
     [SerializeField] private TMP_Text m_destinationText;
     [SerializeField] private TMP_Text m_remainingTimeText;
+    
 
     [SerializeField] private IslandInstance m_selectedIsland;
 
     [SerializeField] private Image m_shipToken;
     [SerializeField] private Image m_flagDestination;
-    [SerializeField] private Image[] m_spriteRenderer;
+   
 
 
     private void Start()

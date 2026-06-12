@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec1cc760962513747831e74eec0dfd3a, type: 3}
   m_Name: EnergyLab
   m_EditorClassIdentifier: 
-  m_roomName: ScienceLab
-  m_description: Produce water over time
-  m_roomIcon: {fileID: 0}
+  m_roomName: Energy Lab
+  m_description: Produce Energy
+  m_roomIcon: {fileID: -97647096, guid: 28f0b48e99cfd93499df39ce82aa83ae, type: 3}
   m_ressourceProduced: 2
   m_buildingType: 0
-  m_buildCost: 30
+  m_buildCost: 50
   m_upkeepCost: 5
   m_maxSheepCapacity: 2
   m_productionRate: 50

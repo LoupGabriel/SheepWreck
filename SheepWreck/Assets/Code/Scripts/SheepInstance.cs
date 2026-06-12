@@ -118,7 +118,7 @@ public class SheepInstance : MonoBehaviour
         {
             m_hunger--;
             m_hungerElapse = 0;
-           
+            m_hunger = Mathf.Clamp(m_hunger, 0, 100);
         }
 
 
@@ -132,6 +132,7 @@ public class SheepInstance : MonoBehaviour
         {
             m_thirst--;
             m_thirstElapse = 0;
+            m_thirst = Mathf.Clamp(m_thirst, 0, 100);
 
         }
 
