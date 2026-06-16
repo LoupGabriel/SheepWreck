@@ -1,3 +1,4 @@
+using UnityEditor.Build;
 using UnityEngine;
 
 public class SheepInstance : MonoBehaviour
@@ -30,7 +31,7 @@ public class SheepInstance : MonoBehaviour
     public int m_MaxHp;
 
     public int level;
-
+    private BoxCollider m_boxCollider;
     
 
     //ressource
@@ -56,6 +57,9 @@ public class SheepInstance : MonoBehaviour
         m_eatingState = new SheepEatingState(this, m_stateMachine);
 
 
+        m_boxCollider = GetComponent<BoxCollider>();
+
+
     }
     private void Start()
     {
@@ -73,6 +77,7 @@ public class SheepInstance : MonoBehaviour
 
         //add sheep to the crew list
         CrewManager.Instance.AddSheep(this);
+        m_assignedRoom = GetRoomInstance();
         
 
 
@@ -83,6 +88,7 @@ public class SheepInstance : MonoBehaviour
     {
         Hunger();
         Thirst();
+        m_currentMorale =  (int)GetMorale();
     }
 
     
@@ -101,7 +107,7 @@ public class SheepInstance : MonoBehaviour
     private void GenerateRandomColor()
     {
 
-        m_spriteRenderer.color = Random.ColorHSV(1f,1f,0f,0.5f,0.5f,1f);
+        m_spriteRenderer.color = Random.ColorHSV(1f,1f,0f,0.8f,0.8f,1f);
 
 
     }
@@ -188,6 +194,27 @@ public class SheepInstance : MonoBehaviour
         m_assignedRoom = newAssignedRoom;
     }
 
+
+
+    private RoomInstance GetRoomInstance()
+    {
+
+        Collider[] hitCollider = Physics.OverlapSphere(transform.position, 2.0f);
+        if(hitCollider.Length > 0)
+        {
+            for(int i =0;i< hitCollider.Length; i++)
+            {
+                if (hitCollider[i].gameObject.layer == LayerMask.NameToLayer("Room"))
+                {
+                    return hitCollider[i].GetComponent<RoomInstance>();
+                }
+            }
+            
+        }
+        return null;
+
+
+    }
 
    
 }

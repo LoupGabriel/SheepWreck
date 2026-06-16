@@ -14,14 +14,21 @@ public class GameManager : MonoBehaviour
         Instance = this;
         m_currentTimeScale = Time.timeScale;
         Time.timeScale = 1;
+       
     }
     private void OnEnable()
     {
         ShipSystem.Instance.OnRoomSwitch += SetConstructionMode;
+        CheatManager.Instance.OnChangeSpeed += SetCustomTime;
+    }
+    private void Start()
+    {
+        SoundtrackManager.Instance.PlayMusic("MainMusic");
     }
     private void OnDisable()
     {
         ShipSystem.Instance.OnRoomSwitch -= SetConstructionMode;
+        CheatManager.Instance.OnChangeSpeed -= SetCustomTime;
     }
     public void SetTimePause()
     {
@@ -37,6 +44,10 @@ public class GameManager : MonoBehaviour
         Time.timeScale = timeSpeed;
     }
 
+    public void SetCustomTime(float timeSpeed)
+    {
+        Time.timeScale = timeSpeed;
+    }
 
 
 

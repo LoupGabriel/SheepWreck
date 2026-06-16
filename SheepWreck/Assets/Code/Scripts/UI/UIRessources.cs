@@ -22,6 +22,7 @@ public class UIRessources : MonoBehaviour
     private void OnEnable()
     {
         RessourceSystem.Instance.OnRessourceChange += NotifyRessourceChange;
+        
     }
 
     private void OnDisable()
@@ -76,7 +77,11 @@ public class UIRessources : MonoBehaviour
 
         }
 
-        return total / m_crewManager.m_currentSheepOnBoard.Count;
+        if (m_crewManager.m_currentSheepOnBoard.Count != 0)
+        {
+            return total / m_crewManager.m_currentSheepOnBoard.Count;
+        }
+        else { return 0; }
 
 
     }

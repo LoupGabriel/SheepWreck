@@ -19,6 +19,7 @@ public class TimeManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        
     }
 
     private void Update()

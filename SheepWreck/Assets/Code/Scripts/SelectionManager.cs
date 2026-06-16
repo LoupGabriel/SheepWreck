@@ -22,7 +22,15 @@ public class SelectionManager : MonoBehaviour
     [SerializeField] private float m_doubleClickTime = 0.3f;
     private float m_lastClickTime;
 
-   
+    private void Start()
+    {
+        CheatManager.Instance.OnKillSheep += KillCurrentSheep;
+    }
+
+    private void OnDestroy()
+    {
+        CheatManager.Instance.OnKillSheep -= KillCurrentSheep;
+    }
     private void Update()
     {
         m_rayFromCam = m_cam.ScreenPointToRay(Mouse.current.position.ReadValue());
@@ -203,6 +211,17 @@ public class SelectionManager : MonoBehaviour
 
 
         }
+    }
+
+
+
+    private void KillCurrentSheep()
+    {
+        if(m_lastSelectedSheep != null)
+        {
+            Destroy(m_lastSelectedSheep.gameObject);
+        }
+      
     }
 
 

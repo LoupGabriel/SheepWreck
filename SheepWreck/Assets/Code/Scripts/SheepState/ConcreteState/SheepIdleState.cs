@@ -13,7 +13,7 @@ public class SheepIdleState : SheepState
     public override void Enter() 
     {
 
-        Debug.Log("Enter Idle State");
+      
     
     }
     public override void Update() { }

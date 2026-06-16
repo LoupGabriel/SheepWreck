@@ -43,9 +43,13 @@ public class UIQuest : MonoBehaviour
             foreach(var objective in quest.m_objectives)
             {
                 GameObject objectText = Instantiate(m_objectiveTextPrefab, objectiveList);
-                TMP_Text objText = objectText.GetComponent<TMP_Text>();
+                
+                 TMP_Text objText = objectText.transform.Find("ObjectiveText").GetComponent<TMP_Text>();
+
+                TMP_Text destinationText = objectText.transform.Find("DestinationText").GetComponent<TMP_Text>();
 
                 objText.text = $"{objective.m_description}({objective.m_currentAmount} / {objective.m_requiredAmount})";
+                destinationText.text = $"Destinatin : {objective.m_questDestination}";
             }
 
         }

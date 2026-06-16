@@ -6,6 +6,7 @@ public class TravelSystem : MonoBehaviour
     public static TravelSystem Instance { get; private set; }
 
     public Action<Vector3> OnDestinationReach;
+    public Action OnDestinationSet;
 
     public IslandInstance m_currentIsland;
 
@@ -14,6 +15,7 @@ public class TravelSystem : MonoBehaviour
     public GameObject m_islandPanel;
 
     [SerializeField] private int m_energyCostPerTile = 25;
+    [SerializeField] private EnvironmentController m_environment;
     public bool m_isTraveling = false;
 
     public float m_distanceToTravel;
@@ -23,7 +25,7 @@ public class TravelSystem : MonoBehaviour
     public float m_timePerTile = 5f;
 
     public bool m_canTravel = false;
-
+    
 
     private void Awake()
     {
@@ -76,9 +78,15 @@ public class TravelSystem : MonoBehaviour
         }
         m_canTravel = true;
         RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.ENERGY] -= energyCost;
+        RessourceSystem.Instance.OnRessourceChange?.Invoke(ERessourceType.ENERGY);
         m_destinationIsland = targetIstland;
         m_travelTime = distance * m_timePerTile;
         m_isTraveling = true;
+        OnDestinationSet?.Invoke();
+        SoundtrackManager.Instance.PlayMusic("SetSail");
+        m_environment.SetSailSpeed(5f);
+
+
 
     }
 
@@ -99,7 +107,8 @@ public class TravelSystem : MonoBehaviour
         m_travelTime = 0f;
         m_destinationIsland = null;
         m_isTraveling = false;
-
+        SoundtrackManager.Instance.PlayMusic("MainMusic");
+        m_environment.SetSailSpeed(1f);
 
     }
 

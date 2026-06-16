@@ -11,12 +11,22 @@ public class CrewManager : MonoBehaviour
 
 
 
+
     private void Awake()
     {
         Instance = this;
+
+
     }
 
-
+    private void Start()
+    {
+        CheatManager.Instance.OnKillAllSheep += KillAllSheep;
+    }
+    private void OnDestroy()
+    {
+        CheatManager.Instance.OnKillAllSheep -= KillAllSheep;
+    }
 
     public void AddSheep(SheepInstance sheep)
     {
@@ -29,5 +39,13 @@ public class CrewManager : MonoBehaviour
     {
 
         m_currentSheepOnBoard.Remove(sheep);
+    }
+
+    private void KillAllSheep()
+    {
+        foreach(SheepInstance sheep in m_currentSheepOnBoard)
+        {
+            Destroy(sheep.gameObject);
+        }
     }
 }

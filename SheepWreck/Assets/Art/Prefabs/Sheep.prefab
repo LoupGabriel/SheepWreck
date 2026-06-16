@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e22b48e2bce03c74b9e2c223212981a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_sheepData: {fileID: 0}
+  m_sheepData: {fileID: 8909728613794562799}
 --- !u!95 &2396237087638145614
 Animator:
   serializedVersion: 7

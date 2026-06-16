@@ -66,6 +66,7 @@ public class RessourceSystem : MonoBehaviour
         TimeManager.Instance.OnDayPast += GlobalFoodConsumption;
         TimeManager.Instance.OnDayPast += GlobalWaterConsumption;
         TimeManager.Instance.OnWeekPast += UpkeepPayment;
+        CheatManager.Instance.OnAddRessource += AddRessourceCheat;
     }
 
     private void OnDestroy()
@@ -74,6 +75,7 @@ public class RessourceSystem : MonoBehaviour
         TimeManager.Instance.OnDayPast -= GlobalFoodConsumption;
         TimeManager.Instance.OnDayPast -= GlobalWaterConsumption;
         TimeManager.Instance.OnWeekPast -= UpkeepPayment;
+        CheatManager.Instance.OnAddRessource -= AddRessourceCheat;
 
     }
     private void Update()
@@ -192,6 +194,51 @@ public class RessourceSystem : MonoBehaviour
         OnRessourceAdded?.Invoke(type, ressourceAmount);
     }
 
+
+    private void AddRessourceCheat(int ressourceAmount, ERessourceType type)
+    {
+
+
+        switch (type)
+        {
+
+
+            case ERessourceType.GOLD:
+                {
+
+                m_ressourceDictionary[ERessourceType.GOLD] += ressourceAmount;
+                break;
+
+                }
+
+            case ERessourceType.FOOD:
+                {
+
+                    m_ressourceDictionary[ERessourceType.FOOD] += ressourceAmount;
+                    break;
+
+                }
+            case ERessourceType.WATER:
+                {
+
+                    m_ressourceDictionary[ERessourceType.WATER] += ressourceAmount;
+                    break;
+
+                }
+            case ERessourceType.ENERGY:
+                {
+
+                    m_ressourceDictionary[ERessourceType.ENERGY] += ressourceAmount;
+                    break;
+                }
+
+
+        }
+
+
+
+
+    }
     public void GainRessource(int ressourceAmount, ERessourceType type)
     {
 

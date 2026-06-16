@@ -157,7 +157,7 @@ public class UiIslandQuest : MonoBehaviour
 
             acceptButton.onClick.AddListener(() =>
             {
-
+                SfxManager.PlaySfx("Click");
                 QuestManager.Instance.OnQuestAccepted?.Invoke(quest);
                 Destroy(entry);
 

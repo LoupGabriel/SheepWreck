@@ -18,6 +18,7 @@ public class UIMenu : MonoBehaviour
         {
            
             m_menuPanel.SetActive(!m_menuPanel.activeSelf);
+            SfxManager.PlaySfx("Click");
         }
     }
 }

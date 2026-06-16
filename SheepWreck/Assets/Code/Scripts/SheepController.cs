@@ -12,6 +12,7 @@ public class SheepController : MonoBehaviour, ISelectable
 
     public SheepState m_sheepState;
     public SheepInstance m_sheepData;
+    
     private UiSheepPanel m_sheepPanel;
 
     private Animator m_animator;
@@ -22,6 +23,7 @@ public class SheepController : MonoBehaviour, ISelectable
     private float m_timeSinceClick = 0;
     private float m_timeBeforeDrag = 0.25f;
 
+    private bool m_sfxPlayed = false;
     private void Awake()
     {
         m_animator = GetComponent<Animator>();
@@ -86,13 +88,20 @@ public class SheepController : MonoBehaviour, ISelectable
 
     public void StartGrab()
     {
-
+        
         m_timeSinceClick += Time.deltaTime;
 
         if (m_timeSinceClick >= m_timeBeforeDrag)
         {
 
             m_isGrab = true;
+
+            if (!m_sfxPlayed)
+            {
+                SfxManager.PlaySfx("Sheep");
+                m_sfxPlayed = true;
+            }
+
             m_animator.SetBool("isGrab", m_isGrab);
 
             gameObject.transform.position = GetMousePosition();
@@ -116,6 +125,7 @@ public class SheepController : MonoBehaviour, ISelectable
         m_isGrab = false;
         m_animator.SetBool("isGrab", m_isGrab);
         m_timeSinceClick = 0;
+        m_sfxPlayed = false;
 
 
     }
