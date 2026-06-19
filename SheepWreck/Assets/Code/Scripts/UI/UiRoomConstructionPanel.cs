@@ -34,7 +34,17 @@ public class UiRoomConstructionPanel : MonoBehaviour
 
     public void OnClickBuy()
     {
-        if (RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.GOLD] < m_roomData.m_buildCost) return;
+        if (RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.GOLD] < m_roomData.m_buildCost) {
+            
+            //GameManager.Instance.SetConstructionMode(false);
+
+            //PauseController.IsPaused(false);
+            SfxManager.PlaySfx("Error");
+            return; 
+        
+        
+        }
+        UiPanelManager.Instance.CloseCurrentPanel();
         //pay the gold amount
         RessourceSystem.Instance.GainRessource(m_roomData.m_buildCost * -1,ERessourceType.GOLD);
 

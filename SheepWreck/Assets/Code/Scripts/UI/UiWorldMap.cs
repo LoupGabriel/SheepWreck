@@ -74,7 +74,10 @@ public class UiWorldMap : MonoBehaviour
         // to do Play sfx
 
         m_travelSystem.SetDestination(m_selectedIsland);
-        m_travelPanel.SetActive(false);
+        
+        GameManager.Instance.SetConstructionMode(false);
+        UiPanelManager.Instance.CloseCurrentPanel();
+        PauseController.IsPaused(false);
     }
 
     private void SetBoatIcon(Vector3 newPos)

@@ -9,6 +9,8 @@ public class UiConstructionPanel : MonoBehaviour
 
     public void ActiveConstructionPanel()
     {
+        
+      
         PauseController.IsPaused(true);
         m_contructionPanel.SetActive(!m_contructionPanel.activeSelf);
     }

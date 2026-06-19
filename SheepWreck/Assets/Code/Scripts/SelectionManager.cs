@@ -11,6 +11,7 @@ public class SelectionManager : MonoBehaviour
 
 
     [SerializeField] private Camera m_cam;
+
     public GameObject m_currentSelectedObject;
     public SheepController m_currentSelectedSheep = null;
     public RoomInstance m_currentHoveredRoom;

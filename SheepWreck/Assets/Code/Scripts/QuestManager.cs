@@ -94,7 +94,8 @@ public class QuestManager : MonoBehaviour
         {
             if (quest.IsCompleted && !quest.m_rewardGiven)
             {
-                Debug.Log("Quest Complete" + quest.m_quest.m_questName);
+                SfxManager.PlaySfx("Complete");
+                SfxManager.PlaySfx("Coin");
 
                 quest.m_rewardGiven = true;
                 RessourceSystem.Instance.GainRessource(quest.m_quest.m_recompense, ERessourceType.GOLD);

@@ -1,4 +1,4 @@
-using UnityEditor.Build;
+
 using UnityEngine;
 
 public class SheepInstance : MonoBehaviour
@@ -107,7 +107,7 @@ public class SheepInstance : MonoBehaviour
     private void GenerateRandomColor()
     {
 
-        m_spriteRenderer.color = Random.ColorHSV(1f,1f,0f,0.8f,0.8f,1f);
+        m_spriteRenderer.color = Random.ColorHSV(1f,1f,0.2f,0f,1f,1f);
 
 
     }

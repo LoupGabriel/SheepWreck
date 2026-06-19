@@ -16,8 +16,8 @@ public class UIMenu : MonoBehaviour
     {
         if (Keyboard.current.tabKey.wasPressedThisFrame)
         {
-           
-            m_menuPanel.SetActive(!m_menuPanel.activeSelf);
+            UiPanelManager.Instance.OpenPanel(m_menuPanel);
+            
             SfxManager.PlaySfx("Click");
         }
     }

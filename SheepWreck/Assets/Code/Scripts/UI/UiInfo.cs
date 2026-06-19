@@ -59,7 +59,7 @@ public class UiInfo : MonoBehaviour
         
         m_discutionPanel.SetActive(!m_discutionPanel.activeSelf);
 
-        
+        PauseController.IsPaused(false);
     }
 
 

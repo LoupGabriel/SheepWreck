@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44142fdea8c351044911fdd7961466ac, type: 3}
-  m_Name: Feast festival
+  m_Name: Treasure of the Wool Coast
   m_EditorClassIdentifier: 
-  m_questID: ab3c7a19-5658-4a00-8d16-e8f8c470c8eb
-  m_questName: Feast festival
-  m_description: test
-  m_recompense: 100
+  m_questID: 85bcb207-e200-46c8-8c89-19721c5276fd
+  m_questName: Treasure of the Wool Coast
+  m_description: 
+  m_recompense: 300
   m_objectives:
-  - m_objectiveID: 1
-    m_description: Deliver 50 food
+  - m_objectiveID: 8
+    m_description: Deliver 150 energy
     m_type: 0
-    m_ressource: 1
-    m_requiredAmount: 50
+    m_ressource: 4
+    m_requiredAmount: 150
     m_currentAmount: 0
-    m_questDestination: {x: 4, y: 0}
+    m_questDestination: {x: 2, y: 3}

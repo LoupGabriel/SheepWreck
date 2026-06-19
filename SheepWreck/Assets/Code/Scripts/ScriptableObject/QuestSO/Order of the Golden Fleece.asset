@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44142fdea8c351044911fdd7961466ac, type: 3}
-  m_Name: Feast festival
+  m_Name: Order of the Golden Fleece
   m_EditorClassIdentifier: 
-  m_questID: ab3c7a19-5658-4a00-8d16-e8f8c470c8eb
-  m_questName: Feast festival
-  m_description: test
-  m_recompense: 100
+  m_questID: 6894fefe-c418-4dd9-9ab8-e3a6fabdd050
+  m_questName: 
+  m_description: 
+  m_recompense: 350
   m_objectives:
-  - m_objectiveID: 1
-    m_description: Deliver 50 food
+  - m_objectiveID: 5
+    m_description: Deliver 200 water
     m_type: 0
-    m_ressource: 1
-    m_requiredAmount: 50
+    m_ressource: 2
+    m_requiredAmount: 200
     m_currentAmount: 0
-    m_questDestination: {x: 4, y: 0}
+    m_questDestination: {x: 0, y: 2}
