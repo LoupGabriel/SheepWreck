@@ -37,7 +37,7 @@ public class SheepController : MonoBehaviour, ISelectable
     {
        
         m_animator.SetBool("isGrab", m_isGrab);
-
+        SetParent();
         if (m_sheepData != null)
         {
             m_sheepState = m_sheepData.m_stateMachine.m_currentSheepState;
@@ -50,7 +50,11 @@ public class SheepController : MonoBehaviour, ISelectable
 
 
 
-
+    private void SetParent()
+    {
+        GameObject parent = GameObject.Find("Sheeps");
+        gameObject.transform.SetParent(parent.transform);
+    }
 
 
 

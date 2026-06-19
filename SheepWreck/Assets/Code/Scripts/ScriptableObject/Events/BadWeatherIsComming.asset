@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82829af422243fa4b9bc08bd964afb74, type: 3}
+  m_Name: BadWeatherIsComming
+  m_EditorClassIdentifier: 
+  m_foodLost: 50
+  m_waterLost: 30
+  m_goldLost: 15
+  m_description: A violent skystorm engulfs the airship, shaking it hard and forcing
+    the crew to secure everything until it passes.

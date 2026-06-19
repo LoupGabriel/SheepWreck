@@ -37,8 +37,8 @@ public class RessourceSystem : MonoBehaviour
     private int m_maxEnergy = 100;
 
     private int m_currentNumberOfSheep = 15;
-    private int m_foodConsumptionBySheep = 1;
-    private int m_WaterConsumptionBySheep = 1;
+    private int m_foodConsumptionBySheep = 5;
+    private int m_WaterConsumptionBySheep = 5;
 
     private ShipSystem m_shipSystem;
     public int m_totalUpkeep;

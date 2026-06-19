@@ -25,7 +25,7 @@ public class TravelSystem : MonoBehaviour
     public float m_timePerTile = 5f;
 
     public bool m_canTravel = false;
-    
+    private float m_lastEventThreshold = 1f;
 
     private void Awake()
     {
@@ -39,13 +39,19 @@ public class TravelSystem : MonoBehaviour
         {
             return;
         }
-
+        
         if (m_canTravel)
         {
+            if(PauseController.m_isPaused) { return; }
+            
             m_travelTime -= Time.deltaTime;
+
+            float progress = 1f - (m_travelTime / m_distanceToTravel);
+            TryTravelEvent(progress);
+
         }
 
-      
+
 
 
 
@@ -55,6 +61,21 @@ public class TravelSystem : MonoBehaviour
         }
     }
 
+
+    private void TryTravelEvent(float progress)
+    {
+        float[] thresholds = { 0.25f, 0.5f, 0.75f };
+
+        foreach (float t in thresholds)
+        {
+            if (progress >= t && m_lastEventThreshold < t)
+            {
+                EventManager.Instance.TryTriggerEvent();
+                m_lastEventThreshold = t;
+                break;
+            }
+        }
+    }
     public void SetDestination(IslandInstance targetIstland)
     {
         if (m_isTraveling || targetIstland == null) return;
@@ -67,6 +88,7 @@ public class TravelSystem : MonoBehaviour
         int currentEnergy = RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.ENERGY];
 
 
+        m_lastEventThreshold = 0f;
 
         if (currentEnergy < energyCost)
         {
@@ -81,7 +103,9 @@ public class TravelSystem : MonoBehaviour
         RessourceSystem.Instance.OnRessourceChange?.Invoke(ERessourceType.ENERGY);
         m_destinationIsland = targetIstland;
         m_travelTime = distance * m_timePerTile;
+        m_distanceToTravel = m_travelTime;
         m_isTraveling = true;
+        EventManager.Instance.SetContext(true);
         OnDestinationSet?.Invoke();
         SoundtrackManager.Instance.PlayMusic("SetSail");
         m_environment.SetSailSpeed(5f);
@@ -107,6 +131,7 @@ public class TravelSystem : MonoBehaviour
         m_travelTime = 0f;
         m_destinationIsland = null;
         m_isTraveling = false;
+        EventManager.Instance.SetContext(false);
         SoundtrackManager.Instance.PlayMusic("MainMusic");
         m_environment.SetSailSpeed(1f);
 
