@@ -6,7 +6,7 @@ public class SheepRestingState : SheepState
     {
     }
 
-    public override void Enter()
+    public override void Enter(Animator animator)
     {
         Debug.Log("Enter Resting State");
     }

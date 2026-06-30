@@ -18,6 +18,7 @@ public class RessourceSystem : MonoBehaviour
 {
 
     public static RessourceSystem Instance;
+
     public Dictionary<ERessourceType, int> m_ressourceDictionary = new Dictionary<ERessourceType, int>();
 
     public Action<ERessourceType> OnRessourceChange;
@@ -25,16 +26,15 @@ public class RessourceSystem : MonoBehaviour
 
     [SerializeField]
     private int m_maxGoldStock = 1000;
-    //debug
-    public int m_currentGold;
+  
     [SerializeField]
-    private int m_maxFoodStock = 100;
+    private int m_maxFoodStock = 1000;
 
     [SerializeField]
-    private int m_maxWaterStock = 100;
+    private int m_maxWaterStock = 1000;
 
     [SerializeField]
-    private int m_maxEnergy = 100;
+    private int m_maxEnergy = 1000;
 
     private int m_currentNumberOfSheep = 15;
     private int m_foodConsumptionBySheep = 5;
@@ -52,12 +52,6 @@ public class RessourceSystem : MonoBehaviour
         InitializeDictionnary();
         m_shipSystem = ShipSystem.Instance;
 
-
-        
-        
-
-
-
     }
 
     private void Start()
@@ -66,7 +60,7 @@ public class RessourceSystem : MonoBehaviour
         TimeManager.Instance.OnDayPast += GlobalFoodConsumption;
         TimeManager.Instance.OnDayPast += GlobalWaterConsumption;
         TimeManager.Instance.OnWeekPast += UpkeepPayment;
-        CheatManager.Instance.OnAddRessource += AddRessourceCheat;
+        CheatManager.Instance.OnAddRessource += GainRessource;
     }
 
     private void OnDestroy()
@@ -75,7 +69,7 @@ public class RessourceSystem : MonoBehaviour
         TimeManager.Instance.OnDayPast -= GlobalFoodConsumption;
         TimeManager.Instance.OnDayPast -= GlobalWaterConsumption;
         TimeManager.Instance.OnWeekPast -= UpkeepPayment;
-        CheatManager.Instance.OnAddRessource -= AddRessourceCheat;
+        CheatManager.Instance.OnAddRessource -= GainRessource;
 
     }
     private void Update()
@@ -83,10 +77,15 @@ public class RessourceSystem : MonoBehaviour
 
         m_currentNumberOfSheep = CrewManager.Instance.m_currentSheepOnBoard.Count;
 
-        m_currentGold = m_ressourceDictionary[ERessourceType.GOLD];
+        
     }
 
-
+    /// <summary>
+    /// Consume food each days
+    /// </summary>
+    /// <param name="months">action param</param>
+    /// <param name="weeks">action param</param>
+    /// <param name="days">action param</param>
     private void GlobalFoodConsumption(int months, int weeks, int days)
     {
 
@@ -112,6 +111,13 @@ public class RessourceSystem : MonoBehaviour
         }
 
     }
+
+    /// <summary>
+    /// Consume water each days
+    /// </summary>
+    /// <param name="months">action param</param>
+    /// <param name="weeks">action param</param>
+    /// <param name="days">action param</param>
     private void GlobalWaterConsumption(int months, int weeks, int days)
     {
 
@@ -130,7 +136,7 @@ public class RessourceSystem : MonoBehaviour
             OnRessourceChange?.Invoke(ERessourceType.WATER);
 
 
-
+            //call ConsumeWater for each sheep
             foreach (SheepInstance sheep in CrewManager.Instance.m_currentSheepOnBoard)
             {
                 sheep.ConsumeWater(m_WaterConsumptionBySheep);
@@ -139,10 +145,15 @@ public class RessourceSystem : MonoBehaviour
 
     }
 
+
+    /// <summary>
+    /// Consume gold each week for each room
+    /// </summary>
+    /// <param name="months">action param</param>
+    /// <param name="weeks">action param</param>
+    /// <param name="days">action param</param>
     private void UpkeepPayment(int months, int weeks, int days)
     {
-
-
 
 
         foreach (RoomInstance room in m_shipSystem.m_shipCurrentRooms)
@@ -158,87 +169,18 @@ public class RessourceSystem : MonoBehaviour
         //notify Hud
         OnRessourceChange?.Invoke(ERessourceType.GOLD);
 
+        //reset upkeep
         m_totalUpkeep = 0;
 
 
 
     }
-
-    public void AddRessource(int ressourceAmount, RoomData roomData)
-    {
-        ERessourceType type = ERessourceType.GOLD;
-
-        switch (roomData.m_ressourceProduced)
-        {
-            case RoomData.ERessourceProduced.food:
-
-                type = ERessourceType.FOOD;
-                m_ressourceDictionary[ERessourceType.FOOD] += ressourceAmount;
-
-                break;
-
-            case RoomData.ERessourceProduced.water:
-                type = ERessourceType.WATER;
-                m_ressourceDictionary[ERessourceType.WATER] += ressourceAmount;
-
-                break;
-
-            case RoomData.ERessourceProduced.energy:
-                type = ERessourceType.ENERGY;
-                m_ressourceDictionary[ERessourceType.ENERGY] += ressourceAmount;
-
-                break;
-
-        }
-        OnRessourceChange?.Invoke(type);
-        OnRessourceAdded?.Invoke(type, ressourceAmount);
-    }
-
-
-    private void AddRessourceCheat(int ressourceAmount, ERessourceType type)
-    {
-
-
-        switch (type)
-        {
-
-
-            case ERessourceType.GOLD:
-                {
-
-                m_ressourceDictionary[ERessourceType.GOLD] += ressourceAmount;
-                break;
-
-                }
-
-            case ERessourceType.FOOD:
-                {
-
-                    m_ressourceDictionary[ERessourceType.FOOD] += ressourceAmount;
-                    break;
-
-                }
-            case ERessourceType.WATER:
-                {
-
-                    m_ressourceDictionary[ERessourceType.WATER] += ressourceAmount;
-                    break;
-
-                }
-            case ERessourceType.ENERGY:
-                {
-
-                    m_ressourceDictionary[ERessourceType.ENERGY] += ressourceAmount;
-                    break;
-                }
-
-
-        }
-
-
-
-
-    }
+    
+    /// <summary>
+    /// Add or remove Ressource from the dictionnary key
+    /// </summary>
+    /// <param name="ressourceAmount">amount</param>
+    /// <param name="type">Key ( EressourceType</param>
     public void GainRessource(int ressourceAmount, ERessourceType type)
     {
 
@@ -282,6 +224,7 @@ public class RessourceSystem : MonoBehaviour
         m_ressourceDictionary.Add(ERessourceType.FOOD, 100);
         m_ressourceDictionary.Add(ERessourceType.WATER, 100);
         m_ressourceDictionary.Add(ERessourceType.ENERGY, 0);
+        m_ressourceDictionary.Add(ERessourceType.MORALE, 0);
 
 
     }

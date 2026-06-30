@@ -39,11 +39,12 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
     }
-    public void SetFasterTime(float timeSpeed)
-    {
-        Time.timeScale = timeSpeed;
-    }
 
+   
+    /// <summary>
+    /// Set a custom Time float
+    /// </summary>
+    /// <param name="timeSpeed">new speed (Time.timescale)</param>
     public void SetCustomTime(float timeSpeed)
     {
         Time.timeScale = timeSpeed;

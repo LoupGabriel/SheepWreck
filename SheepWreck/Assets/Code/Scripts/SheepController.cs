@@ -12,7 +12,6 @@ public class SheepController : MonoBehaviour, ISelectable
 
     public SheepState m_sheepState;
     public SheepInstance m_sheepData;
-    
     private UiSheepPanel m_sheepPanel;
 
     private Animator m_animator;
@@ -49,7 +48,9 @@ public class SheepController : MonoBehaviour, ISelectable
 
 
 
-
+    /// <summary>
+    /// Automaticly set sheep parent for cleaner project
+    /// </summary>
     private void SetParent()
     {
         GameObject parent = GameObject.Find("Sheeps");
@@ -74,7 +75,9 @@ public class SheepController : MonoBehaviour, ISelectable
 
 
 
-
+    /// <summary>
+    /// ISelectable implementation
+    /// </summary>
     public void Select()
     {
 
@@ -102,7 +105,8 @@ public class SheepController : MonoBehaviour, ISelectable
     {
         
         m_timeSinceClick += Time.deltaTime;
-
+        m_sheepData.SetIdle();
+        //little delay before grabing 
         if (m_timeSinceClick >= m_timeBeforeDrag)
         {
 
@@ -123,6 +127,11 @@ public class SheepController : MonoBehaviour, ISelectable
 
     }
 
+
+    /// <summary>
+    /// Add sheep to the new room 
+    /// </summary>
+    /// <param name="room">new room</param>
     public void Drop(Vector3 room)
     {
 
@@ -138,11 +147,16 @@ public class SheepController : MonoBehaviour, ISelectable
         m_animator.SetBool("isGrab", m_isGrab);
         m_timeSinceClick = 0;
         m_sfxPlayed = false;
-
+       
 
     }
-    public void DropSheepInAir()
+
+    /// <summary>
+    /// if the sheep is drop in an invalid position
+    /// </summary>
+    public void DropSheepNotValid()
     {
+        SfxManager.PlaySfx("Error");
         m_isGrab = false;
         transform.position = m_originalPos;
         m_animator.SetBool("isGrab", m_isGrab);

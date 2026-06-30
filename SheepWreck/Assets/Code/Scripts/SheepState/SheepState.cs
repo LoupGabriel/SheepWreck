@@ -12,7 +12,7 @@ public class SheepState
     
     }
 
-    public virtual void Enter() { }
+    public virtual void Enter(Animator animator) { }
     public virtual void Update() { }
     public virtual void Exit() { }
 

@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38a7f97b811a98248b4ed68558b7cabb, type: 3}
-  m_Name: Shipwreck
+  m_Name: ShipwreckWater
   m_EditorClassIdentifier: 
-  m_foodGain: 15
-  m_waterGain: 0
-  m_goldGain: 10
+  m_foodGain: 0
+  m_waterGain: 10
+  m_goldGain: 0
   m_foundSheep: 0
   m_sheep: {fileID: 0}
   m_parent: {fileID: 0}

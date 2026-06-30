@@ -10,10 +10,10 @@ public class SheepIdleState : SheepState
     
     
     }
-    public override void Enter() 
+    public override void Enter(Animator animator) 
     {
-
       
+        animator.SetTrigger("setIdle");
     
     }
     public override void Update() { }

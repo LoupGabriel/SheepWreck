@@ -2,18 +2,20 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 
+
 public class CameraController : MonoBehaviour
 {
     //Control the movement of the camera
 
     
     [SerializeField] private InputActionAsset m_actionAsset;
-
-    private Vector3 m_sheepAnchor = new Vector3(0, 0.65f, -5f);
-    private Vector3 m_originalPos;
-    private CameraManager m_camManager;
     [SerializeField] private float m_movementSpeed;
     [SerializeField] private float m_zoomSensitifity;
+
+    private Vector3 m_sheepAnchor = new Vector3(0, 0.65f, -5f);//Camera offset at the sheep
+    private Vector3 m_originalPos;
+
+    
 
     private InputAction m_moveCam;
     private InputAction m_zoom;
@@ -32,7 +34,7 @@ public class CameraController : MonoBehaviour
         m_moveCam = m_actionAsset.FindAction("Move");
         m_zoom = m_actionAsset.FindAction("Zoom");
         m_resetCam = m_actionAsset.FindAction("Reset");
-        m_camManager = GetComponent<CameraManager>();
+        
     }
 
     private void Update()
@@ -56,7 +58,9 @@ public class CameraController : MonoBehaviour
 
     }
 
-
+    /// <summary>
+    /// Move camera sideways with wasd
+    /// </summary>
     private void MoveCamera()
     {
 
@@ -72,6 +76,9 @@ public class CameraController : MonoBehaviour
      
 
     }
+    /// <summary>
+    /// Reset camera a start position
+    /// </summary>
     public void ResetCamera()
     {
 

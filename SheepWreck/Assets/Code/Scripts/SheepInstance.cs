@@ -13,8 +13,7 @@ public class SheepInstance : MonoBehaviour
 
     [SerializeField] private float m_hungerTimer = 5f;
     [SerializeField] private float m_thirstTimer = 2f;
-
-    private Vector3 m_originalPos;
+    private Animator m_animator;
     #region State Machine Variables
     public SheepStateMachine m_stateMachine { get; set; }
     public SheepIdleState m_idleState { get; set; }
@@ -31,7 +30,7 @@ public class SheepInstance : MonoBehaviour
     public int m_MaxHp;
 
     public int level;
-    private BoxCollider m_boxCollider;
+   
     
 
     //ressource
@@ -44,7 +43,8 @@ public class SheepInstance : MonoBehaviour
     private float m_hungerElapse = 0;
     private float m_thirstElapse = 0;
 
-
+    
+    public bool IsWorking => m_stateMachine != null && m_stateMachine.m_currentSheepState == m_workinState;
 
     private void Awake()
     {
@@ -57,20 +57,20 @@ public class SheepInstance : MonoBehaviour
         m_eatingState = new SheepEatingState(this, m_stateMachine);
 
 
-        m_boxCollider = GetComponent<BoxCollider>();
+       
 
 
     }
     private void Start()
     {
-        //set original pos
 
-        m_originalPos = transform.position;
+        m_animator = GetComponent<Animator>();
+
         //initialize state machine
-        m_stateMachine.Initialize(m_idleState);
+        m_stateMachine.Initialize(m_idleState, m_animator);
 
         m_spriteRenderer = GetComponent<SpriteRenderer>();
-
+        
         //visual
         GenerateRandomName();
         GenerateRandomColor();
@@ -177,11 +177,10 @@ public class SheepInstance : MonoBehaviour
 
 
     //Return the average of hunger and thirst 
-    //To do make a better system with a paycheck
+    //To do
+    //make a better system with a paycheck
     public float GetMorale()
     {
-
-        
 
         return (m_hunger + m_thirst) / 2;
     }
@@ -216,5 +215,26 @@ public class SheepInstance : MonoBehaviour
 
     }
 
-   
+    public void RequestWork()
+    {
+
+        if(m_hunger < 20)
+        {
+            m_stateMachine.ChangeState(m_eatingState, m_animator);
+            return;
+        }
+        m_stateMachine.ChangeState(m_workinState, m_animator);
+    }
+
+    public void SetIdle()
+    {
+        m_stateMachine.ChangeState(m_idleState, m_animator);
+    }
+
+
+
+
+
+
+
 }

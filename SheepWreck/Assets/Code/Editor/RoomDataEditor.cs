@@ -52,6 +52,7 @@ public class RoomDataEditor : Editor
                 EditorGUILayout.LabelField("Production Settings", EditorStyles.boldLabel);
                 EditorGUILayout.PropertyField(m_productionRateProp);
                 EditorGUILayout.PropertyField(m_energyConsumptionProp);
+                EditorGUILayout.PropertyField(m_capacityProp);
                 break;
 
             case EBuildingType.STOCK:

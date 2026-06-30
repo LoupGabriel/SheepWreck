@@ -61,7 +61,10 @@ public class TravelSystem : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// Try to trigger an event at each quarter of the travel
+    /// </summary>
+    /// <param name="progress"></param>
     private void TryTravelEvent(float progress)
     {
         float[] thresholds = { 0.25f, 0.5f, 0.75f };
@@ -92,18 +95,24 @@ public class TravelSystem : MonoBehaviour
 
         if (currentEnergy < energyCost)
         {
-            Debug.Log("Not enough energy!");
+            
+            SfxManager.PlaySfx("Error");
             m_canTravel = false;
 
             return;
 
         }
         m_canTravel = true;
+
         RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.ENERGY] -= energyCost;
         RessourceSystem.Instance.OnRessourceChange?.Invoke(ERessourceType.ENERGY);
+
         m_destinationIsland = targetIstland;
+
         m_travelTime = distance * m_timePerTile;
+
         m_distanceToTravel = m_travelTime;
+
         m_isTraveling = true;
         EventManager.Instance.SetContext(true);
         OnDestinationSet?.Invoke();
@@ -125,7 +134,7 @@ public class TravelSystem : MonoBehaviour
 
     private void ArriveAtDestination()
     {
-        Debug.Log("Arrive at destination");
+        
         m_currentIsland = m_destinationIsland;
         OnDestinationReach?.Invoke(m_currentIsland.transform.position);
         m_travelTime = 0f;

@@ -14,12 +14,13 @@ public class SelectionManager : MonoBehaviour
 
     public GameObject m_currentSelectedObject;
     public SheepController m_currentSelectedSheep = null;
+    public RoomInstance m_currentSelectedRoom = null;
     public RoomInstance m_currentHoveredRoom;
     private Ray m_rayFromCam;
     public SheepController m_lastSelectedSheep;
 
 
-    
+
     [SerializeField] private float m_doubleClickTime = 0.3f;
     private float m_lastClickTime;
 
@@ -38,7 +39,7 @@ public class SelectionManager : MonoBehaviour
         HandleClick();
         if (!PauseController.m_isPaused)
         {
-            HandleHover(); 
+            HandleHover();
             HandleDrag();
         }
         HandleReleaseClick();
@@ -48,6 +49,9 @@ public class SelectionManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Handle when the mouse ray touch a collider
+    /// </summary>
     private void HandleHover()
     {
 
@@ -77,6 +81,9 @@ public class SelectionManager : MonoBehaviour
 
 
     }
+    /// <summary>
+    /// Handle when the mouse click was pressed
+    /// </summary>
     private void HandleClick()
     {
         if (Mouse.current.leftButton.wasPressedThisFrame)
@@ -87,12 +94,12 @@ public class SelectionManager : MonoBehaviour
             float timeSinceLastClick = Time.time - m_lastClickTime;
 
             //construction mode : click on a room switch the room 
-            if (GameManager.Instance.m_isConstructionModeActive )
+            if (GameManager.Instance.m_isConstructionModeActive)
             {
-                if(m_currentHoveredRoom != null)
+                if (m_currentHoveredRoom != null)
                 {
 
-                ShipSystem.Instance.SwitchRoom(m_currentHoveredRoom);
+                    ShipSystem.Instance.SwitchRoom(m_currentHoveredRoom);
                 }
             }
 
@@ -106,7 +113,7 @@ public class SelectionManager : MonoBehaviour
             {
                 HandleDoubleClick();
             }
-            if(timeSinceLastClick > m_doubleClickTime)
+            if (timeSinceLastClick > m_doubleClickTime)
             {
                 m_currentSelectedSheep = null;
             }
@@ -124,33 +131,18 @@ public class SelectionManager : MonoBehaviour
                     m_currentSelectedSheep = hit.collider.gameObject.GetComponent<SheepController>();
                     m_lastSelectedSheep = m_currentSelectedSheep;
                     m_currentSelectedSheep.Select();
-                    
-
-
-
-
                     return;
-
                 }
-                
-
-
+                else if(hit.collider.gameObject.layer == LayerMask.NameToLayer("Room"))
+                {
+                    m_currentSelectedRoom = hit.collider.gameObject.GetComponent<RoomInstance>();
+                    m_currentSelectedRoom.Select();
+                }
 
             }
 
 
-
-
-
-
-
-
-
         }
-
-
-
-
 
     }
 
@@ -158,7 +150,6 @@ public class SelectionManager : MonoBehaviour
     {
 
         //focus on selected item
-       
 
         if (m_lastSelectedSheep != null)
         {
@@ -167,7 +158,6 @@ public class SelectionManager : MonoBehaviour
             camControl.NotifyFocus(m_currentSelectedObject.transform);
 
         }
-
 
     }
 
@@ -186,23 +176,26 @@ public class SelectionManager : MonoBehaviour
 
         }
     }
+
+
     private void HandleReleaseClick()
     {
         if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
-            if (m_currentSelectedSheep != null )
+            if (m_currentSelectedSheep != null)
             {
-                if (m_currentHoveredRoom != null)
+                if (m_currentHoveredRoom != null && !m_currentHoveredRoom.maxSheepReach())
                 {
                     m_currentSelectedSheep.Drop(m_currentHoveredRoom.transform.position);
+                    
                     m_currentHoveredRoom.AddSheepToRoom(m_currentSelectedSheep.m_sheepData);
                     m_currentSelectedSheep.m_sheepData.SetSheepAssignedRoom(m_currentHoveredRoom);
                 }
                 else
                 {
-                    m_currentSelectedSheep.DropSheepInAir();
+                    m_currentSelectedSheep.DropSheepNotValid();
                 }
-                    
+
 
             }
             else
@@ -215,18 +208,20 @@ public class SelectionManager : MonoBehaviour
     }
 
 
-
+    /// <summary>
+    /// Cheat Manager button
+    /// </summary>
     private void KillCurrentSheep()
     {
-        if(m_lastSelectedSheep != null)
+        if (m_lastSelectedSheep != null)
         {
             Destroy(m_lastSelectedSheep.gameObject);
         }
-      
+
     }
 
 
-  
+
 
 
 

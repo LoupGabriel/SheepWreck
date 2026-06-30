@@ -6,7 +6,9 @@ public class EnvironmentController : MonoBehaviour
     [SerializeField] private ParticleSystem m_clouds;
 
 
-
+    /// <summary>
+    /// Change the speed of the particles systems
+    /// </summary>
     public void SetSailSpeed(float newSpeed)
     {
         var velocitySwirl = m_windSwirl.velocityOverLifetime;

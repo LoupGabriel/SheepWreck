@@ -32,7 +32,6 @@ public class CrewManager : MonoBehaviour
     {
         m_currentSheepOnBoard.Add(sheep);
 
-
     }
 
     public void RemoveSheep(SheepInstance sheep)
@@ -41,6 +40,9 @@ public class CrewManager : MonoBehaviour
         m_currentSheepOnBoard.Remove(sheep);
     }
 
+    /// <summary>
+    ///  Cheat Manager button
+    /// </summary>
     private void KillAllSheep()
     {
         foreach(SheepInstance sheep in m_currentSheepOnBoard)

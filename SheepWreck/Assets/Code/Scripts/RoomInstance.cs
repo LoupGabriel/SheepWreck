@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static RoomData;
@@ -14,40 +16,55 @@ public class RoomInstance : MonoBehaviour, ISelectable
 
     [SerializeField] public Transform m_sheepSlot;
 
+    [SerializeField] private GameObject m_collectIcon;
+
+    private Coroutine m_productionRoutine;
+    public int m_currentStoredResources = 0;
 
     private MeshRenderer m_renderer;
 
     public bool m_isCurrentRoom = false;
 
     [SerializeField] private float m_roomProductionTime = 2f;
-    private float m_roomTimeSinceLastProduce = 0;
-    
+   
+
+
+
+    public bool IsStorageFull => m_currentStoredResources >= m_roomData.m_capacity;
+
     private void Start()
     {
         m_renderer = GetComponent<MeshRenderer>();
         m_renderer.enabled = false;
         ShipSystem.Instance.AddRoomToList(this);
+        m_productionRoutine = StartCoroutine(ProductionRoutine());
 
-       
+        if(m_collectIcon != null)
+        {
+            m_collectIcon.SetActive(false);
+        }
+      
     }
     private void OnDestroy()
     {
         ShipSystem.Instance.RemoveRoomFromList(this);
     }
-    private void Update()
+
+    private void OnDisable()
     {
-        if(m_assignedSheep.Count <= 0 || isEmptyRoom())
+        if (m_productionRoutine != null)
         {
-            return;
+            StopCoroutine(m_productionRoutine);
         }
-        
-        Produce();
     }
     public void AddSheepToRoom(SheepInstance sheepInstance)
     {
+        if (maxSheepReach() != true)
+        {
+            m_assignedSheep.Add(sheepInstance);
+        }
 
-        m_assignedSheep.Add(sheepInstance);
-       
+
 
     }
     public void RemoveSheepFromRoom(SheepInstance sheepInstance)
@@ -59,24 +76,22 @@ public class RoomInstance : MonoBehaviour, ISelectable
 
     public void SetHover(bool isHovering)
     {
-        //Debug
-        //m_renderer.enabled = isHovering;
-        //m_renderer.material.color = new Color(1, 1, 1, 0.05f);
-
 
         m_isCurrentRoom = isHovering;
 
-
-
-
     }
 
-
+    //Iselectable implementation
     public void Select()
     {
-        Debug.Log("RoomSelected");
+        if (m_currentStoredResources >= m_roomData.m_capacity && m_roomData.m_capacity != 0)
+        {
+            CollectRessource();
+        }
+           
 
-
+       
+      
 
     }
 
@@ -84,39 +99,66 @@ public class RoomInstance : MonoBehaviour, ISelectable
     // Produce X ressource per sheep each m_roomProductionTime
     private void Produce()
     {
-       
-        m_roomTimeSinceLastProduce += Time.deltaTime;
-
-        if(m_roomTimeSinceLastProduce >= m_roomProductionTime)
-        {
-            foreach (SheepInstance sheep in m_assignedSheep)
-            {
-                float amount = sheep.m_productionRate;
-                RessourceSystem.Instance.AddRessource((int)(amount), m_roomData);
-            }
-
-            m_roomTimeSinceLastProduce = 0;
-
-        }
-       
+      
         
+        if (IsStorageFull)
+            return;
+        if (isEmptyRoom()) return;
+
+        SetSheepsWorking();
+
+        foreach (SheepInstance sheep in m_assignedSheep)
+        {
+         
+          
+
+            int amount = Mathf.RoundToInt(sheep.m_productionRate);
+            int spaceLeft = m_roomData.m_capacity - m_currentStoredResources;
+
+            if (spaceLeft <= 0)
+                break;
+
+
+            m_currentStoredResources += Mathf.Min(amount, spaceLeft);
+            if(m_currentStoredResources >= m_roomData.m_capacity)
+            {
+                m_collectIcon.SetActive(true);
+            }
+        }
+
+
     }
 
-    private void SetSheepWorking()
+
+
+    private void CollectRessource()
     {
 
+        SfxManager.PlaySfx("Coin");
+        if (m_currentStoredResources == 0)
+            return;
 
-        foreach(SheepInstance sheep in m_assignedSheep)
+        RessourceSystem.Instance.GainRessource(m_currentStoredResources, m_roomData.m_ressourceProduced);
+        m_currentStoredResources = 0;
+        m_collectIcon.SetActive(false);
+    }
+
+   
+    private void SetSheepsWorking()
+    {
+
+      
+        foreach (SheepInstance sheep in m_assignedSheep)
         {
 
-            sheep.m_stateMachine.ChangeState(sheep.m_workinState);
+            sheep.RequestWork();
 
         }
 
 
     }
 
- 
+
 
     private bool isEmptyRoom()
     {
@@ -126,5 +168,26 @@ public class RoomInstance : MonoBehaviour, ISelectable
 
     }
 
-   
+
+    public bool maxSheepReach()
+    {
+
+        return m_assignedSheep.Count >= m_roomData.m_maxSheepCapacity;
+
+    }
+
+
+    private IEnumerator ProductionRoutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(m_roomProductionTime);
+
+            if (m_assignedSheep.Count > 0 && !isEmptyRoom())
+            {
+                Produce();
+            }
+        }
+    }
+
 }

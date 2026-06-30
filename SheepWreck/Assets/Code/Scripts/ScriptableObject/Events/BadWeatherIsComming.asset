@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82829af422243fa4b9bc08bd964afb74, type: 3}
   m_Name: BadWeatherIsComming
   m_EditorClassIdentifier: 
-  m_foodLost: 50
-  m_waterLost: 30
+  m_foodLost: 10
+  m_waterLost: 10
   m_goldLost: 15
   m_description: A violent skystorm engulfs the airship, shaking it hard and forcing
     the crew to secure everything until it passes.

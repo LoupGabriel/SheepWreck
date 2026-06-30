@@ -6,7 +6,7 @@ public class SheepWaitForWorkState : SheepState
     {
     }
 
-    public override void Enter()
+    public override void Enter(Animator animator)
     {
         Debug.Log("Enter WaitForWork");
     }

@@ -22,7 +22,7 @@ public class UiIslandQuest : MonoBehaviour
 
         m_DeliveryButton.onClick.AddListener(OnDeliverClicked);
         m_questPanel.SetActive(false);
-
+        SetupAmountDropdown();
 
 
         //delivery

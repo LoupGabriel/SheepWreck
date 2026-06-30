@@ -15,12 +15,12 @@ MonoBehaviour:
   m_roomName: ScienceLab
   m_description: Produce water over time
   m_roomIcon: {fileID: 743002091, guid: 28f0b48e99cfd93499df39ce82aa83ae, type: 3}
-  m_ressourceProduced: 4
+  m_ressourceProduced: 2
   m_buildingType: 0
   m_buildCost: 30
   m_upkeepCost: 2
-  m_maxSheepCapacity: 0
+  m_maxSheepCapacity: 1
   m_productionRate: 50
   m_energyConsumption: 20
-  m_capacity: 0
+  m_capacity: 50
   m_level: 1

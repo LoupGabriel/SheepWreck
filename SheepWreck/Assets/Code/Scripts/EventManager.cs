@@ -19,6 +19,10 @@ public class EventManager : MonoBehaviour
     {
         m_context = new GameContext();
     }
+
+    /// <summary>
+    /// Make a list of valid events and trigger one at random 
+    /// </summary>
     public void TryTriggerEvent()
     {
         if(UnityEngine.Random.value > m_eventChance) { return; }
@@ -42,6 +46,8 @@ public class EventManager : MonoBehaviour
         GameEvent choosen = valid[Random.Range(0, valid.Count)];
         choosen.Trigger(m_context);
     }
+
+
 
     public void SetContext(bool isTraveling)
     {

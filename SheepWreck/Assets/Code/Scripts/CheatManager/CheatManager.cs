@@ -44,12 +44,12 @@ public class CheatManager : MonoBehaviour
 
     private void Update()
     {
-#if UNITY_EDITOR
+
         if (Keyboard.current != null && Keyboard.current.f1Key.wasPressedThisFrame)
         {
             m_showWindow = !m_showWindow;
         }
-#endif
+
     }
     private void OnGUI()
     {

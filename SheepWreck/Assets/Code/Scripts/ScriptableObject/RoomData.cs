@@ -30,7 +30,8 @@ public class RoomData : ScriptableObject
     public string m_description;
     public Sprite m_roomIcon;
 
-    public ERessourceProduced m_ressourceProduced = ERessourceProduced.energy;
+    public ERessourceType m_ressourceProduced = ERessourceType.ENERGY;
+   // public ERessourceProduced m_ressourceProduced = ERessourceProduced.energy;
 
     public EBuildingType m_buildingType = EBuildingType.EMPTY;
 

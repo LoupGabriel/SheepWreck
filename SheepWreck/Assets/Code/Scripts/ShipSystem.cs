@@ -60,7 +60,10 @@ public class ShipSystem : MonoBehaviour
     }
 
 
-    
+    /// <summary>
+    /// Set the choosen room to place
+    /// </summary>
+    /// <param name="roomPrefab"></param>
     public void SetRoomPrefab(GameObject roomPrefab)
     {
         m_tempRoomPrefab = roomPrefab;
