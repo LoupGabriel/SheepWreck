@@ -1,4 +1,5 @@
 
+using Mono.Cecil;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -22,12 +23,14 @@ public class UIRessources : MonoBehaviour
     private void OnEnable()
     {
         RessourceSystem.Instance.OnRessourceChange += NotifyRessourceChange;
+        ShipSystem.Instance.OnRoomSwitchRessource += NotifyRessourceChange;
         
     }
 
     private void OnDisable()
     {
         RessourceSystem.Instance.OnRessourceChange -= NotifyRessourceChange;
+        ShipSystem.Instance.OnRoomSwitchRessource -= NotifyRessourceChange;
     }
     private void Start()
     {
@@ -37,8 +40,12 @@ public class UIRessources : MonoBehaviour
         m_ressourceText.Add(ERessourceType.ENERGY, m_currentEnergyText);
         m_ressourceText.Add(ERessourceType.MORALE, m_currentMoraleText);
 
-        m_currentEnergyText.text = RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.ENERGY].ToString();
 
+        m_currentGoldText.text = RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.GOLD].ToString() + "/" + RessourceSystem.Instance.GetRessource(ERessourceType.GOLD);
+        m_currentFoodText.text = RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.FOOD].ToString() + "/" + RessourceSystem.Instance.GetRessource(ERessourceType.FOOD);
+        m_currentWaterText.text = RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.WATER].ToString() + "/" + RessourceSystem.Instance.GetRessource(ERessourceType.WATER);
+        m_currentEnergyText.text = RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.ENERGY].ToString() + "/" + RessourceSystem.Instance.GetRessource(ERessourceType.ENERGY);
+    
 
     }
 
@@ -52,7 +59,7 @@ public class UIRessources : MonoBehaviour
         if (m_ressourceText.TryGetValue(ressourceType, out TMP_Text text))
                {
 
-            text.text = RessourceSystem.Instance.m_ressourceDictionary[ressourceType].ToString();
+            text.text = RessourceSystem.Instance.m_ressourceDictionary[ressourceType].ToString() + "/" + RessourceSystem.Instance.GetRessource(ressourceType);
         }
     }
 

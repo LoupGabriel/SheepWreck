@@ -16,6 +16,7 @@ public class ShipSystem : MonoBehaviour
     private GameObject m_ghostRoom;
     
     public Action<bool> OnRoomSwitch;
+    public Action<ERessourceType> OnRoomSwitchRessource;
     private void Awake()
     {
         Instance = this;
@@ -56,6 +57,7 @@ public class ShipSystem : MonoBehaviour
         Destroy(currentRoom.gameObject);
         GameObject room = Instantiate(m_tempRoomPrefab, temp.gameObject.transform.position, temp.gameObject.transform.rotation, m_roomParent);
         OnRoomSwitch?.Invoke(false);
+        OnRoomSwitchRessource?.Invoke(m_tempRoomPrefab.GetComponent<RoomInstance>().m_roomData.m_ressourceProduced);
         StopConstructionMode();
     }
 
@@ -76,6 +78,7 @@ public class ShipSystem : MonoBehaviour
 
         
         m_ghostRoom = Instantiate(roomPrefab);
+        m_ghostRoom.GetComponent<RoomInstance>().SetIsGhost(true);
 
         foreach(MeshRenderer renderer in m_ghostRoom.GetComponentsInChildren<MeshRenderer>())
         {

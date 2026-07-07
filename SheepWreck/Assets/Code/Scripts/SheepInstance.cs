@@ -1,19 +1,52 @@
 
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum ESheepTrait
+{
+    None,
+    HardWorker,
+    Lazy,
+    Glutton,
+    
+
+}
+
+public enum ESheepSpeciality
+{
+    None,
+    Farmer,
+    Engineer,
+    Miner,
+    SeaWolf,
+}
+
+
+public enum ESheepJob
+{
+    Farmer,
+    Engineer,    
+    Sailor
+}
 public class SheepInstance : MonoBehaviour
 {
 
 
-    
-  
-    
+
+
+
     [SerializeField] private SheepNamesDataBase m_sheepNames;
     [SerializeField] public string m_sheepName;
-
+    [SerializeField] private ESheepTrait m_trait;
+    [SerializeField] private ESheepSpeciality m_speciality;
     [SerializeField] private float m_hungerTimer = 5f;
     [SerializeField] private float m_thirstTimer = 2f;
     private Animator m_animator;
+    private Dictionary<ESheepJob, int> m_jobXP = new();
+    public ESheepTrait Trait => m_trait;
+    public ESheepSpeciality Speciality => m_speciality;
     #region State Machine Variables
     public SheepStateMachine m_stateMachine { get; set; }
     public SheepIdleState m_idleState { get; set; }
@@ -30,8 +63,8 @@ public class SheepInstance : MonoBehaviour
     public int m_MaxHp;
 
     public int level;
-   
-    
+
+
 
     //ressource
     public int m_currentMorale;
@@ -43,21 +76,29 @@ public class SheepInstance : MonoBehaviour
     private float m_hungerElapse = 0;
     private float m_thirstElapse = 0;
 
-    
+
     public bool IsWorking => m_stateMachine != null && m_stateMachine.m_currentSheepState == m_workinState;
 
     private void Awake()
     {
         m_stateMachine = new SheepStateMachine();
 
-        m_idleState = new SheepIdleState(this,m_stateMachine);
+        m_idleState = new SheepIdleState(this, m_stateMachine);
         m_workinState = new SheepWorkingState(this, m_stateMachine);
         m_waitForWorkState = new SheepWaitForWorkState(this, m_stateMachine);
         m_restingState = new SheepRestingState(this, m_stateMachine);
         m_eatingState = new SheepEatingState(this, m_stateMachine);
 
+        //initialize xp dictionary 
+        foreach (ESheepJob job in Enum.GetValues(typeof(ESheepJob)))
+        {
+            m_jobXP[job] = 0;
 
-       
+
+
+        }
+
+
 
 
     }
@@ -70,15 +111,17 @@ public class SheepInstance : MonoBehaviour
         m_stateMachine.Initialize(m_idleState, m_animator);
 
         m_spriteRenderer = GetComponent<SpriteRenderer>();
-        
+
         //visual
         GenerateRandomName();
-        GenerateRandomColor();
+        AssignedRandomTraitAndSpeciality();
+        GenerateColorByTrait();
+      
 
         //add sheep to the crew list
         CrewManager.Instance.AddSheep(this);
         m_assignedRoom = GetRoomInstance();
-        
+
 
 
 
@@ -88,15 +131,15 @@ public class SheepInstance : MonoBehaviour
     {
         Hunger();
         Thirst();
-        m_currentMorale =  (int)GetMorale();
+        m_currentMorale = (int)GetMorale();
     }
 
-    
+
     private void GenerateRandomName()
     {
 
 
-        int index = Random.Range(0, m_sheepNames.m_sheepNamesDataBase.Count);
+        int index = UnityEngine.Random.Range(0, m_sheepNames.m_sheepNamesDataBase.Count);
 
         m_sheepName = m_sheepNames.m_sheepNamesDataBase[index];
 
@@ -104,10 +147,45 @@ public class SheepInstance : MonoBehaviour
     }
 
 
-    private void GenerateRandomColor()
+    private void GenerateColorByTrait()
     {
+        Color color = Color.white;
 
-        m_spriteRenderer.color = Random.ColorHSV(1f,1f,0.2f,0f,1f,1f);
+
+        switch (Trait)
+        {
+            case ESheepTrait.None:
+                {
+
+                    color = Color.white;
+                    break;
+                }
+            case ESheepTrait.HardWorker:
+                {
+                    color = new Color32(188, 56, 66,255);
+
+                    break;
+                }
+
+            case ESheepTrait.Lazy:
+                {
+                    color = new Color32(252, 15, 66, 255);
+
+                    break;
+                }
+            case ESheepTrait.Glutton:
+
+                {
+                    color = new Color32(30, 52, 66, 255);
+
+                    break;
+                }
+
+        }
+
+
+
+        m_spriteRenderer.color = color;
 
 
     }
@@ -120,7 +198,7 @@ public class SheepInstance : MonoBehaviour
         m_hungerElapse += Time.deltaTime;
 
         m_hunger = Mathf.Clamp(m_hunger, 0, 100);
-        if(m_hungerElapse >= m_hungerTimer)
+        if (m_hungerElapse >= m_hungerTimer)
         {
             m_hunger--;
             m_hungerElapse = 0;
@@ -155,7 +233,7 @@ public class SheepInstance : MonoBehaviour
     }
 
 
- 
+
     public void ConsumeWater(int ressource)
     {
         m_thirst += ressource;
@@ -199,16 +277,16 @@ public class SheepInstance : MonoBehaviour
     {
 
         Collider[] hitCollider = Physics.OverlapSphere(transform.position, 2.0f);
-        if(hitCollider.Length > 0)
+        if (hitCollider.Length > 0)
         {
-            for(int i =0;i< hitCollider.Length; i++)
+            for (int i = 0; i < hitCollider.Length; i++)
             {
                 if (hitCollider[i].gameObject.layer == LayerMask.NameToLayer("Room"))
                 {
                     return hitCollider[i].GetComponent<RoomInstance>();
                 }
             }
-            
+
         }
         return null;
 
@@ -218,7 +296,7 @@ public class SheepInstance : MonoBehaviour
     public void RequestWork()
     {
 
-        if(m_hunger < 20)
+        if (m_hunger < 20)
         {
             m_stateMachine.ChangeState(m_eatingState, m_animator);
             return;
@@ -231,9 +309,32 @@ public class SheepInstance : MonoBehaviour
         m_stateMachine.ChangeState(m_idleState, m_animator);
     }
 
+    public void AddJobXp(ESheepJob job,int amount)
+    {
+        m_jobXP[job] += amount;
+    }
+
+    private void AssignedRandomTraitAndSpeciality()
+    {
+        Array traits = Enum.GetValues(typeof(ESheepTrait));
+        Array speciality = Enum.GetValues(typeof (ESheepSpeciality));
+        m_trait = (ESheepTrait)traits.GetValue(UnityEngine.Random.Range(1, traits.Length));
+        m_speciality = (ESheepSpeciality)speciality.GetValue(UnityEngine.Random.Range(1, speciality.Length));
+    }
+
+    
+    public int GetJobLevel(ESheepJob job)
+    {
+        int xp = m_jobXP[job];
 
 
+        if (xp >= 500) return 5;
+        if (xp >= 250) return 4;
+        if (xp >= 100) return 3;
+        if (xp >= 25) return 2;
 
+        return 1;
+    }
 
 
 

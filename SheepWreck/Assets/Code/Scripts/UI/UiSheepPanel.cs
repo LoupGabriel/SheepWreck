@@ -9,10 +9,24 @@ public class UiSheepPanel : MonoBehaviour
 {
     [SerializeField] private TMP_Text m_sheepName;
     private SheepInstance m_currentSheep;
+    //stats
     [SerializeField] private TMP_Text m_currentMoraleText;
     [SerializeField] private TMP_Text m_currentHungerText;
     [SerializeField] private TMP_Text m_curentThirstText;
+
+    //personality
+    [SerializeField] private TMP_Text m_traitText;
+    [SerializeField] private TMP_Text m_specialityText;
+
+    //lvl
+    [SerializeField] private TMP_Text m_FarmerLvlText;
+    [SerializeField] private TMP_Text m_EngineerLvlText;
+    [SerializeField] private TMP_Text m_SailorLvlText;
+
+
     [SerializeField] private UnityEngine.UI.Image m_sprite;
+
+   
 
     private bool m_panelIsActive = false;
 
@@ -36,6 +50,8 @@ public class UiSheepPanel : MonoBehaviour
         gameObject.SetActive(true);
         m_sheepName.text = sheepName;
         m_currentSheep = sheep;
+        m_traitText.text = sheep.Trait.ToString();
+        m_specialityText.text = sheep.Speciality.ToString();
         
 
     }
@@ -72,6 +88,11 @@ public class UiSheepPanel : MonoBehaviour
 
         m_currentMoraleText.text = morale.ToString();
 
+
+        //lvl
+
+        m_FarmerLvlText.text = $"lvl : {m_currentSheep.GetJobLevel(ESheepJob.Farmer)}";
+        m_EngineerLvlText.text = $"lvl : {m_currentSheep.GetJobLevel(ESheepJob.Engineer)}";
 
     }
 

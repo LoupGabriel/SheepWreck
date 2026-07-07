@@ -611,7 +611,7 @@ TextureImporter:
         width: 16
         height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -620,6 +620,28 @@ TextureImporter:
       bones: []
       spriteID: bc0628ee77134e541a0d64107d52c571
       internalID: 77974514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IconMap
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 54
+        width: 25
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83c5994076ad9df4688be6af3df2be35
+      internalID: -1837301918
       vertices: []
       indices: 
       edges: []
@@ -642,6 +664,7 @@ TextureImporter:
       Bar_red: 2042205348
       ConstructionModeButton: 2102130007
       IconFlag: 155198134
+      IconMap: -1837301918
       IconShip: 963032411
       IconSpriteSheet_0: -223451050
       IconSpriteSheet_1: 743002091

@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec1cc760962513747831e74eec0dfd3a, type: 3}
-  m_Name: Treasory
+  m_Name: Granary
   m_EditorClassIdentifier: 
-  m_roomName: Treasory
-  m_description: Store gold
-  m_roomIcon: {fileID: 0}
-  m_ressourceProduced: 0
-  m_buildingType: 0
+  m_roomName: Granary
+  m_description: Store 50 food
+  m_roomIcon: {fileID: 1191969467, guid: 28f0b48e99cfd93499df39ce82aa83ae, type: 3}
+  m_ressourceProduced: 1
+  m_buildingType: 1
   m_buildCost: 50
   m_upkeepCost: 10
-  m_maxSheepCapacity: 0
+  m_maxSheepCapacity: 1
   m_productionRate: 0
   m_energyConsumption: 0
-  m_capacity: 150
+  m_capacity: 50
   m_level: 1
