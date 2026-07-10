@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [CreateAssetMenu(fileName = "SheepNames", menuName = "DataBase/SheepNames")]
 public class SheepNamesDataBase : ScriptableObject
@@ -107,5 +108,15 @@ public class SheepNamesDataBase : ScriptableObject
     "Fleecebeard the Mad",
     "The Sheepyard Scavenger"
 };
+
+
+    public string GetRandomName()
+    {
+        int index = UnityEngine.Random.Range(0, m_sheepNamesDataBase.Count);
+
+        return m_sheepNamesDataBase[index];
+
+        
+    }
 
 }

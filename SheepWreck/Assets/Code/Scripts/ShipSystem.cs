@@ -12,6 +12,15 @@ public class ShipSystem : MonoBehaviour
     [SerializeField] private Transform m_roomParent;
     [SerializeField] private Material m_ghostMaterial;
     [SerializeField] private SelectionManager m_selectionManager;
+
+
+
+    [SerializeField] private GameObject[] m_upgradeFrame;
+    [SerializeField] private GameObject[] m_baseFrame;
+    [Space(10)]
+    [SerializeField] private GameObject[] m_upgrade02Frame;
+    [SerializeField] private GameObject[] m_base02Frame;
+
     private GameObject m_tempRoomPrefab;
     private GameObject m_ghostRoom;
     
@@ -93,6 +102,30 @@ public class ShipSystem : MonoBehaviour
         {
             Destroy(m_ghostRoom);
             m_ghostRoom = null;
+        }
+    }
+
+    public void UpgradeShip()
+    {
+        foreach(GameObject piece in m_baseFrame)
+        {
+            piece.SetActive(false);
+        }
+        foreach(GameObject piece in m_upgradeFrame)
+        {
+            piece.SetActive(true);
+        }
+    }
+    public void Upgrade02Ship()
+    {
+
+        foreach (GameObject piece in m_base02Frame)
+        {
+            piece.SetActive(false);
+        }
+        foreach (GameObject piece in m_upgrade02Frame)
+        {
+            piece.SetActive(true);
         }
     }
 }

@@ -37,7 +37,8 @@ public class RessourceSystem : MonoBehaviour
     private int m_maxEnergy = 100;
 
     private int m_currentNumberOfSheep = 15;
-    private int m_foodConsumptionBySheep = 5;
+    [SerializeField]
+    private int m_foodConsumptionBySheep = 2;
     private int m_WaterConsumptionBySheep = 5;
 
     private ShipSystem m_shipSystem;
@@ -111,7 +112,7 @@ public class RessourceSystem : MonoBehaviour
     /// <param name="days">action param</param>
     private void GlobalFoodConsumption(int months, int weeks, int days)
     {
-        if (m_ressourceDictionary[ERessourceType.FOOD] >= 0)
+        if (m_ressourceDictionary[ERessourceType.FOOD] <= 0)
             return;
 
 
@@ -298,6 +299,7 @@ public class RessourceSystem : MonoBehaviour
         {
             case ESheepTrait.Glutton:
                 return 1.5f;
+
             default: return 1 ;
         }
     }

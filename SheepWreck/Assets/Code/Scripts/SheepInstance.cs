@@ -43,6 +43,9 @@ public class SheepInstance : MonoBehaviour
     [SerializeField] private ESheepSpeciality m_speciality;
     [SerializeField] private float m_hungerTimer = 5f;
     [SerializeField] private float m_thirstTimer = 2f;
+
+
+    private bool m_initializedFromRecruit = false;
     private Animator m_animator;
     private Dictionary<ESheepJob, int> m_jobXP = new();
     public ESheepTrait Trait => m_trait;
@@ -112,11 +115,17 @@ public class SheepInstance : MonoBehaviour
 
         m_spriteRenderer = GetComponent<SpriteRenderer>();
 
-        //visual
-        GenerateRandomName();
-        AssignedRandomTraitAndSpeciality();
-        GenerateColorByTrait();
-      
+       
+
+        if (m_initializedFromRecruit == false)
+        {
+            GenerateRandomName();
+            AssignedRandomTraitAndSpeciality();
+           
+        }
+
+
+
 
         //add sheep to the crew list
         CrewManager.Instance.AddSheep(this);
@@ -336,6 +345,19 @@ public class SheepInstance : MonoBehaviour
         return 1;
     }
 
+    public void InitializeFromRecruitData(SheepRecruitData recruitData)
+    {
+        m_initializedFromRecruit = true;
 
+        m_sheepName = recruitData.name;
+        gameObject.name = m_sheepName;
+
+        m_trait = recruitData.trait;
+        m_speciality = recruitData.speciality;
+
+        m_jobXP[ESheepJob.Farmer] = recruitData.farmerXp;
+        m_jobXP[ESheepJob.Engineer] = recruitData.engineerXp;
+        m_jobXP[ESheepJob.Sailor] = recruitData.sailorXp;
+    }
 
 }

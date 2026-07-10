@@ -8,7 +8,7 @@ public class CrewManager : MonoBehaviour
     public static CrewManager Instance;
 
     [SerializeField] public List<SheepInstance> m_currentSheepOnBoard = new();
-
+    [SerializeField] public Transform m_sheepSpawnPosition;
 
 
 

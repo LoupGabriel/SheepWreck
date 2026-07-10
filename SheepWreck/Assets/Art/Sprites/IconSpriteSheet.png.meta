@@ -633,7 +633,7 @@ TextureImporter:
         width: 25
         height: 19
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -642,6 +642,116 @@ TextureImporter:
       bones: []
       spriteID: 83c5994076ad9df4688be6af3df2be35
       internalID: -1837301918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IconSpriteSheet_13
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 18
+        width: 33
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30e5a8df48d9fd344801f4165515d4d3
+      internalID: 113539634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IconIsland02
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 29
+        width: 28
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbc2d05eac61f4c4392575ec799682bb
+      internalID: 1245694377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IconIsland03
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 7
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50bbf337cb8283e4bb5b312dec9e44c3
+      internalID: -1986971596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IconIsland04
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 12
+        width: 21
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba25851aca2fe9a43a81c2bcbb8fe787
+      internalID: -1015008241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IconSky
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 81
+        width: 21
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b85be4ecd8800ef48b49791bee184571
+      internalID: 576595924
       vertices: []
       indices: 
       edges: []
@@ -664,13 +774,18 @@ TextureImporter:
       Bar_red: 2042205348
       ConstructionModeButton: 2102130007
       IconFlag: 155198134
+      IconIsland02: 1245694377
+      IconIsland03: -1986971596
+      IconIsland04: -1015008241
       IconMap: -1837301918
       IconShip: 963032411
+      IconSky: 576595924
       IconSpriteSheet_0: -223451050
       IconSpriteSheet_1: 743002091
       IconSpriteSheet_10: 1481767403
       IconSpriteSheet_11: 583353066
       IconSpriteSheet_12: 77974514
+      IconSpriteSheet_13: 113539634
       IconSpriteSheet_2: 1511636283
       IconSpriteSheet_3: -1514760120
       IconSpriteSheet_4: 197751484

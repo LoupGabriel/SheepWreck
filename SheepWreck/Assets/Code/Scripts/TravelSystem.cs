@@ -14,6 +14,10 @@ public class TravelSystem : MonoBehaviour
 
     public GameObject m_islandPanel;
 
+    private int m_currentEnvironment = 0;
+   
+    [SerializeField] private Animator[] m_sailAnimator;
+
     [SerializeField] private int m_energyCostPerTile = 25;
     [SerializeField] private EnvironmentController m_environment;
     public bool m_isTraveling = false;
@@ -48,6 +52,8 @@ public class TravelSystem : MonoBehaviour
 
             float progress = 1f - (m_travelTime / m_distanceToTravel);
             TryTravelEvent(progress);
+           
+
 
         }
 
@@ -58,6 +64,7 @@ public class TravelSystem : MonoBehaviour
         if (m_travelTime <= 0f)
         {
             ArriveAtDestination();
+            
         }
     }
 
@@ -83,7 +90,7 @@ public class TravelSystem : MonoBehaviour
     {
         if (m_isTraveling || targetIstland == null) return;
 
-
+      
         int distance = GetManhattanDistance(m_currentIsland.m_gridPos, targetIstland.m_gridPos);
 
         int energyCost = distance * m_energyCostPerTile;
@@ -103,7 +110,10 @@ public class TravelSystem : MonoBehaviour
 
         }
         m_canTravel = true;
-
+        foreach (var animator in m_sailAnimator)
+        {
+            animator.SetTrigger("Sailing");
+        }
         RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.ENERGY] -= energyCost;
         RessourceSystem.Instance.OnRessourceChange?.Invoke(ERessourceType.ENERGY);
 
@@ -134,7 +144,17 @@ public class TravelSystem : MonoBehaviour
 
     private void ArriveAtDestination()
     {
-        
+        foreach (Animator animator in m_sailAnimator)
+        {
+            animator.SetTrigger("Idle");
+        }
+        m_currentEnvironment++;
+        if (m_currentEnvironment >= Enum.GetValues(typeof(EEnvironment)).Length)
+        {
+            m_currentEnvironment = 0;
+        }
+        m_environment.ChangeBackground(m_currentEnvironment);
+
         m_currentIsland = m_destinationIsland;
         OnDestinationReach?.Invoke(m_currentIsland.transform.position);
         m_travelTime = 0f;
@@ -144,6 +164,7 @@ public class TravelSystem : MonoBehaviour
         SoundtrackManager.Instance.PlayMusic("MainMusic");
         m_environment.SetSailSpeed(1f);
 
+       
     }
 
 
