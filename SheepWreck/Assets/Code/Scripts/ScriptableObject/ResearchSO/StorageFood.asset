@@ -10,16 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 58b0e7888d6247945ae19fccb183bab6, type: 3}
-  m_Name: StorageGold
+  m_Name: StorageFood
   m_EditorClassIdentifier: 
-  researchName: Gold storage
+  researchName: Food storage
   description: 
-  icon: {fileID: 197751484, guid: 28f0b48e99cfd93499df39ce82aa83ae, type: 3}
+  icon: {fileID: 1191969467, guid: 28f0b48e99cfd93499df39ce82aa83ae, type: 3}
   researchCost: 10
   researchTime: 10
   prerequissites:
-  - {fileID: 11400000, guid: 13d5ef810166ea74fa97e5a53b0aedb9, type: 2}
-  - {fileID: 11400000, guid: 1642b54a52c14d748a66831af5a03de2, type: 2}
+  - {fileID: 11400000, guid: 0820ad4ddf75d774d95a8c2c8129aed2, type: 2}
   rewardType: 0
   rewardValue: 0
-  roomPanelToUnlock: {fileID: 5229130774873833414, guid: 28a823132b6f7e04f8435ae6ae32d40e, type: 3}
+  roomPanelToUnlock: {fileID: 437954895019065560, guid: c7ab246a4c396364dbbd374177badf15, type: 3}

@@ -694,8 +694,8 @@ TextureImporter:
       name: IconIsland03
       rect:
         serializedVersion: 2
-        x: 94
-        y: 7
+        x: 107
+        y: 12
         width: 16
         height: 16
       alignment: 0
@@ -716,8 +716,8 @@ TextureImporter:
       name: IconIsland04
       rect:
         serializedVersion: 2
-        x: 21
-        y: 12
+        x: 83
+        y: 3
         width: 21
         height: 17
       alignment: 0
@@ -743,7 +743,7 @@ TextureImporter:
         width: 21
         height: 13
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -752,6 +752,138 @@ TextureImporter:
       bones: []
       spriteID: b85be4ecd8800ef48b49791bee184571
       internalID: 576595924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_BluePrint
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 7
+        width: 25
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e225dd7f7b1faf4b9fc8fb6d91082b9
+      internalID: -1766527938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IconResearch
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35a9b2eb15e043e4f83632b0fbe48110
+      internalID: -2112371566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IconLock
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 85
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de194003b288dbb4b8411212d63646d2
+      internalID: 579351056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IconInProgress
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 74
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b55a37c38a8b61f4db75c57f586066b9
+      internalID: 1114212987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IconComplete
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 65
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebc9f7e3ae6662c41a92e5a393bb0fea
+      internalID: -98514208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IconUnlock
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 85
+        width: 7
+        height: 11
+      alignment: 9
+      pivot: {x: 0.5000003, y: 0.4019477}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e48c87c9acb1c7d44bbf37c30a0bd1a5
+      internalID: -1396004616
       vertices: []
       indices: 
       edges: []
@@ -773,11 +905,15 @@ TextureImporter:
       Bar_blue: -397262613
       Bar_red: 2042205348
       ConstructionModeButton: 2102130007
+      IconComplete: -98514208
       IconFlag: 155198134
+      IconInProgress: 1114212987
       IconIsland02: 1245694377
       IconIsland03: -1986971596
       IconIsland04: -1015008241
+      IconLock: 579351056
       IconMap: -1837301918
+      IconResearch: -2112371566
       IconShip: 963032411
       IconSky: 576595924
       IconSpriteSheet_0: -223451050
@@ -794,6 +930,8 @@ TextureImporter:
       IconSpriteSheet_7: 1847705739
       IconSpriteSheet_8: -591965669
       IconSpriteSheet_9: 233503677
+      IconUnlock: -1396004616
+      Icon_BluePrint: -1766527938
       Icon_food: 1191969467
       Icon_info01: -14221072
       Icon_info02: 1043973166

@@ -24,7 +24,8 @@ public class ResearchNodeSo : ScriptableObject
     public EResearchRewardType rewardType;
     public float rewardValue;
 
-    public RoomData roomToUnlock;
+   // public RoomData roomToUnlock;
+    public GameObject roomPanelToUnlock;
 }
 
 public enum EResearchRewardType
@@ -35,7 +36,8 @@ public enum EResearchRewardType
     REDUCE_TRAVEL_COST,
     REDUCE_TRAVEL_TIME,
     INCREASE_CREW_CAPACITY,
-    UNLOCK_ISLAND
+    UNLOCK_ISLAND,
+    UPGRADE_SHIP
 }
 
 [System.Serializable]

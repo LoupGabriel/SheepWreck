@@ -16,6 +16,7 @@ public class UIRessources : MonoBehaviour
     [SerializeField] private TMP_Text m_currentEnergyText;
     [SerializeField] private TMP_Text m_currentMoraleText;
     [SerializeField] private TMP_Text m_currentSheepText;
+    [SerializeField] private TMP_Text m_currentResearchText;
     [SerializeField] CrewManager m_crewManager;
 
     private Dictionary<ERessourceType, TMP_Text> m_ressourceText = new Dictionary<ERessourceType, TMP_Text>();
@@ -39,12 +40,14 @@ public class UIRessources : MonoBehaviour
         m_ressourceText.Add(ERessourceType.WATER, m_currentWaterText);
         m_ressourceText.Add(ERessourceType.ENERGY, m_currentEnergyText);
         m_ressourceText.Add(ERessourceType.MORALE, m_currentMoraleText);
+        m_ressourceText.Add(ERessourceType.RESEARCH, m_currentResearchText);
 
 
         m_currentGoldText.text = RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.GOLD].ToString() + "/" + RessourceSystem.Instance.GetRessource(ERessourceType.GOLD);
         m_currentFoodText.text = RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.FOOD].ToString() + "/" + RessourceSystem.Instance.GetRessource(ERessourceType.FOOD);
         m_currentWaterText.text = RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.WATER].ToString() + "/" + RessourceSystem.Instance.GetRessource(ERessourceType.WATER);
         m_currentEnergyText.text = RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.ENERGY].ToString() + "/" + RessourceSystem.Instance.GetRessource(ERessourceType.ENERGY);
+        m_currentResearchText.text = RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.RESEARCH].ToString() + "/" + RessourceSystem.Instance.GetRessource(ERessourceType.RESEARCH);
     
 
     }

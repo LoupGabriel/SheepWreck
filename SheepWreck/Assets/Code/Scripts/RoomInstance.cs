@@ -131,10 +131,11 @@ public class RoomInstance : MonoBehaviour, ISelectable
 
         foreach (SheepInstance sheep in m_assignedSheep)
         {
+            float roomProductionMultiplier = m_roomData.m_productionRate;
             float traitMultiplier = GetMultiplierByTrait(sheep);
             float specialityMultiplier = GetSpecialityMultiplier(sheep);
             float levelMultiplier = GetJobLevelMultipler(sheep);
-            totalProduction += sheep.m_productionRate * traitMultiplier * specialityMultiplier * levelMultiplier;
+            totalProduction += sheep.m_productionRate * traitMultiplier * specialityMultiplier * levelMultiplier * roomProductionMultiplier;
 
         }
 
@@ -260,7 +261,12 @@ public class RoomInstance : MonoBehaviour, ISelectable
                     return ESheepJob.Engineer;
 
                 }
-                default: return ESheepJob.Sailor;
+
+            case ERessourceType.RESEARCH:
+                {
+                    return ESheepJob.Scientist;
+                }
+            default: return ESheepJob.Sailor;
 
         }
     }
@@ -287,14 +293,14 @@ public class RoomInstance : MonoBehaviour, ISelectable
     {
         if (sheep.Speciality == ESheepSpeciality.Farmer &&
         m_roomData.m_ressourceProduced == ERessourceType.FOOD)
-            return 1.5f ;
+            return 1.5f;
 
         if (sheep.Speciality == ESheepSpeciality.Engineer &&
             m_roomData.m_ressourceProduced == ERessourceType.ENERGY)
             return 1.5f;
 
-        if (sheep.Speciality == ESheepSpeciality.Miner &&
-            m_roomData.m_ressourceProduced == ERessourceType.GOLD)
+        if (sheep.Speciality == ESheepSpeciality.BookWorm &&
+            m_roomData.m_ressourceProduced == ERessourceType.RESEARCH)
             return 1.5f;
 
         return 1f;

@@ -10,6 +10,7 @@ public enum ESheepTrait
     HardWorker,
     Lazy,
     Glutton,
+    Frugal
     
 
 }
@@ -19,8 +20,9 @@ public enum ESheepSpeciality
     None,
     Farmer,
     Engineer,
-    Miner,
+    BookWorm,
     SeaWolf,
+    
 }
 
 
@@ -28,7 +30,8 @@ public enum ESheepJob
 {
     Farmer,
     Engineer,    
-    Sailor
+    Sailor,
+    Scientist
 }
 public class SheepInstance : MonoBehaviour
 {

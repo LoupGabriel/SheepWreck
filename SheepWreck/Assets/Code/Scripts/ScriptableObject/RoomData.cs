@@ -39,10 +39,13 @@ public class RoomData : ScriptableObject
     public int m_upkeepCost;
     public int m_maxSheepCapacity;
     //production
+    [Tooltip("Production multiplier")]
     public float m_productionRate;
+    [Tooltip("Energy cost per week")]
     public float m_energyConsumption;
 
     //stock
+    [Tooltip("Max ressource capacity.Number of ressource before collectable")]
     public int m_capacity;
 
 

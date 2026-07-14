@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec1cc760962513747831e74eec0dfd3a, type: 3}
-  m_Name: EnergyLab
+  m_Name: Research
   m_EditorClassIdentifier: 
-  m_roomName: Energy Lab
-  m_description: Produce Energy
-  m_roomIcon: {fileID: -97647096, guid: 28f0b48e99cfd93499df39ce82aa83ae, type: 3}
-  m_ressourceProduced: 4
+  m_roomName: WorkStation
+  m_description: Produce research
+  m_roomIcon: {fileID: 1246474004, guid: 7da2881049ad9bb4ab724d99fbc1b07a, type: 3}
+  m_ressourceProduced: 5
   m_buildingType: 0
-  m_buildCost: 50
-  m_upkeepCost: 2
+  m_buildCost: 100
+  m_upkeepCost: 10
   m_maxSheepCapacity: 1
   m_productionRate: 1
-  m_energyConsumption: 20
-  m_capacity: 50
+  m_energyConsumption: 0
+  m_capacity: 2
   m_level: 1

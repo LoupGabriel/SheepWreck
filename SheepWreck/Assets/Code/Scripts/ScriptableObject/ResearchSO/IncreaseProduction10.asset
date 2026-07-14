@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58b0e7888d6247945ae19fccb183bab6, type: 3}
+  m_Name: IncreaseProduction10
+  m_EditorClassIdentifier: 
+  researchName: Production Bonus
+  description: 
+  icon: {fileID: 0}
+  researchCost: 50
+  researchTime: 30
+  prerequissites:
+  - {fileID: 11400000, guid: 7612d1213582e474dac77a3871b9ca4c, type: 2}
+  rewardType: 2
+  rewardValue: 0.1
+  roomPanelToUnlock: {fileID: 0}
