@@ -313,8 +313,34 @@ public class RessourceSystem : MonoBehaviour
         {
             case ESheepTrait.Glutton:
                 return 1.5f;
+            case ESheepTrait.Frugal:
+                return 0.5f;
 
             default: return 1;
+        }
+    }
+
+
+    private float GetThirstyMalus(SheepInstance sheep)
+    {
+        if(sheep.m_thirst <= 30)
+        {
+            return 0.5f;
+        }
+        else
+        {
+            return 1;
+        }
+    }
+    private float GetHungryMalus(SheepInstance sheep)
+    {
+        if(sheep.m_hunger <= 30)
+        {
+            return 0.5f;
+        }
+        else
+        {
+            return 1;
         }
     }
 }

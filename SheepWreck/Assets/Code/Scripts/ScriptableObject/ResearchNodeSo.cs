@@ -22,8 +22,9 @@ public class ResearchNodeSo : ScriptableObject
 
     [Header("Reward")]
     public EResearchRewardType rewardType;
-    public float rewardValue;
 
+    public float rewardValue;
+    public ERessourceType m_ressourceType;
    // public RoomData roomToUnlock;
     public GameObject roomPanelToUnlock;
 }

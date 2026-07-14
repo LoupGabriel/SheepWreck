@@ -10,6 +10,9 @@ public class ResearchSystem : MonoBehaviour
     [SerializeField]
     private List<ResearchProgress> m_researchProgress = new();
 
+
+    [SerializeField] private List<RoomData> m_upgradableCapacity;
+    [SerializeField] private List<RoomData> m_upgradableSheepSlot;
     private ResearchProgress m_currentResearch;
 
 
@@ -59,6 +62,7 @@ public class ResearchSystem : MonoBehaviour
             return;
 
         m_currentResearch = progress;
+        SfxManager.PlaySfx("Research");
     }
     private void CompleteResearch(ResearchProgress progress)
     {
@@ -75,8 +79,16 @@ public class ResearchSystem : MonoBehaviour
         {
             case EResearchRewardType.INCREASE_STORAGE:
 
+                UpdgradeCapacity((int)research.rewardValue,research.m_ressourceType);
+
+
+
                 break;
 
+            case EResearchRewardType.INCREASE_CREW_CAPACITY:
+
+                UpdgradeSheepCapacity((int)research.rewardValue, research.m_ressourceType);
+                break;
             case EResearchRewardType.REDUCE_TRAVEL_COST:
 
                 break;
@@ -90,15 +102,18 @@ public class ResearchSystem : MonoBehaviour
                 if (m_currentShipUpgrade == 1)
                 {
                     ShipSystem.Instance.UpgradeShip();
+                    SfxManager.PlaySfx("Upgrade01");
                 }
                 else if (m_currentShipUpgrade == 2)
                 {
                     ShipSystem.Instance.Upgrade02Ship();
+                    SfxManager.PlaySfx("Upgrade02");
                 }
                 break;
 
             case EResearchRewardType.UNLOCK_ROOM:
                 GameObject room = research.roomPanelToUnlock;
+                SfxManager.PlaySfx("UpgradeGeneric");
 
                 Instantiate(room, m_roomPanelContainer);
 
@@ -144,5 +159,36 @@ public class ResearchSystem : MonoBehaviour
     public ResearchProgress FindProgress(ResearchNodeSo research)
     {
         return m_researchProgress.Find(x => x.researchData == research);
+    }
+
+
+
+    private void UpdgradeCapacity(int amount,ERessourceType type)
+    {
+        foreach(RoomData room in m_upgradableCapacity)
+        {
+            if(room.m_ressourceProduced == type)
+            {
+                room.m_capacity += amount;
+            }
+            
+               
+            
+            
+        }
+    }
+    private void UpdgradeSheepCapacity(int amount,ERessourceType type)
+    {
+        foreach(RoomData room in m_upgradableSheepSlot)
+        {
+            if(room.m_ressourceProduced == type)
+            {
+                room.m_maxSheepCapacity += amount;
+            }
+            
+               
+            
+            
+        }
     }
 }

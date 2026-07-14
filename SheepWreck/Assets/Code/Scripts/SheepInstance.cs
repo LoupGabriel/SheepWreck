@@ -46,7 +46,11 @@ public class SheepInstance : MonoBehaviour
     [SerializeField] private ESheepSpeciality m_speciality;
     [SerializeField] private float m_hungerTimer = 5f;
     [SerializeField] private float m_thirstTimer = 2f;
+    [SerializeField] private float m_dyingHealthTime = 2f;
 
+    [SerializeField] private GameObject m_hungryToken;
+    [SerializeField] private GameObject m_thirstyToken;
+    [SerializeField] private GameObject m_DyingToken;
 
     private bool m_initializedFromRecruit = false;
     private Animator m_animator;
@@ -81,7 +85,7 @@ public class SheepInstance : MonoBehaviour
     public RoomInstance m_assignedRoom;
     private float m_hungerElapse = 0;
     private float m_thirstElapse = 0;
-
+    private float m_dyingElapse = 0;
 
     public bool IsWorking => m_stateMachine != null && m_stateMachine.m_currentSheepState == m_workinState;
 
@@ -112,7 +116,9 @@ public class SheepInstance : MonoBehaviour
     {
 
         m_animator = GetComponent<Animator>();
-
+        m_hungryToken.SetActive(false);
+        m_thirstyToken.SetActive(false);
+        m_DyingToken.SetActive(false);
         //initialize state machine
         m_stateMachine.Initialize(m_idleState, m_animator);
 
@@ -143,6 +149,7 @@ public class SheepInstance : MonoBehaviour
     {
         Hunger();
         Thirst();
+        Dying();
         m_currentMorale = (int)GetMorale();
     }
 
@@ -217,6 +224,10 @@ public class SheepInstance : MonoBehaviour
             m_hunger = Mathf.Clamp(m_hunger, 0, 100);
         }
 
+        if(m_hunger <= 30)
+        {
+            m_hungryToken.SetActive(true);
+        }
 
     }
 
@@ -232,7 +243,10 @@ public class SheepInstance : MonoBehaviour
 
         }
 
-
+        if(m_thirst <= 30)
+        {
+            m_thirstyToken.SetActive(true);
+        }
 
 
     }
@@ -363,4 +377,28 @@ public class SheepInstance : MonoBehaviour
         m_jobXP[ESheepJob.Sailor] = recruitData.sailorXp;
     }
 
+
+    public void Dying()
+    {
+        if(m_hunger <= 0 && m_thirst <= 0)
+        {
+            m_hungryToken.SetActive(false);
+            m_thirstyToken.SetActive(false);
+            m_DyingToken.SetActive(true);
+           
+            m_dyingElapse += Time.deltaTime;
+
+            if(m_dyingElapse >= m_dyingHealthTime)
+            {
+                m_currentHp--;
+                m_dyingElapse = 0;
+            }
+        }
+
+        if(m_currentHp <= 0)
+        {
+            UiPanelManager.Instance.closeSheepPanel();
+            Destroy(this.gameObject);
+        }
+    }
 }

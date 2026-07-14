@@ -888,6 +888,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: IconDying
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 82
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c817d98a933ffc42a60631baecec63f
+      internalID: -569556441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -906,6 +928,7 @@ TextureImporter:
       Bar_red: 2042205348
       ConstructionModeButton: 2102130007
       IconComplete: -98514208
+      IconDying: -569556441
       IconFlag: 155198134
       IconInProgress: 1114212987
       IconIsland02: 1245694377

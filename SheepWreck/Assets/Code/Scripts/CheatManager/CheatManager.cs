@@ -22,7 +22,7 @@ public class CheatManager : MonoBehaviour
     
     //ressource selection
     private int m_selectedRessourceIndex = 0;
-    private string[] m_ressourceType = { "Gold", "Food", "Water", "Energy" };
+    private string[] m_ressourceType = { "Gold", "Food", "Water", "Energy" ,"Reseach"};
 
     //Sheep Managment
     [SerializeField] private GameObject m_sheepPrefab;
@@ -95,6 +95,9 @@ public class CheatManager : MonoBehaviour
             case 3:
                 //energy
                 ressource = ERessourceType.ENERGY;
+                break;
+            case 4:
+                ressource = ERessourceType.RESEARCH;
                 break;
 
         }

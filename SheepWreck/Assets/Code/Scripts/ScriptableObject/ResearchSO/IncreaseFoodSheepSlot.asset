@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 58b0e7888d6247945ae19fccb183bab6, type: 3}
-  m_Name: IncreaseProduction10
+  m_Name: IncreaseFoodSheepSlot
   m_EditorClassIdentifier: 
-  researchName: Production Bonus
-  description: 
-  icon: {fileID: 0}
-  researchCost: 50
+  researchName: Increase Food Sheep Capacity
+  description: Increase sheep slot by 1 for all food production room
+  icon: {fileID: 1191969467, guid: 28f0b48e99cfd93499df39ce82aa83ae, type: 3}
+  researchCost: 25
   researchTime: 30
   prerequissites:
-  - {fileID: 11400000, guid: 7612d1213582e474dac77a3871b9ca4c, type: 2}
-  rewardType: 2
-  rewardValue: 0.1
+  - {fileID: 11400000, guid: 13d5ef810166ea74fa97e5a53b0aedb9, type: 2}
+  rewardType: 5
+  rewardValue: 1
+  m_ressourceType: 1
   roomPanelToUnlock: {fileID: 0}

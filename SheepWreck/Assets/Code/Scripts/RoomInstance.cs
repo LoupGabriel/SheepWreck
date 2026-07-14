@@ -135,7 +135,10 @@ public class RoomInstance : MonoBehaviour, ISelectable
             float traitMultiplier = GetMultiplierByTrait(sheep);
             float specialityMultiplier = GetSpecialityMultiplier(sheep);
             float levelMultiplier = GetJobLevelMultipler(sheep);
-            totalProduction += sheep.m_productionRate * traitMultiplier * specialityMultiplier * levelMultiplier * roomProductionMultiplier;
+
+
+            float malus =( GetThirstyMalus(sheep) + GetHungryMalus(sheep)) / 2;
+            totalProduction += sheep.m_productionRate * traitMultiplier * specialityMultiplier * levelMultiplier * roomProductionMultiplier * malus;
 
         }
 
@@ -312,6 +315,27 @@ public class RoomInstance : MonoBehaviour, ISelectable
         int level = sheep.GetJobLevel(job);
         return 1 + ((level - 1) * 0.1f);
     }
-
+    private float GetThirstyMalus(SheepInstance sheep)
+    {
+        if (sheep.m_thirst <= 30)
+        {
+            return 0.5f;
+        }
+        else
+        {
+            return 1;
+        }
+    }
+    private float GetHungryMalus(SheepInstance sheep)
+    {
+        if (sheep.m_hunger <= 30)
+        {
+            return 0.5f;
+        }
+        else
+        {
+            return 1;
+        }
+    }
 
 }

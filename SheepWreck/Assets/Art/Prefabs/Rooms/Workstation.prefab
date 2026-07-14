@@ -920,9 +920,13 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 9047088260067150113, guid: 6c949224d45f4954483e998e4728f779, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9047088260067150113, guid: 6c949224d45f4954483e998e4728f779, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 356606325, guid: 28f0b48e99cfd93499df39ce82aa83ae, type: 3}
+      objectReference: {fileID: -2112371566, guid: 28f0b48e99cfd93499df39ce82aa83ae, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -9,6 +9,8 @@ public class UiPanelManager : MonoBehaviour
     [SerializeField] 
     private GameObject m_constructionPanel;
     private GameObject m_currentPanel;
+
+    [SerializeField] private GameObject m_sheepPanel;
     [SerializeField]
     private GameObject m_constructionModeEffect;
     private void Awake()
@@ -77,5 +79,9 @@ public class UiPanelManager : MonoBehaviour
             m_currentPanel.SetActive(false);
             m_currentPanel = null;
         }
+    }
+    public void closeSheepPanel()
+    {
+        m_sheepPanel.SetActive(false);
     }
 }
