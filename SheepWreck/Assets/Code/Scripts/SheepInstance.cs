@@ -228,6 +228,10 @@ public class SheepInstance : MonoBehaviour
         {
             m_hungryToken.SetActive(true);
         }
+        else
+        {
+            m_thirstyToken.SetActive(false);
+        }
 
     }
 
@@ -246,6 +250,10 @@ public class SheepInstance : MonoBehaviour
         if(m_thirst <= 30)
         {
             m_thirstyToken.SetActive(true);
+        }
+        else
+        {
+            m_thirstyToken.SetActive(false);
         }
 
 

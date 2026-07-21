@@ -12,6 +12,8 @@ public class UiWorldMap : MonoBehaviour
     [SerializeField] private TMP_Text m_remainingTimeText;
     [SerializeField] private Button m_islandButton;
 
+
+    [SerializeField] private TMP_Text m_energyCostText;
     [SerializeField] private IslandInstance m_selectedIsland;
 
     [SerializeField] private Image m_shipToken;
@@ -37,7 +39,7 @@ public class UiWorldMap : MonoBehaviour
         }
         else
         {
-            m_remainingTimeText.text = "Arrive in :" + m_travelSystem.m_travelTime.ToString();
+            m_remainingTimeText.text = "Arrive in :" +  Mathf.FloorToInt(m_travelSystem.m_travelTime).ToString();
         }
        
         
@@ -62,7 +64,13 @@ public class UiWorldMap : MonoBehaviour
         m_selectedIsland = selectedIsland;
         m_flagDestination.rectTransform.position = m_selectedIsland.transform.position;
         m_destinationText.text = "Destination :" + selectedIsland.m_islandName;
+        int energyCost = m_travelSystem.GetEnergyCost(selectedIsland);
 
+        int currentEnergy = RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.ENERGY];
+
+        m_energyCostText.text = currentEnergy >= energyCost
+            ? $"Energy cost : {energyCost}"
+            : $"Not Enough Energy {energyCost}";
 
     }
 

@@ -1,11 +1,13 @@
 
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UIQuest : MonoBehaviour
 {
     [SerializeField] private Transform m_questListContent;
+   
 
     [SerializeField] private GameObject m_questEntryPrefab;
 
@@ -32,7 +34,11 @@ public class UIQuest : MonoBehaviour
 
         foreach (var quest in QuestManager.Instance.m_activesQuests)
         {
+            
             GameObject entry = Instantiate(m_questEntryPrefab, m_questListContent);
+
+            if (quest.IsCompleted) { Destroy(entry.gameObject); }
+
             TMP_Text questNameText = entry.transform.Find("QuestNameText").GetComponent<TMP_Text>();
             Transform objectiveList = entry.transform.Find("ObjectivesList");
 
@@ -49,7 +55,7 @@ public class UIQuest : MonoBehaviour
                 TMP_Text destinationText = objectText.transform.Find("DestinationText").GetComponent<TMP_Text>();
 
                 objText.text = $"{objective.m_description}({objective.m_currentAmount} / {objective.m_requiredAmount})";
-                destinationText.text = $"Destinatin : {objective.m_questDestination}";
+                destinationText.text = $"Destination : {objective.m_questDestination}";
             }
 
         }

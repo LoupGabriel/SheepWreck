@@ -26,7 +26,7 @@ public class RessourceSystem : MonoBehaviour
     public Action<ERessourceType, int> OnRessourceAdded;
 
     [SerializeField]
-    private int m_maxGoldStock = 100;
+    private int m_maxGoldStock = 250;
 
     [SerializeField]
     private int m_maxFoodStock = 100;
@@ -268,7 +268,7 @@ public class RessourceSystem : MonoBehaviour
 
     private void InitializeDictionnary()
     {
-        m_ressourceDictionary.Add(ERessourceType.GOLD, 100);
+        m_ressourceDictionary.Add(ERessourceType.GOLD, 250);
         m_ressourceDictionary.Add(ERessourceType.FOOD, 100);
         m_ressourceDictionary.Add(ERessourceType.WATER, 100);
         m_ressourceDictionary.Add(ERessourceType.ENERGY, 0);
@@ -321,26 +321,5 @@ public class RessourceSystem : MonoBehaviour
     }
 
 
-    private float GetThirstyMalus(SheepInstance sheep)
-    {
-        if(sheep.m_thirst <= 30)
-        {
-            return 0.5f;
-        }
-        else
-        {
-            return 1;
-        }
-    }
-    private float GetHungryMalus(SheepInstance sheep)
-    {
-        if(sheep.m_hunger <= 30)
-        {
-            return 0.5f;
-        }
-        else
-        {
-            return 1;
-        }
-    }
+   
 }

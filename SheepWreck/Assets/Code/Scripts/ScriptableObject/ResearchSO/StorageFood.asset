@@ -21,4 +21,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0820ad4ddf75d774d95a8c2c8129aed2, type: 2}
   rewardType: 0
   rewardValue: 0
+  m_ressourceType: 1
   roomPanelToUnlock: {fileID: 437954895019065560, guid: c7ab246a4c396364dbbd374177badf15, type: 3}

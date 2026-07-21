@@ -48,6 +48,7 @@ public class ResearchSystem : MonoBehaviour
         int researchPoint = RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.RESEARCH];
         if (researchPoint < research.researchCost)
         {
+            UiNotification.instance.TriggerNotification("Not enough Research points");
             return;
         }
         else
@@ -63,6 +64,7 @@ public class ResearchSystem : MonoBehaviour
 
         m_currentResearch = progress;
         SfxManager.PlaySfx("Research");
+        UiNotification.instance.TriggerNotification($"Curently researching {m_currentResearch.researchData.name}");
     }
     private void CompleteResearch(ResearchProgress progress)
     {
@@ -72,6 +74,7 @@ public class ResearchSystem : MonoBehaviour
 
         ApplyReward(progress.researchData);
         m_currentResearch = null;
+        UiNotification.instance.TriggerNotification($"Completed: {progress.researchData.name}");
     }
     private void ApplyReward(ResearchNodeSo research)
     {

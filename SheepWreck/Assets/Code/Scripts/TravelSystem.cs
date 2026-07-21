@@ -86,6 +86,8 @@ public class TravelSystem : MonoBehaviour
             }
         }
     }
+
+    
     public void SetDestination(IslandInstance targetIstland)
     {
         if (m_isTraveling || targetIstland == null) return;
@@ -93,7 +95,7 @@ public class TravelSystem : MonoBehaviour
       
         int distance = GetManhattanDistance(m_currentIsland.m_gridPos, targetIstland.m_gridPos);
 
-        int energyCost = distance * m_energyCostPerTile;
+        int energyCost = GetEnergyCost(targetIstland);
 
         int currentEnergy = RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.ENERGY];
 
@@ -104,6 +106,7 @@ public class TravelSystem : MonoBehaviour
         {
             
             SfxManager.PlaySfx("Error");
+            UiNotification.instance.TriggerNotification("not enough energy");
             m_canTravel = false;
 
             return;
@@ -163,10 +166,19 @@ public class TravelSystem : MonoBehaviour
         EventManager.Instance.SetContext(false);
         SoundtrackManager.Instance.PlayMusic("MainMusic");
         m_environment.SetSailSpeed(1f);
+        UiNotification.instance.TriggerNotification($"Arrive at destination{m_currentIsland.m_islandName}");
 
        
     }
 
+    public int GetEnergyCost(IslandInstance targetIsland)
+    {
+        if(targetIsland == null ||m_currentIsland == null) return 0;
+
+        int distance = GetManhattanDistance(m_currentIsland.m_gridPos, targetIsland.m_gridPos);
+
+        return distance * m_energyCostPerTile;
+    }
 
 
 

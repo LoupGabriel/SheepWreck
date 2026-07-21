@@ -19,8 +19,8 @@ MonoBehaviour:
   m_buildingType: 0
   m_buildCost: 20
   m_upkeepCost: 2
-  m_maxSheepCapacity: 1
+  m_maxSheepCapacity: 2
   m_productionRate: 1
   m_energyConsumption: 10
-  m_capacity: 50
+  m_capacity: 90
   m_level: 1
