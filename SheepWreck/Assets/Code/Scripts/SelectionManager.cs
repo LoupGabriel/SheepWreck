@@ -18,6 +18,7 @@ public class SelectionManager : MonoBehaviour
     public RoomInstance m_currentHoveredRoom;
     private Ray m_rayFromCam;
     public SheepController m_lastSelectedSheep;
+    public SheepController m_currentHoverSheeep;
 
 
 
@@ -57,30 +58,105 @@ public class SelectionManager : MonoBehaviour
 
 
         RoomInstance newHoveredRoom = null;
-        if (Physics.Raycast(m_rayFromCam, out RaycastHit hit))
+
+        SheepController newHoveredSheep = null;
+
+        RaycastHit[] hits = Physics.RaycastAll(m_rayFromCam);
+
+
+        foreach(RaycastHit hit in hits)
         {
-            newHoveredRoom = hit.collider.GetComponent<RoomInstance>();
+            SheepController sheep = hit.collider.GetComponentInParent<SheepController>();
+
+            RoomInstance room = hit.collider.GetComponentInParent<RoomInstance>();
+
+            if(newHoveredSheep == null && sheep != null)
+            {
+                newHoveredSheep = sheep;
+            }
+            if(newHoveredRoom == null && room != null)
+            {
+                newHoveredRoom = room;
+            }
+
+            if(newHoveredSheep != null && newHoveredRoom != null)
+            {
+                break;
+            }
         }
 
+        //old version
 
-        if (newHoveredRoom != m_currentHoveredRoom)
-        {
-
-            if (m_currentHoveredRoom != null)
-                m_currentHoveredRoom.SetHover(false);
-
-            m_currentHoveredRoom = newHoveredRoom;
-
-            if (m_currentHoveredRoom != null)
-                m_currentHoveredRoom.SetHover(true);
+        //if (Physics.Raycast(m_rayFromCam, out RaycastHit hit))
+        //{
+        //    newHoveredRoom = hit.collider.GetComponent<RoomInstance>();
+        //}
 
 
-        }
+        //if (newHoveredRoom != m_currentHoveredRoom)
+        //{
+
+        //    if (m_currentHoveredRoom != null)
+        //        m_currentHoveredRoom.SetHover(false);
+
+        //    m_currentHoveredRoom = newHoveredRoom;
+
+        //    if (m_currentHoveredRoom != null)
+        //        m_currentHoveredRoom.SetHover(true);
 
 
+        //}
+
+        UpdateHoveredSheep(newHoveredSheep);
+        UpdateHoveredRoom(newHoveredRoom);
 
 
     }
+
+    private void UpdateHoveredSheep(SheepController newHoveredSheep)
+    {
+        if (newHoveredSheep == m_currentHoverSheeep)
+        {
+            return;
+        }
+
+        if (m_currentHoverSheeep != null)
+        {
+            m_currentHoverSheeep.SetHover(false);
+        }
+
+        m_currentHoverSheeep = newHoveredSheep;
+
+        if (m_currentHoverSheeep != null)
+        {
+            m_currentHoverSheeep.SetHover(true);
+        }
+    }
+
+    private void UpdateHoveredRoom(RoomInstance newHoveredRoom)
+    {
+        if (newHoveredRoom == m_currentHoveredRoom)
+        {
+            return;
+        }
+
+        if (m_currentHoveredRoom != null)
+        {
+            m_currentHoveredRoom.SetHover(false);
+        }
+
+        m_currentHoveredRoom = newHoveredRoom;
+
+        if (m_currentHoveredRoom != null)
+        {
+            m_currentHoveredRoom.SetHover(true);
+        }
+    }
+
+
+
+
+
     /// <summary>
     /// Handle when the mouse click was pressed
     /// </summary>

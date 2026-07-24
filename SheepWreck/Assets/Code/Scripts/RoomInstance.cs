@@ -104,6 +104,7 @@ public class RoomInstance : MonoBehaviour, ISelectable
         if (m_currentStoredResources >= m_roomData.m_capacity && m_roomData.m_capacity != 0)
         {
             CollectRessource();
+
         }
 
 
@@ -153,6 +154,27 @@ public class RoomInstance : MonoBehaviour, ISelectable
         if (m_currentStoredResources >= m_roomData.m_capacity)
         {
             m_collectIcon.SetActive(true);
+            string sfx = null;
+
+            switch (m_roomData.m_ressourceProduced)
+            {
+                case ERessourceType.FOOD:
+                    sfx = "foodReady";
+                    break;
+                case ERessourceType.WATER:
+                    sfx = "waterReady";
+                    break;
+                case ERessourceType.ENERGY:
+                    sfx = "energyReady";
+                    break;
+                case ERessourceType.RESEARCH:
+                    sfx = "researchReady";
+                    break;
+
+
+            }
+            
+            SfxManager.PlaySfx(sfx);
         }
 
     }
@@ -170,8 +192,13 @@ public class RoomInstance : MonoBehaviour, ISelectable
             return;
 
         RessourceSystem.Instance.GainRessource(m_currentStoredResources, m_roomData.m_ressourceProduced);
+
+        UiResourceAnimationManager.Instance.PlayCollectAnimation(m_collectIcon.transform, m_roomData.m_ressourceProduced);
         m_currentStoredResources = 0;
         m_collectIcon.SetActive(false);
+        
+      
+   
     }
 
 

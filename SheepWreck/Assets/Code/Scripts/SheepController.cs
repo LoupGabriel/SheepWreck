@@ -14,6 +14,8 @@ public class SheepController : MonoBehaviour, ISelectable
     public SheepInstance m_sheepData;
     private UiSheepPanel m_sheepPanel;
 
+    private SpriteRenderer m_sheepRenderer;
+
     private Animator m_animator;
     private static bool m_isGrab = false;
 
@@ -34,7 +36,7 @@ public class SheepController : MonoBehaviour, ISelectable
 
     private void Start()
     {
-       
+        m_sheepRenderer = GetComponent<SpriteRenderer>();
         m_animator.SetBool("isGrab", m_isGrab);
         SetParent();
         if (m_sheepData != null)
@@ -72,7 +74,7 @@ public class SheepController : MonoBehaviour, ISelectable
     }
 
 
-
+    
 
 
     /// <summary>
@@ -96,7 +98,7 @@ public class SheepController : MonoBehaviour, ISelectable
 
         
         m_sheepPanel.EnableSheepPanel(m_sheepData.m_sheepName, m_sheepData);
-
+        m_sheepRenderer.material.SetFloat("_oulineOn", 1);
 
 
     }
@@ -147,8 +149,8 @@ public class SheepController : MonoBehaviour, ISelectable
         m_animator.SetBool("isGrab", m_isGrab);
         m_timeSinceClick = 0;
         m_sfxPlayed = false;
-       
 
+        m_sheepRenderer.material.SetFloat("_oulineOn", 0);
     }
 
     /// <summary>
@@ -163,6 +165,13 @@ public class SheepController : MonoBehaviour, ISelectable
 
     }
 
+
+    public void SetHover(bool isHovered)
+    {
+       
+            m_sheepRenderer.material.SetFloat("_oulineOn", isHovered ? 1:0);
+        
+    }
 
 
 
