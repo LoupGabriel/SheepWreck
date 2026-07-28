@@ -36,9 +36,9 @@ public class UiRoomConstructionPanel : MonoBehaviour
     {
         if (RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.GOLD] < m_roomData.m_buildCost) {
             
-            //GameManager.Instance.SetConstructionMode(false);
+            GameManager.Instance.SetConstructionMode(false);
 
-            //PauseController.IsPaused(false);
+            PauseController.IsPaused(false);
             SfxManager.PlaySfx("Error");
             return; 
         

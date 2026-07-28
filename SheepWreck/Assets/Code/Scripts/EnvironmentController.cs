@@ -45,7 +45,10 @@ public class EnvironmentController : MonoBehaviour
 
     }
 
-
+    /// <summary>
+    /// Change the background color 
+    /// </summary>
+    /// <param name="currentEnvironment"></param>
     public void ChangeBackground(int currentEnvironment)
     {
         Color targetTop = Color.black;
@@ -72,6 +75,10 @@ public class EnvironmentController : MonoBehaviour
         m_coroutine= StartCoroutine(LerpSkybox(targetTop, targetBot, m_transitionDuration));
     }
 
+
+    /// <summary>
+    /// Lerp current background color with the target one
+    /// </summary>
     private IEnumerator LerpSkybox(Color targetTop, Color targetBottom, float duration)
     {
         Color startTop = m_runtimeSkybox.GetColor(m_topColor);

@@ -48,7 +48,10 @@ public class EventManager : MonoBehaviour
     }
 
 
-
+    /// <summary>
+    /// Set the context at true if the player travel
+    /// </summary>
+    /// <param name="isTraveling"></param>
     public void SetContext(bool isTraveling)
     {
         if (m_context == null)

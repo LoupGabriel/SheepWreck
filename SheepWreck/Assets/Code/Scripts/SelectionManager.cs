@@ -85,27 +85,7 @@ public class SelectionManager : MonoBehaviour
             }
         }
 
-        //old version
-
-        //if (Physics.Raycast(m_rayFromCam, out RaycastHit hit))
-        //{
-        //    newHoveredRoom = hit.collider.GetComponent<RoomInstance>();
-        //}
-
-
-        //if (newHoveredRoom != m_currentHoveredRoom)
-        //{
-
-        //    if (m_currentHoveredRoom != null)
-        //        m_currentHoveredRoom.SetHover(false);
-
-        //    m_currentHoveredRoom = newHoveredRoom;
-
-        //    if (m_currentHoveredRoom != null)
-        //        m_currentHoveredRoom.SetHover(true);
-
-
-        //}
+       
 
         UpdateHoveredSheep(newHoveredSheep);
         UpdateHoveredRoom(newHoveredRoom);

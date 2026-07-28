@@ -405,7 +405,8 @@ public class SheepInstance : MonoBehaviour
 
         if(m_currentHp <= 0)
         {
-            UiPanelManager.Instance.closeSheepPanel();
+            
+            //UiPanelManager.Instance.closeSheepPanel();
             Destroy(this.gameObject);
         }
     }

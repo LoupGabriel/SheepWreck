@@ -449,10 +449,10 @@ MonoBehaviour:
   m_islandName: 
   m_gridPos: {x: 6, y: 2}
   m_nameData: {fileID: 11400000, guid: 0cdb00ad87fabf04f952b20819aa1ce8, type: 2}
+  m_recruitCount: 3
   m_availableQuest:
   - {fileID: 11400000, guid: 7113f87367526354fb9647f03fd0093d, type: 2}
   m_availableRecruits: []
-  m_recruitCount: 3
 --- !u!114 &948181494450082201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4691,10 +4691,10 @@ MonoBehaviour:
   m_islandName: 
   m_gridPos: {x: 4, y: 0}
   m_nameData: {fileID: 11400000, guid: 0cdb00ad87fabf04f952b20819aa1ce8, type: 2}
+  m_recruitCount: 3
   m_availableQuest:
   - {fileID: 11400000, guid: 8fb71df5105918a4f879e0cd1c7b5477, type: 2}
   m_availableRecruits: []
-  m_recruitCount: 3
 --- !u!114 &8247575346683313683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6013,7 +6013,7 @@ MonoBehaviour:
           m_StringArgument: OpenMenu
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1270261402872150484}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UiPanelManager, Assembly-CSharp
         m_MethodName: OpenPanel
         m_Mode: 2
@@ -6117,10 +6117,10 @@ MonoBehaviour:
   m_islandName: 
   m_gridPos: {x: 3, y: 1}
   m_nameData: {fileID: 11400000, guid: 0cdb00ad87fabf04f952b20819aa1ce8, type: 2}
+  m_recruitCount: 3
   m_availableQuest:
   - {fileID: 11400000, guid: 3626bcb7e0467964fb56ae89543a9b59, type: 2}
   m_availableRecruits: []
-  m_recruitCount: 3
 --- !u!114 &7658409831832601558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8120,7 +8120,7 @@ MonoBehaviour:
           m_StringArgument: OpenMenu
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1270261402872150484}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UiPanelManager, Assembly-CSharp
         m_MethodName: OpenPanel
         m_Mode: 2
@@ -12225,7 +12225,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1270261402872150484}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UiPanelManager, Assembly-CSharp
         m_MethodName: OpenPanel
         m_Mode: 2
@@ -14875,10 +14875,10 @@ MonoBehaviour:
   m_islandName: Poe Island
   m_gridPos: {x: 1, y: 0}
   m_nameData: {fileID: 11400000, guid: 0cdb00ad87fabf04f952b20819aa1ce8, type: 2}
+  m_recruitCount: 3
   m_availableQuest:
   - {fileID: 11400000, guid: a5de6872299cc5542a0db684dc311851, type: 2}
   m_availableRecruits: []
-  m_recruitCount: 3
 --- !u!114 &4391776159416119919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17415,9 +17415,6 @@ GameObject:
   - component: {fileID: 6037367381274242624}
   - component: {fileID: 2503072721001557313}
   - component: {fileID: 5406568062021299727}
-  - component: {fileID: 1270261402872150484}
-  - component: {fileID: 2378007766375872352}
-  - component: {fileID: 4325172654881144158}
   - component: {fileID: 343860394574531579}
   - component: {fileID: 3411910653388252811}
   - component: {fileID: 2237255052048334226}
@@ -17563,51 +17560,6 @@ MonoBehaviour:
   m_sheep: {fileID: 4094666879089242883, guid: 874ce2b2ea90c30429bc689de109bae2, type: 3}
   m_parent: {fileID: 0}
   m_sheepCost: 250
---- !u!114 &1270261402872150484
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5794571186028285168}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d86ddb6ab35a2b84eaed9e7c60bb9e36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_constructionPanel: {fileID: 4487197092608958557}
-  m_sheepPanel: {fileID: 0}
-  m_constructionModeEffect: {fileID: 9083305672227675066}
---- !u!114 &2378007766375872352
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5794571186028285168}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2048278e0aac394fbdffdf0c82469a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_eventPanel: {fileID: 6116042894673348192}
-  m_message: {fileID: 1590717923375084715}
-  m_typeSpeed: 0.05
---- !u!114 &4325172654881144158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5794571186028285168}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9201ad40257161f43842154d9d14cb20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_sheep: {fileID: 4094666879089242883, guid: 874ce2b2ea90c30429bc689de109bae2, type: 3}
-  m_parent: {fileID: 0}
-  m_sheepCost: 250
 --- !u!114 &343860394574531579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17653,6 +17605,7 @@ MonoBehaviour:
   m_destinationText: {fileID: 8299999791633563353}
   m_remainingTimeText: {fileID: 1250718652150165238}
   m_islandButton: {fileID: 3948573971260121474}
+  m_energyCostText: {fileID: 0}
   m_selectedIsland: {fileID: 0}
   m_shipToken: {fileID: 2188852021549164689}
   m_flagDestination: {fileID: 2876157687475334157}
@@ -18892,10 +18845,10 @@ MonoBehaviour:
   m_islandName: 
   m_gridPos: {x: 2, y: 3}
   m_nameData: {fileID: 11400000, guid: 0cdb00ad87fabf04f952b20819aa1ce8, type: 2}
+  m_recruitCount: 3
   m_availableQuest:
   - {fileID: 11400000, guid: 18b5f868ab64e24488f4eb356d1ea8df, type: 2}
   m_availableRecruits: []
-  m_recruitCount: 3
 --- !u!114 &6389897222129181231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19899,10 +19852,10 @@ MonoBehaviour:
   m_islandName: 
   m_gridPos: {x: 0, y: 2}
   m_nameData: {fileID: 11400000, guid: 0cdb00ad87fabf04f952b20819aa1ce8, type: 2}
+  m_recruitCount: 3
   m_availableQuest:
   - {fileID: 11400000, guid: 6f0e199ea441f864f9bd5b2487109e40, type: 2}
   m_availableRecruits: []
-  m_recruitCount: 3
 --- !u!114 &4997057481480639767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23289,7 +23242,7 @@ MonoBehaviour:
           m_StringArgument: OpenMenu
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1270261402872150484}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UiPanelManager, Assembly-CSharp
         m_MethodName: OpenPanel
         m_Mode: 2
@@ -24373,10 +24326,10 @@ MonoBehaviour:
   m_islandName: 
   m_gridPos: {x: 0, y: 3}
   m_nameData: {fileID: 11400000, guid: 0cdb00ad87fabf04f952b20819aa1ce8, type: 2}
+  m_recruitCount: 3
   m_availableQuest:
   - {fileID: 11400000, guid: a9296acea7ff49740a3d6666f23f07a3, type: 2}
   m_availableRecruits: []
-  m_recruitCount: 3
 --- !u!114 &5731203377416837730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25296,10 +25249,10 @@ MonoBehaviour:
   m_islandName: 
   m_gridPos: {x: 4, y: 3}
   m_nameData: {fileID: 11400000, guid: 0cdb00ad87fabf04f952b20819aa1ce8, type: 2}
+  m_recruitCount: 3
   m_availableQuest:
   - {fileID: 11400000, guid: 2747b74fcf94c0340a2a2f0d630fce9c, type: 2}
   m_availableRecruits: []
-  m_recruitCount: 3
 --- !u!114 &1558541707266976983
 MonoBehaviour:
   m_ObjectHideFlags: 0

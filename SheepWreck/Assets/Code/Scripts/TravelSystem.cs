@@ -144,7 +144,9 @@ public class TravelSystem : MonoBehaviour
         return Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y);
     }
 
-
+    /// <summary>
+    /// call when the destination is reach
+    /// </summary>
     private void ArriveAtDestination()
     {
         foreach (Animator animator in m_sailAnimator)
@@ -171,6 +173,11 @@ public class TravelSystem : MonoBehaviour
        
     }
 
+    /// <summary>
+    /// Return the total energy cost of the current selected travel
+    /// </summary>
+    /// <param name="targetIsland"></param>
+    /// <returns></returns>
     public int GetEnergyCost(IslandInstance targetIsland)
     {
         if(targetIsland == null ||m_currentIsland == null) return 0;

@@ -55,6 +55,8 @@ public class UiRecruitPanel : MonoBehaviour
 
     public void Recruit()
     {
+       
+
         if (m_currentRecruit == null) return;
 
         //if doesnt have enought gold

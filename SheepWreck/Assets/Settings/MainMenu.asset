@@ -161,7 +161,7 @@ MonoBehaviour:
   active: 1
   postExposure:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.07
   contrast:
     m_OverrideState: 1
     m_Value: 0
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97c23e3b12dc18c42a140437e53d3951, type: 3}
   m_Name: Tonemapping
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   mode:
     m_OverrideState: 1
     m_Value: 0
@@ -407,7 +407,7 @@ MonoBehaviour:
   active: 1
   temperature:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 19
   tint:
     m_OverrideState: 1
     m_Value: 0
@@ -443,7 +443,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
-  m_Name: DefaultVolumeProfile
+  m_Name: MainMenu
   m_EditorClassIdentifier: 
   components:
   - {fileID: -9167874883656233139}
@@ -578,11 +578,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eb4b772797da9440885e8bd939e9560, type: 3}
   m_Name: ColorCurves
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   master:
     m_OverrideState: 1
     m_Value:
-      <length>k__BackingField: 2
+      <length>k__BackingField: 3
       m_Loop: 0
       m_ZeroValue: 0
       m_Range: 1
@@ -592,6 +592,15 @@ MonoBehaviour:
         - serializedVersion: 3
           time: 0
           value: 0
+          inSlope: 1
+          outSlope: 1
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.8168008
+          value: 0.9337122
           inSlope: 1
           outSlope: 1
           tangentMode: 0
@@ -849,10 +858,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81180773991d8724ab7f2d216912b564, type: 3}
   m_Name: ChromaticAberration
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.043
 --- !u!114 &6940869943325143175
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -881,16 +890,16 @@ MonoBehaviour:
   active: 1
   color:
     m_OverrideState: 1
-    m_Value: {r: 0, g: 0, b: 0, a: 1}
+    m_Value: {r: 0.04554797, g: 0.18236746, b: 0.29559743, a: 1}
   center:
     m_OverrideState: 1
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.283
   smoothness:
     m_OverrideState: 1
-    m_Value: 0.2
+    m_Value: 0.401
   rounded:
     m_OverrideState: 1
     m_Value: 0
@@ -934,16 +943,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdfbdbb87d3286943a057f7791b43141, type: 3}
   m_Name: ChannelMixer
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   redOutRedIn:
     m_OverrideState: 1
-    m_Value: 100
+    m_Value: 125
   redOutGreenIn:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: -2
   redOutBlueIn:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: -16
   greenOutRedIn:
     m_OverrideState: 1
     m_Value: 0

@@ -38,6 +38,11 @@ public class ResearchSystem : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// Start the selected research if condition are check
+    /// </summary>
+    /// <param name="research"></param>
     public void StartResearch(ResearchNodeSo research)
     {
         if (m_currentResearch != null)
@@ -66,6 +71,11 @@ public class ResearchSystem : MonoBehaviour
         SfxManager.PlaySfx("Research");
         UiNotification.instance.TriggerNotification($"Curently researching {m_currentResearch.researchData.name}");
     }
+
+    /// <summary>
+    /// Complete the active research
+    /// </summary>
+    /// <param name="progress"></param>
     private void CompleteResearch(ResearchProgress progress)
     {
         progress.isCompleted = true;
@@ -76,13 +86,20 @@ public class ResearchSystem : MonoBehaviour
         m_currentResearch = null;
         UiNotification.instance.TriggerNotification($"Completed: {progress.researchData.name}");
     }
+
+
+
+    /// <summary>
+    /// Apply the research reward
+    /// </summary>
+    /// <param name="research"></param>
     private void ApplyReward(ResearchNodeSo research)
     {
         switch (research.rewardType)
         {
             case EResearchRewardType.INCREASE_STORAGE:
 
-                UpdgradeCapacity((int)research.rewardValue,research.m_ressourceType);
+                UpgradeCapacity((int)research.rewardValue,research.m_ressourceType);
 
 
 
@@ -90,7 +107,7 @@ public class ResearchSystem : MonoBehaviour
 
             case EResearchRewardType.INCREASE_CREW_CAPACITY:
 
-                UpdgradeSheepCapacity((int)research.rewardValue, research.m_ressourceType);
+                UpgradeSheepCapacity((int)research.rewardValue, research.m_ressourceType);
                 break;
             case EResearchRewardType.REDUCE_TRAVEL_COST:
 
@@ -124,6 +141,11 @@ public class ResearchSystem : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// return true if all condition are met
+    /// </summary>
+    /// <param name="research"></param>
+    /// <returns></returns>
     public bool CanResearch(ResearchNodeSo research)
     {
         foreach (ResearchNodeSo prerequisite in research.prerequissites)
@@ -166,7 +188,7 @@ public class ResearchSystem : MonoBehaviour
 
 
 
-    private void UpdgradeCapacity(int amount,ERessourceType type)
+    private void UpgradeCapacity(int amount,ERessourceType type)
     {
         foreach(RoomData room in m_upgradableCapacity)
         {
@@ -180,7 +202,7 @@ public class ResearchSystem : MonoBehaviour
             
         }
     }
-    private void UpdgradeSheepCapacity(int amount,ERessourceType type)
+    private void UpgradeSheepCapacity(int amount,ERessourceType type)
     {
         foreach(RoomData room in m_upgradableSheepSlot)
         {

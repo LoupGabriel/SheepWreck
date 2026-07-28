@@ -28,18 +28,40 @@ public class CrewManager : MonoBehaviour
         CheatManager.Instance.OnKillAllSheep -= KillAllSheep;
     }
 
+
+    /// <summary>
+    /// Add sheep to the list 
+    /// </summary>
+    /// <param name="sheep">Sheep instance to add</param>
     public void AddSheep(SheepInstance sheep)
     {
         m_currentSheepOnBoard.Add(sheep);
 
     }
 
+
+    /// <summary>
+    /// Remove Sheep from the list
+    /// </summary>
+    /// <param name="sheep">Sheep to delete</param>
     public void RemoveSheep(SheepInstance sheep)
     {
 
         m_currentSheepOnBoard.Remove(sheep);
+        CheckForEndGame();
     }
 
+
+    /// <summary>
+    /// Game over when the crew is empty
+    /// </summary>
+    private void CheckForEndGame()
+    {
+        if(m_currentSheepOnBoard.Count <= 0)
+        {
+            GameManager.Instance.GameOver();
+        }
+    }
     /// <summary>
     ///  Cheat Manager button
     /// </summary>

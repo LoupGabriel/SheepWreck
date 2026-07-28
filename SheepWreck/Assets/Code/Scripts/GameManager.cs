@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -6,7 +7,9 @@ public class GameManager : MonoBehaviour
 
 
     public float m_currentTimeScale;
-   
+
+    [SerializeField] private GameObject m_gameOverPanel;
+
     public bool m_isConstructionModeActive { get; private set; } = false;
 
     private void Awake()
@@ -14,6 +17,7 @@ public class GameManager : MonoBehaviour
         Instance = this;
         m_currentTimeScale = Time.timeScale;
         Time.timeScale = 1;
+        m_gameOverPanel.SetActive(false);
        
     }
     private void OnEnable()
@@ -51,9 +55,23 @@ public class GameManager : MonoBehaviour
     }
 
 
-
+    /// <summary>
+    /// Set construction mode 
+    /// </summary>
+    /// <param name="active"></param>
     public void SetConstructionMode(bool active)
     {
         m_isConstructionModeActive = active;
     }
+
+    //Open the game over menu
+    public void GameOver()
+    {
+        PauseController.IsPaused(true);
+        m_gameOverPanel.SetActive(true);
+    }
+
+   
+
+    
 }

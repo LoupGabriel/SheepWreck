@@ -8,7 +8,7 @@ public class SheepEatingState : SheepState
 
     public override void Enter(Animator animator)
     {
-        Debug.Log("Enter Eating State");
+       
     }
 
     public override void Exit()

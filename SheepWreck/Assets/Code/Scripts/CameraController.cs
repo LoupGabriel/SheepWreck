@@ -40,7 +40,11 @@ public class CameraController : MonoBehaviour
     private void Update()
     {
         HandleInput();
-        MoveCamera();
+        if (!PauseController.m_isPaused)
+        {
+            MoveCamera();
+        }
+       
         if (m_reset)
         {
             ResetCamera();
@@ -77,7 +81,7 @@ public class CameraController : MonoBehaviour
 
     }
     /// <summary>
-    /// Reset camera a start position
+    /// Reset camera at start position
     /// </summary>
     public void ResetCamera()
     {
@@ -95,4 +99,7 @@ public class CameraController : MonoBehaviour
         transform.position = focusCameraPos.position + m_sheepAnchor;
     }
    
+
+
+ 
 }

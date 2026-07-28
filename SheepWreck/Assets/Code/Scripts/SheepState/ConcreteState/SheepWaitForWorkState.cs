@@ -8,7 +8,7 @@ public class SheepWaitForWorkState : SheepState
 
     public override void Enter(Animator animator)
     {
-        Debug.Log("Enter WaitForWork");
+        
     }
 
     public override void Exit()

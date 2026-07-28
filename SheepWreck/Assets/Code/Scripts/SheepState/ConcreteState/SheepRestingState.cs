@@ -8,7 +8,7 @@ public class SheepRestingState : SheepState
 
     public override void Enter(Animator animator)
     {
-        Debug.Log("Enter Resting State");
+       
     }
 
     public override void Exit()

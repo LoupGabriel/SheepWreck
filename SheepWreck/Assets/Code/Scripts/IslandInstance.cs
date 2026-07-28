@@ -7,18 +7,21 @@ public class IslandInstance : MonoBehaviour
 {
     public string m_islandName;
     [SerializeField] public Vector2Int m_gridPos;
-    [SerializeField]
-    private SheepNamesDataBase m_nameData;
+    [SerializeField] private SheepNamesDataBase m_nameData;
+    [SerializeField] private int m_recruitCount = 3;
+
     public List<Quest> m_availableQuest;
     public List<SheepRecruitData> m_availableRecruits = new();
-    [SerializeField] private int m_recruitCount = 3;
+    
     private void Start()
     {
         m_islandName = $"{m_gridPos.x}/{m_gridPos.y}";
         GenerateRecruits();
     }
 
-
+    /// <summary>
+    /// Generate a random recruit data 
+    /// </summary>
     private void GenerateRecruits()
     {
         m_availableRecruits.Clear();
@@ -40,7 +43,10 @@ public class IslandInstance : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// Generate a random trait 
+    /// </summary>
+    /// <returns></returns>
     private ESheepTrait GenerateRandomTrait()
     {
         Array traits = Enum.GetValues(typeof(ESheepTrait));
@@ -48,6 +54,11 @@ public class IslandInstance : MonoBehaviour
         return (ESheepTrait)traits.GetValue(UnityEngine.Random.Range(1, traits.Length));
 
     }
+
+    /// <summary>
+    /// Generate a random specitality
+    /// </summary>
+    /// <returns></returns>
     private ESheepSpeciality GenerateRandomSpeciality()
     {
 

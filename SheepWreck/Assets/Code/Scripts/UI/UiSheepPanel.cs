@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
@@ -9,6 +10,9 @@ public class UiSheepPanel : MonoBehaviour
 {
     [SerializeField] private TMP_Text m_sheepName;
     private SheepInstance m_currentSheep;
+
+
+
     //stats
     [SerializeField] private TMP_Text m_currentMoraleText;
     [SerializeField] private TMP_Text m_currentHungerText;
@@ -25,8 +29,8 @@ public class UiSheepPanel : MonoBehaviour
 
 
     [SerializeField] private UnityEngine.UI.Image m_sprite;
+    private Sprite m_currentSprite;
 
-   
 
     private bool m_panelIsActive = false;
 
@@ -36,32 +40,48 @@ public class UiSheepPanel : MonoBehaviour
     }
     private void Update()
     {
-        if (m_panelIsActive)
+        if (!m_panelIsActive)
         {
-            //update stats in reel time
-            UpdateStats(m_currentSheep.GetHunger(), m_currentSheep.GetThirst(),m_currentSheep.GetMorale());
-            UpdateSheepVisual();
+            return;
         }
+        if(m_currentSheep == null)
+        {
+            CloseSheepPanel();
+            return;
+        }
+       
+            //update stats in reel time
+            UpdateStats(m_currentSheep.GetHunger(), m_currentSheep.GetThirst(), m_currentSheep.GetMorale());
+            UpdateSheepVisual();
+        
     }
-    public void EnableSheepPanel(string sheepName,SheepInstance sheep)
+    public void EnableSheepPanel(string sheepName, SheepInstance sheep)
     {
-
-        m_panelIsActive=true;
-        gameObject.SetActive(true);
-        m_sheepName.text = sheepName;
+        if(sheep == null)
+        {
+            return;
+        }
         m_currentSheep = sheep;
+        m_sheepName.text = sheepName;
         m_traitText.text = sheep.Trait.ToString();
         m_specialityText.text = sheep.Speciality.ToString();
+
+        m_panelIsActive = true;
+        gameObject.SetActive(true);
+       
         
+      
+       
+
 
     }
 
     private void UpdateStats(int hunger, int thirst, float morale)
     {
         //hunger
-        float hungerPercentage = Mathf.Clamp01((float)hunger /100 );
+        float hungerPercentage = Mathf.Clamp01((float)hunger / 100);
 
-        if(hungerPercentage < 0.5)
+        if (hungerPercentage < 0.5)
         {
             m_currentHungerText.color = Color.Lerp(Color.red, Color.yellow, hungerPercentage);
         }
@@ -69,13 +89,13 @@ public class UiSheepPanel : MonoBehaviour
         {
             m_currentHungerText.color = Color.Lerp(Color.yellow, Color.green, hungerPercentage);
         }
-       
+
         m_currentHungerText.text = hunger.ToString() + "%";
 
 
         //thirst
         float thirstPercentage = Mathf.Clamp01((float)thirst / 100);
-        if (hungerPercentage < 0.5)
+        if (thirstPercentage < 0.5)
         {
             m_curentThirstText.color = Color.Lerp(Color.red, Color.yellow, thirstPercentage);
         }
@@ -97,17 +117,18 @@ public class UiSheepPanel : MonoBehaviour
     }
 
     private void UpdateSheepVisual()
-    {
+    {   
         m_sprite.sprite = m_currentSheep.m_spriteRenderer.sprite;
         m_sprite.color = m_currentSheep.m_spriteRenderer.color;
     }
 
     public void CloseSheepPanel()
     {
+        m_panelIsActive = false;
         gameObject.SetActive(false);
         m_panelIsActive = false;
+        
     }
-
-
-  
 }
+
+   
