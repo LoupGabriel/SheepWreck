@@ -37,6 +37,8 @@ public class SelectionManager : MonoBehaviour
     private void Update()
     {
         m_rayFromCam = m_cam.ScreenPointToRay(Mouse.current.position.ReadValue());
+        if (PauseController.m_isPaused)
+            return;
         HandleClick();
         if (!PauseController.m_isPaused)
         {

@@ -2,12 +2,15 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.Rendering.DebugUI;
 
+
 public class UiPanelManager : MonoBehaviour
 {
     public static UiPanelManager Instance { get; private set; }
 
     [SerializeField] 
     private GameObject m_constructionPanel;
+    [SerializeField]
+    private GameObject m_panelOutside;
     private GameObject m_currentPanel;
 
     [SerializeField] private GameObject m_sheepPanel;
@@ -48,6 +51,7 @@ public class UiPanelManager : MonoBehaviour
         {
            
             panel.SetActive(false);
+            m_panelOutside.SetActive(false);
             GameManager.Instance.SetConstructionMode(false);
             PauseController.IsPaused(false);
             m_currentPanel = null;
@@ -66,6 +70,7 @@ public class UiPanelManager : MonoBehaviour
         PauseController.IsPaused(true);
       
         panel.SetActive(true);
+        m_panelOutside.SetActive(true);
         m_currentPanel = panel;
 
     }
@@ -73,15 +78,26 @@ public class UiPanelManager : MonoBehaviour
     public void CloseCurrentPanel()
     {
         PauseController.IsPaused(false);
-       // GameManager.Instance.SetConstructionMode(false);
+        
         if (m_currentPanel != null)
         {
             m_currentPanel.SetActive(false);
+            m_panelOutside.SetActive(false );
             m_currentPanel = null;
+            if (m_currentPanel != m_constructionPanel)
+            {
+                GameManager.Instance.SetConstructionMode(false);
+            }
         }
     }
     public void closeSheepPanel()
     {
         m_sheepPanel.SetActive(false);
+        
+    }
+
+    public void closeConstructionPanel()
+    {
+       m_constructionPanel.SetActive(false);
     }
 }

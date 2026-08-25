@@ -628,8 +628,8 @@ TextureImporter:
       name: IconMap
       rect:
         serializedVersion: 2
-        x: 84
-        y: 54
+        x: 132
+        y: 102
         width: 25
         height: 19
       alignment: 0
@@ -760,8 +760,8 @@ TextureImporter:
       name: Icon_BluePrint
       rect:
         serializedVersion: 2
-        x: 3
-        y: 7
+        x: 164
+        y: 102
         width: 25
         height: 19
       alignment: 0
@@ -910,6 +910,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Icon_Book
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 103
+        width: 28
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0fea144f967c2a4e88190ab9b196f59
+      internalID: 959767398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -955,6 +977,7 @@ TextureImporter:
       IconSpriteSheet_9: 233503677
       IconUnlock: -1396004616
       Icon_BluePrint: -1766527938
+      Icon_Book: 959767398
       Icon_food: 1191969467
       Icon_info01: -14221072
       Icon_info02: 1043973166

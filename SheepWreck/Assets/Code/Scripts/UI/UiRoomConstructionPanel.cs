@@ -44,7 +44,8 @@ public class UiRoomConstructionPanel : MonoBehaviour
         
         
         }
-        UiPanelManager.Instance.CloseCurrentPanel();
+        //UiPanelManager.Instance.CloseCurrentPanel();
+        UiPanelManager.Instance.closeConstructionPanel();
         //pay the gold amount
         RessourceSystem.Instance.GainRessource(m_roomData.m_buildCost * -1,ERessourceType.GOLD);
 
