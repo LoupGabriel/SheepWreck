@@ -6,13 +6,15 @@ using static UnityEngine.Rendering.DebugUI;
 public class UiPanelManager : MonoBehaviour
 {
     public static UiPanelManager Instance { get; private set; }
-
+    
     [SerializeField] 
     private GameObject m_constructionPanel;
     [SerializeField]
     private GameObject m_panelOutside;
     private GameObject m_currentPanel;
 
+
+    [SerializeField] GameObject[] m_allPanels;
     [SerializeField] private GameObject m_sheepPanel;
     [SerializeField]
     private GameObject m_constructionModeEffect;
@@ -72,6 +74,20 @@ public class UiPanelManager : MonoBehaviour
         panel.SetActive(true);
         m_panelOutside.SetActive(true);
         m_currentPanel = panel;
+
+    }
+    public void OpenPanelByName(string panel)
+    {
+        foreach(GameObject p in m_allPanels)
+        {
+            if(p.name == panel)
+            {
+                OpenPanel(p);
+                return;
+            }
+        }
+
+       
 
     }
 

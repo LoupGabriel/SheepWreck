@@ -9,7 +9,7 @@ public class IslandInstance : MonoBehaviour
     [SerializeField] public Vector2Int m_gridPos;
     [SerializeField] private SheepNamesDataBase m_nameData;
     [SerializeField] private int m_recruitCount = 3;
-
+    [SerializeField] public GameObject m_islandVisual;
     public List<Quest> m_availableQuest;
     public List<SheepRecruitData> m_availableRecruits = new();
     
@@ -65,4 +65,6 @@ public class IslandInstance : MonoBehaviour
         Array speciality = Enum.GetValues(typeof(ESheepSpeciality));
         return (ESheepSpeciality)speciality.GetValue(UnityEngine.Random.Range(1, speciality.Length));
     }
+
+    
 }

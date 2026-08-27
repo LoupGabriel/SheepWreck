@@ -10,8 +10,8 @@ public class UiWorldMap : MonoBehaviour
     [SerializeField] private GameObject m_travelPanel;
     [SerializeField] private TMP_Text m_destinationText;
     [SerializeField] private TMP_Text m_remainingTimeText;
-    [SerializeField] private Button m_islandButton;
-
+    [SerializeField] private GameObject m_islandButton;
+    
 
     [SerializeField] private TMP_Text m_energyCostText;
     [SerializeField] private IslandInstance m_selectedIsland;
@@ -26,8 +26,8 @@ public class UiWorldMap : MonoBehaviour
         m_travelPanel.SetActive(false);
         m_shipToken.rectTransform.position = m_travelSystem.m_currentIsland.transform.position;
         TravelSystem.Instance.OnDestinationReach += SetBoatIcon;
-        TravelSystem.Instance.OnDestinationReach += SetIslandButtonVisible;
-        TravelSystem.Instance.OnDestinationSet += SetIslandButtonInvisible;
+        //TravelSystem.Instance.OnDestinationReach += SetIslandButtonVisible;
+        //TravelSystem.Instance.OnDestinationSet += SetIslandButtonInvisible;
 
     }
     private void Update()
@@ -48,8 +48,8 @@ public class UiWorldMap : MonoBehaviour
     private void OnDestroy()
     {
         TravelSystem.Instance.OnDestinationReach -= SetBoatIcon;
-        TravelSystem.Instance.OnDestinationReach -= SetIslandButtonVisible;
-        TravelSystem.Instance.OnDestinationSet -= SetIslandButtonInvisible;
+      //  TravelSystem.Instance.OnDestinationReach -= SetIslandButtonVisible;
+        //TravelSystem.Instance.OnDestinationSet -= SetIslandButtonInvisible;
     }
 
     public void ActiveWorldMap()
@@ -82,7 +82,7 @@ public class UiWorldMap : MonoBehaviour
         // to do Play sfx
 
         m_travelSystem.SetDestination(m_selectedIsland);
-        
+        m_travelSystem.UpAnchor();
         GameManager.Instance.SetConstructionMode(false);
         UiPanelManager.Instance.CloseCurrentPanel();
         PauseController.IsPaused(false);

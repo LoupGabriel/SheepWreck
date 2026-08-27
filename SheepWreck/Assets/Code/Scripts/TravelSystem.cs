@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class TravelSystem : MonoBehaviour
 {
+
+
+
     public static TravelSystem Instance { get; private set; }
 
     public Action<Vector3> OnDestinationReach;
@@ -13,7 +16,7 @@ public class TravelSystem : MonoBehaviour
     public IslandInstance m_destinationIsland;
 
     public GameObject m_islandPanel;
-
+    private GameObject m_spawnedIsland;
     private int m_currentEnvironment = 0;
    
     [SerializeField] private Animator[] m_sailAnimator;
@@ -30,7 +33,8 @@ public class TravelSystem : MonoBehaviour
 
     public bool m_canTravel = false;
     private float m_lastEventThreshold = 1f;
-
+    [SerializeField] private Animator m_anchorAnimator;
+    [SerializeField] private Transform m_islandVisualParent;
     private void Awake()
     {
         Instance = this;
@@ -117,11 +121,12 @@ public class TravelSystem : MonoBehaviour
         {
             animator.SetTrigger("Sailing");
         }
+       
         RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.ENERGY] -= energyCost;
         RessourceSystem.Instance.OnRessourceChange?.Invoke(ERessourceType.ENERGY);
 
         m_destinationIsland = targetIstland;
-
+      
         m_travelTime = distance * m_timePerTile;
 
         m_distanceToTravel = m_travelTime;
@@ -131,6 +136,7 @@ public class TravelSystem : MonoBehaviour
         OnDestinationSet?.Invoke();
         SoundtrackManager.Instance.PlayMusic("SetSail");
         m_environment.SetSailSpeed(5f);
+        DestroyIsland();
 
 
 
@@ -153,6 +159,7 @@ public class TravelSystem : MonoBehaviour
         {
             animator.SetTrigger("Idle");
         }
+        m_anchorAnimator.SetTrigger("AnchorDrop");
         m_currentEnvironment++;
         if (m_currentEnvironment >= Enum.GetValues(typeof(EEnvironment)).Length)
         {
@@ -162,6 +169,7 @@ public class TravelSystem : MonoBehaviour
 
         m_currentIsland = m_destinationIsland;
         OnDestinationReach?.Invoke(m_currentIsland.transform.position);
+        SpawnIslandVisual();
         m_travelTime = 0f;
         m_destinationIsland = null;
         m_isTraveling = false;
@@ -169,6 +177,7 @@ public class TravelSystem : MonoBehaviour
         SoundtrackManager.Instance.PlayMusic("MainMusic");
         m_environment.SetSailSpeed(1f);
         UiNotification.instance.TriggerNotification($"Arrive at destination{m_currentIsland.m_islandName}");
+        SfxManager.PlaySfx("anchorDrop");
 
        
     }
@@ -187,7 +196,23 @@ public class TravelSystem : MonoBehaviour
         return distance * m_energyCostPerTile;
     }
 
+    private void SpawnIslandVisual()
+    {
+        GameObject visual = m_destinationIsland.m_islandVisual;
+        m_spawnedIsland = Instantiate(visual, m_islandVisualParent);
+    }
 
+    public void DestroyIsland()
+    {
+        Destroy(m_spawnedIsland);
+        m_spawnedIsland = null;
+    }
+
+
+    public void UpAnchor()
+    {
+        m_anchorAnimator.SetTrigger("AnchorUp");
+    }
 
 
 }
