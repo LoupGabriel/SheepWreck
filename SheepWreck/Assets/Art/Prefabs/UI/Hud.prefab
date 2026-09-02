@@ -450,6 +450,7 @@ MonoBehaviour:
   m_gridPos: {x: 6, y: 2}
   m_nameData: {fileID: 11400000, guid: 0cdb00ad87fabf04f952b20819aa1ce8, type: 2}
   m_recruitCount: 3
+  m_islandVisual: {fileID: 0}
   m_availableQuest:
   - {fileID: 11400000, guid: 7113f87367526354fb9647f03fd0093d, type: 2}
   m_availableRecruits: []
@@ -4050,7 +4051,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1241583232444451692}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4059,7 +4060,7 @@ RectTransform:
   - {fileID: 163809491088785808}
   - {fileID: 785205429844890668}
   - {fileID: 8059424804492985207}
-  m_Father: {fileID: 7561455764559075404}
+  m_Father: {fileID: 7024810334280909443}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4253,7 +4254,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1301367746022039945}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4286,12 +4287,12 @@ RectTransform:
   - {fileID: 5459759336525521638}
   - {fileID: 557079999631118522}
   - {fileID: 2878207645071393267}
-  m_Father: {fileID: 7561455764559075404}
+  m_Father: {fileID: 7024810334280909443}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 9.191223, y: -2.8865051}
-  m_SizeDelta: {x: -560.8605, y: -260.5501}
+  m_SizeDelta: {x: 609.1395, y: 355.4499}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1634734323038704193
 CanvasRenderer:
@@ -4692,6 +4693,7 @@ MonoBehaviour:
   m_gridPos: {x: 4, y: 0}
   m_nameData: {fileID: 11400000, guid: 0cdb00ad87fabf04f952b20819aa1ce8, type: 2}
   m_recruitCount: 3
+  m_islandVisual: {fileID: 0}
   m_availableQuest:
   - {fileID: 11400000, guid: 8fb71df5105918a4f879e0cd1c7b5477, type: 2}
   m_availableRecruits: []
@@ -6118,6 +6120,7 @@ MonoBehaviour:
   m_gridPos: {x: 3, y: 1}
   m_nameData: {fileID: 11400000, guid: 0cdb00ad87fabf04f952b20819aa1ce8, type: 2}
   m_recruitCount: 3
+  m_islandVisual: {fileID: 0}
   m_availableQuest:
   - {fileID: 11400000, guid: 3626bcb7e0467964fb56ae89543a9b59, type: 2}
   m_availableRecruits: []
@@ -6201,7 +6204,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2198429619893521052}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6213,7 +6216,7 @@ RectTransform:
   - {fileID: 8397557110541570018}
   - {fileID: 8714067266178037215}
   - {fileID: 6309204292581947013}
-  m_Father: {fileID: 7561455764559075404}
+  m_Father: {fileID: 7024810334280909443}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -13470,12 +13473,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4697507756599640315}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.54, y: 0.54, z: 0.54}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 7561455764559075404}
+  m_Father: {fileID: 7024810334280909443}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -13792,6 +13795,50 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &4851738151809982541
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7024810334280909443}
+  m_Layer: 5
+  m_Name: Content
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7024810334280909443
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4851738151809982541}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2205118233672078231}
+  - {fileID: 3098745316238773556}
+  - {fileID: 3363795323279863177}
+  - {fileID: 8744241069507338123}
+  - {fileID: 1104008351947348260}
+  - {fileID: 7296949796315812661}
+  - {fileID: 4414482313494363077}
+  - {fileID: 8194287050509701071}
+  - {fileID: 5512066147988635056}
+  m_Father: {fileID: 7561455764559075404}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4867753978470600355
 GameObject:
   m_ObjectHideFlags: 0
@@ -14589,15 +14636,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2205118233672078231}
-  - {fileID: 3098745316238773556}
-  - {fileID: 3363795323279863177}
-  - {fileID: 8744241069507338123}
-  - {fileID: 1104008351947348260}
-  - {fileID: 7296949796315812661}
-  - {fileID: 4414482313494363077}
-  - {fileID: 8194287050509701071}
-  - {fileID: 5512066147988635056}
+  - {fileID: 7024810334280909443}
   m_Father: {fileID: 5974595418820073338}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -14876,6 +14915,7 @@ MonoBehaviour:
   m_gridPos: {x: 1, y: 0}
   m_nameData: {fileID: 11400000, guid: 0cdb00ad87fabf04f952b20819aa1ce8, type: 2}
   m_recruitCount: 3
+  m_islandVisual: {fileID: 0}
   m_availableQuest:
   - {fileID: 11400000, guid: a5de6872299cc5542a0db684dc311851, type: 2}
   m_availableRecruits: []
@@ -17573,8 +17613,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_constructionPanel: {fileID: 4487197092608958557}
+  m_panelOutside: {fileID: 0}
+  m_allPanels: []
   m_sheepPanel: {fileID: 0}
   m_constructionModeEffect: {fileID: 0}
+  m_worldGui: {fileID: 0}
 --- !u!114 &3411910653388252811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17604,7 +17647,7 @@ MonoBehaviour:
   m_travelPanel: {fileID: 5025665681877376335}
   m_destinationText: {fileID: 8299999791633563353}
   m_remainingTimeText: {fileID: 1250718652150165238}
-  m_islandButton: {fileID: 3948573971260121474}
+  m_islandButton: {fileID: 0}
   m_energyCostText: {fileID: 0}
   m_selectedIsland: {fileID: 0}
   m_shipToken: {fileID: 2188852021549164689}
@@ -17908,7 +17951,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5796803071862542700}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -17920,7 +17963,7 @@ RectTransform:
   - {fileID: 8820920152185247429}
   - {fileID: 4754578582446782580}
   - {fileID: 2979893704433244213}
-  m_Father: {fileID: 7561455764559075404}
+  m_Father: {fileID: 7024810334280909443}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -18846,6 +18889,7 @@ MonoBehaviour:
   m_gridPos: {x: 2, y: 3}
   m_nameData: {fileID: 11400000, guid: 0cdb00ad87fabf04f952b20819aa1ce8, type: 2}
   m_recruitCount: 3
+  m_islandVisual: {fileID: 0}
   m_availableQuest:
   - {fileID: 11400000, guid: 18b5f868ab64e24488f4eb356d1ea8df, type: 2}
   m_availableRecruits: []
@@ -19853,6 +19897,7 @@ MonoBehaviour:
   m_gridPos: {x: 0, y: 2}
   m_nameData: {fileID: 11400000, guid: 0cdb00ad87fabf04f952b20819aa1ce8, type: 2}
   m_recruitCount: 3
+  m_islandVisual: {fileID: 0}
   m_availableQuest:
   - {fileID: 11400000, guid: 6f0e199ea441f864f9bd5b2487109e40, type: 2}
   m_availableRecruits: []
@@ -22017,7 +22062,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7901025750748705036}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -22026,7 +22071,7 @@ RectTransform:
   - {fileID: 7723517193623441133}
   - {fileID: 3121520332174336496}
   - {fileID: 92154148644668725}
-  m_Father: {fileID: 7561455764559075404}
+  m_Father: {fileID: 7024810334280909443}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -23377,13 +23422,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8358072394284952671}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3180695605533107855}
-  m_Father: {fileID: 7561455764559075404}
+  m_Father: {fileID: 7024810334280909443}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -23509,17 +23554,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8372828535825225630}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7561455764559075404}
+  m_Father: {fileID: 7024810334280909443}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -0.023986816, y: -0.56170654}
-  m_SizeDelta: {x: -537.1516, y: -255.9014}
+  m_SizeDelta: {x: 632.8484, y: 360.0986}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5408584376289306893
 CanvasRenderer:
@@ -23756,12 +23801,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8474187087711855699}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.54, y: 0.54, z: 0.54}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 7561455764559075404}
+  m_Father: {fileID: 7024810334280909443}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -24327,6 +24372,7 @@ MonoBehaviour:
   m_gridPos: {x: 0, y: 3}
   m_nameData: {fileID: 11400000, guid: 0cdb00ad87fabf04f952b20819aa1ce8, type: 2}
   m_recruitCount: 3
+  m_islandVisual: {fileID: 0}
   m_availableQuest:
   - {fileID: 11400000, guid: a9296acea7ff49740a3d6666f23f07a3, type: 2}
   m_availableRecruits: []
@@ -25250,6 +25296,7 @@ MonoBehaviour:
   m_gridPos: {x: 4, y: 3}
   m_nameData: {fileID: 11400000, guid: 0cdb00ad87fabf04f952b20819aa1ce8, type: 2}
   m_recruitCount: 3
+  m_islandVisual: {fileID: 0}
   m_availableQuest:
   - {fileID: 11400000, guid: 2747b74fcf94c0340a2a2f0d630fce9c, type: 2}
   m_availableRecruits: []

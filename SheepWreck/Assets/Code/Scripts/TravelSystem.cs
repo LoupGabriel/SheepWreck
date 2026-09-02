@@ -65,7 +65,7 @@ public class TravelSystem : MonoBehaviour
 
 
 
-        if (m_travelTime <= 0f)
+        if (m_travelTime <= 0f && m_isTraveling)
         {
             ArriveAtDestination();
             
@@ -159,7 +159,7 @@ public class TravelSystem : MonoBehaviour
         {
             animator.SetTrigger("Idle");
         }
-        m_anchorAnimator.SetTrigger("AnchorDrop");
+       
         m_currentEnvironment++;
         if (m_currentEnvironment >= Enum.GetValues(typeof(EEnvironment)).Length)
         {
@@ -177,7 +177,11 @@ public class TravelSystem : MonoBehaviour
         SoundtrackManager.Instance.PlayMusic("MainMusic");
         m_environment.SetSailSpeed(1f);
         UiNotification.instance.TriggerNotification($"Arrive at destination{m_currentIsland.m_islandName}");
+
+        //Anchor
         SfxManager.PlaySfx("anchorDrop");
+        DownAnchor();
+        UiPanelManager.Instance.ShowIslandViewButton();
 
        
     }
@@ -212,6 +216,10 @@ public class TravelSystem : MonoBehaviour
     public void UpAnchor()
     {
         m_anchorAnimator.SetTrigger("AnchorUp");
+    }
+    public void DownAnchor()
+    {
+        m_anchorAnimator.SetTrigger("AnchorDrop");
     }
 
 

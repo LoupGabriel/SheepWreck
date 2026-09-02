@@ -23,10 +23,11 @@ public class UiButtonIsland : MonoBehaviour
         {
             quest.ActiveQuestPanel();
         }
-        else
+        else if (m_panelName == "RecruitPanel")
         {
             recruit.ActiveRecruitPanel();
         }
+       
         
         
         UiPanelManager.Instance.OpenPanelByName(m_panelName);

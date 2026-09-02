@@ -15,6 +15,10 @@ public class CameraController : MonoBehaviour
     private Vector3 m_sheepAnchor = new Vector3(0, 0.65f, -5f);//Camera offset at the sheep
     private Vector3 m_originalPos;
 
+    //island vars
+    [SerializeField] Vector3 m_islandView;
+    [SerializeField] float m_islandTransitionDuration = 2f;   
+
     
 
     private InputAction m_moveCam;
@@ -98,7 +102,13 @@ public class CameraController : MonoBehaviour
         m_wasFocus = true;
         transform.position = focusCameraPos.position + m_sheepAnchor;
     }
-   
+    
+
+
+    public void StartIslandView()
+    {
+        transform.position = m_islandView;
+    }
 
 
  

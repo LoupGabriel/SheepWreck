@@ -18,6 +18,7 @@ public class UiPanelManager : MonoBehaviour
     [SerializeField] private GameObject m_sheepPanel;
     [SerializeField]
     private GameObject m_constructionModeEffect;
+    [SerializeField] private GameObject m_worldGui;
     private void Awake()
     {
         Instance = this;
@@ -115,5 +116,9 @@ public class UiPanelManager : MonoBehaviour
     public void closeConstructionPanel()
     {
        m_constructionPanel.SetActive(false);
+    }
+    public void ShowIslandViewButton()
+    {
+        m_worldGui.SetActive(true);
     }
 }

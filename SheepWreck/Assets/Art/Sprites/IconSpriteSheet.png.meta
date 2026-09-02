@@ -919,7 +919,7 @@ TextureImporter:
         width: 28
         height: 20
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -928,6 +928,28 @@ TextureImporter:
       bones: []
       spriteID: e0fea144f967c2a4e88190ab9b196f59
       internalID: 959767398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IconArrow
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 65
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9598967bc73c34d49b3abf888737e464
+      internalID: 1690389524
       vertices: []
       indices: 
       edges: []
@@ -949,6 +971,7 @@ TextureImporter:
       Bar_blue: -397262613
       Bar_red: 2042205348
       ConstructionModeButton: 2102130007
+      IconArrow: 1690389524
       IconComplete: -98514208
       IconDying: -569556441
       IconFlag: 155198134
