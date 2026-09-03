@@ -117,8 +117,8 @@ public class UiPanelManager : MonoBehaviour
     {
        m_constructionPanel.SetActive(false);
     }
-    public void ShowIslandViewButton()
+    public void ShowIslandViewButton(bool condition)
     {
-        m_worldGui.SetActive(true);
+        m_worldGui.SetActive(condition);
     }
 }

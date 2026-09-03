@@ -134,6 +134,7 @@ public class TravelSystem : MonoBehaviour
         m_isTraveling = true;
         EventManager.Instance.SetContext(true);
         OnDestinationSet?.Invoke();
+        UiPanelManager.Instance.ShowIslandViewButton(false);
         SoundtrackManager.Instance.PlayMusic("SetSail");
         m_environment.SetSailSpeed(5f);
         DestroyIsland();
@@ -181,7 +182,7 @@ public class TravelSystem : MonoBehaviour
         //Anchor
         SfxManager.PlaySfx("anchorDrop");
         DownAnchor();
-        UiPanelManager.Instance.ShowIslandViewButton();
+        UiPanelManager.Instance.ShowIslandViewButton(true);
 
        
     }

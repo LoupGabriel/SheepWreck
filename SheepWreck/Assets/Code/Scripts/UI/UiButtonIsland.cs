@@ -23,7 +23,7 @@ public class UiButtonIsland : MonoBehaviour
         {
             quest.ActiveQuestPanel();
         }
-        else if (m_panelName == "RecruitPanel")
+        else if (m_panelName == "RecruitAtIslandPanel")
         {
             recruit.ActiveRecruitPanel();
         }
