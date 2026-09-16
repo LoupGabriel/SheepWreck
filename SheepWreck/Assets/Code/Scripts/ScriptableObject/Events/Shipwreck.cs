@@ -14,7 +14,7 @@ public class Shipwreck : GameEvent
     [SerializeField] private GameObject m_sheep;
     [SerializeField] private Transform m_parent;
     [SerializeField][TextArea] private string m_description;
-    
+
 
     public override bool canTrigger(GameContext context)
     {
@@ -24,17 +24,21 @@ public class Shipwreck : GameEvent
     public override void Trigger(GameContext context)
     {
 
-       PauseController.IsPaused(true);
-       // GameManager.Instance.SetTimePause();
+        PauseController.IsPaused(true);
+      
         //trigger Ui void showMessage
-        context.ui.ShowMessage(m_description + $"Food:{m_foodGain}  Water:{m_waterGain}  Gold:{m_goldGain}");
+        //context.ui.ShowMessage(m_description + $"Food:{m_foodGain}  Water:{m_waterGain}  Gold:{m_goldGain}");
+        context.ui.ShowMessage(m_description);
         //trigger lost ressource
-        if (m_foundSheep)
-        {
-            Instantiate(m_sheep);
-        }
-        RessourceSystem.Instance.GainRessource(m_foodGain, ERessourceType.FOOD);
-        RessourceSystem.Instance.GainRessource(m_waterGain, ERessourceType.WATER);
-        RessourceSystem.Instance.GainRessource(m_goldGain, ERessourceType.WATER);
+        //if (m_foundSheep)
+        //{
+        //    Instantiate(m_sheep);
+        //}
+        //RessourceSystem.Instance.GainRessource(m_foodGain, ERessourceType.FOOD);
+        //RessourceSystem.Instance.GainRessource(m_waterGain, ERessourceType.WATER);
+        //RessourceSystem.Instance.GainRessource(m_goldGain, ERessourceType.WATER);
+
+
+        GameManager.Instance.ChangeState(new SheepRescueState(GameManager.Instance));
     }
 }

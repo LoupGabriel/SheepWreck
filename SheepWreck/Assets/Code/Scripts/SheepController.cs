@@ -38,7 +38,11 @@ public class SheepController : MonoBehaviour, ISelectable
     {
         m_sheepRenderer = GetComponent<SpriteRenderer>();
         m_animator.SetBool("isGrab", m_isGrab);
-        SetParent();
+        if(GameManager.Instance.CurrentGameState is GameManagementState)
+        {
+            SetParent();
+        }
+        
         if (m_sheepData != null)
         {
             m_sheepState = m_sheepData.m_stateMachine.m_currentSheepState;
@@ -113,6 +117,7 @@ public class SheepController : MonoBehaviour, ISelectable
         {
 
             m_isGrab = true;
+            transform.SetParent(null, true);
             CursorManager.Instance.SetCursorType(ECursorType.SheepGrab);
             if (!m_sfxPlayed)
             {
@@ -151,6 +156,10 @@ public class SheepController : MonoBehaviour, ISelectable
         m_sfxPlayed = false;
 
         m_sheepRenderer.material.SetFloat("_oulineOn", 0);
+        if(GameManager.Instance.CurrentGameState is SheepRescueState rescueState)
+        {
+            rescueState.Win();
+        }
     }
 
     /// <summary>
@@ -162,7 +171,11 @@ public class SheepController : MonoBehaviour, ISelectable
         m_isGrab = false;
         transform.position = m_originalPos;
         m_animator.SetBool("isGrab", m_isGrab);
-
+        if (GameManager.Instance.CurrentGameState is SheepRescueState rescueState)
+        {
+            rescueState.Loose();
+            Destroy(gameObject);
+        }
     }
 
 

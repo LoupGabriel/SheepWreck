@@ -5,19 +5,28 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-
+    private GameState m_currentState;
     public float m_currentTimeScale;
 
     [SerializeField] private GameObject m_gameOverPanel;
-
+    [SerializeField] private SheepRescueController m_rescueController;
+    [SerializeField] private SheepWreckController m_sheepWreckController;
+    [SerializeField] private FireEventController m_fireEventController;
     public bool m_isConstructionModeActive { get; private set; } = false;
 
+
+    public GameState CurrentGameState => m_currentState;
+
+    public FireEventController FireEventController => m_fireEventController;
+    public SheepWreckController SheepWreckController => m_sheepWreckController;
+    public SheepRescueController SheepRescueController => m_rescueController;
     private void Awake()
     {
         Instance = this;
         m_currentTimeScale = Time.timeScale;
         Time.timeScale = 1;
         m_gameOverPanel.SetActive(false);
+        m_currentState = new GameManagementState(this);
        
     }
     private void OnEnable()
@@ -28,23 +37,20 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         SoundtrackManager.Instance.PlayMusic("MainMusic");
+        
+        
     }
     private void OnDisable()
     {
         ShipSystem.Instance.OnRoomSwitch -= SetConstructionMode;
         CheatManager.Instance.OnChangeSpeed -= SetCustomTime;
     }
-    public void SetTimePause()
-    {
 
-        Time.timeScale = 0f;
-    }
-    public void SetNormalTime()
+    private void Update()
     {
-        Time.timeScale = 1f;
+        m_currentState.Update();
     }
 
-   
     /// <summary>
     /// Set a custom Time float
     /// </summary>
@@ -71,7 +77,14 @@ public class GameManager : MonoBehaviour
         m_gameOverPanel.SetActive(true);
     }
 
-   
 
+    public void  ChangeState(GameState newState)
+    {
+        m_currentState?.Exit();
+        m_currentState = newState;
+        m_currentState.Enter();
+    }
+   
+  
     
 }

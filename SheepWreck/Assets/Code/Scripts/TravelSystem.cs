@@ -78,7 +78,7 @@ public class TravelSystem : MonoBehaviour
     /// <param name="progress"></param>
     private void TryTravelEvent(float progress)
     {
-        float[] thresholds = { 0.25f, 0.5f, 0.75f };
+        float[] thresholds = {  0.5f};
 
         foreach (float t in thresholds)
         {
