@@ -16,11 +16,13 @@ public class UiButtonVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         transform.position += m_offset;
         transform.localScale *= m_scaleoffset;
         SfxManager.PlaySfx("Click");
+        CursorManager.Instance.SetCursorType(ECursorType.InteractUI);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         transform.position -= m_offset;
         transform.localScale /= m_scaleoffset;
+        CursorManager.Instance.SetCursorType(ECursorType.Default);
     }
 }

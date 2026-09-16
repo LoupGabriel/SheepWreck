@@ -21,6 +21,9 @@ public class SelectionManager : MonoBehaviour
     public SheepController m_currentHoverSheeep;
 
 
+    [SerializeField] private GameObject m_vfx;
+
+
 
     [SerializeField] private float m_doubleClickTime = 0.3f;
     private float m_lastClickTime;
@@ -36,6 +39,7 @@ public class SelectionManager : MonoBehaviour
     }
     private void Update()
     {
+        
         m_rayFromCam = m_cam.ScreenPointToRay(Mouse.current.position.ReadValue());
         if (PauseController.m_isPaused)
             return;
@@ -58,7 +62,7 @@ public class SelectionManager : MonoBehaviour
     private void HandleHover()
     {
 
-
+        
         RoomInstance newHoveredRoom = null;
 
         SheepController newHoveredSheep = null;
@@ -105,6 +109,7 @@ public class SelectionManager : MonoBehaviour
         if (m_currentHoverSheeep != null)
         {
             m_currentHoverSheeep.SetHover(false);
+            CursorManager.Instance.SetCursorType(ECursorType.Default);
         }
 
         m_currentHoverSheeep = newHoveredSheep;
@@ -112,6 +117,7 @@ public class SelectionManager : MonoBehaviour
         if (m_currentHoverSheeep != null)
         {
             m_currentHoverSheeep.SetHover(true);
+            CursorManager.Instance.SetCursorType(ECursorType.SheepOver);
         }
     }
 
@@ -125,6 +131,7 @@ public class SelectionManager : MonoBehaviour
         if (m_currentHoveredRoom != null)
         {
             m_currentHoveredRoom.SetHover(false);
+            
         }
 
         m_currentHoveredRoom = newHoveredRoom;
@@ -132,6 +139,14 @@ public class SelectionManager : MonoBehaviour
         if (m_currentHoveredRoom != null)
         {
             m_currentHoveredRoom.SetHover(true);
+            if (GameManager.Instance.m_isConstructionModeActive)
+            {
+                CursorManager.Instance.SetCursorType(ECursorType.Construction);
+            }
+            else
+            {
+                CursorManager.Instance.SetCursorType(ECursorType.Default);
+            }
         }
     }
 
@@ -156,8 +171,9 @@ public class SelectionManager : MonoBehaviour
             {
                 if (m_currentHoveredRoom != null)
                 {
-
+                    SfxManager.PlaySfx("Construction");
                     ShipSystem.Instance.SwitchRoom(m_currentHoveredRoom);
+                    GameObject Vfx = Instantiate(m_vfx, m_currentHoveredRoom.transform.position, Quaternion.identity);
                 }
             }
 

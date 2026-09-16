@@ -93,6 +93,32 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -449,7 +475,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Brown Book SpriteSheet_16
+      name: Book_Open_01
       rect:
         serializedVersion: 2
         x: 175
@@ -471,7 +497,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Brown Book SpriteSheet_17
+      name: Book_Open_02
       rect:
         serializedVersion: 2
         x: 881
@@ -493,7 +519,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Brown Book SpriteSheet_18
+      name: Book_Open_03
       rect:
         serializedVersion: 2
         x: 1592
@@ -515,7 +541,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Brown Book SpriteSheet_19
+      name: Book_Open_04
       rect:
         serializedVersion: 2
         x: 2212
@@ -537,7 +563,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Brown Book SpriteSheet_20
+      name: Book_Open_05
       rect:
         serializedVersion: 2
         x: 2786
@@ -559,7 +585,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Brown Book SpriteSheet_21
+      name: Book_Open_06
       rect:
         serializedVersion: 2
         x: 3315
@@ -581,7 +607,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Brown Book SpriteSheet_22
+      name: Book_Open_07
       rect:
         serializedVersion: 2
         x: 3861
@@ -603,7 +629,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Brown Book SpriteSheet_23
+      name: Book_Open_08
       rect:
         serializedVersion: 2
         x: 4415
@@ -3692,7 +3718,7 @@ TextureImporter:
         height: 68
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 9, y: 8, z: 6, w: 8}
       customData: 
       outline: []
       physicsShape: []
@@ -4753,6 +4779,14 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       Book_BrownDefault: 1342412316
+      Book_Open_01: 718251988
+      Book_Open_02: -336028018
+      Book_Open_03: -1854116392
+      Book_Open_04: 653609715
+      Book_Open_05: 643640815
+      Book_Open_06: 814676158
+      Book_Open_07: -825904899
+      Book_Open_08: 517004594
       Brown Book SpriteSheet_0: -2027197951
       Brown Book SpriteSheet_1: 1633570595
       Brown Book SpriteSheet_10: 1793047013
@@ -4821,7 +4855,6 @@ TextureImporter:
       Brown Book SpriteSheet_157: -1901895487
       Brown Book SpriteSheet_158: -722797691
       Brown Book SpriteSheet_159: -687185207
-      Brown Book SpriteSheet_16: 718251988
       Brown Book SpriteSheet_160: -1559282328
       Brown Book SpriteSheet_161: 120639636
       Brown Book SpriteSheet_162: -1295881089
@@ -4832,7 +4865,6 @@ TextureImporter:
       Brown Book SpriteSheet_167: -1111113483
       Brown Book SpriteSheet_168: -1654088779
       Brown Book SpriteSheet_169: 997015182
-      Brown Book SpriteSheet_17: -336028018
       Brown Book SpriteSheet_170: -2089715303
       Brown Book SpriteSheet_171: -540727555
       Brown Book SpriteSheet_172: -1356993095
@@ -4843,7 +4875,6 @@ TextureImporter:
       Brown Book SpriteSheet_177: -1537450256
       Brown Book SpriteSheet_178: -1251830976
       Brown Book SpriteSheet_179: 589922666
-      Brown Book SpriteSheet_18: -1854116392
       Brown Book SpriteSheet_180: -2101773409
       Brown Book SpriteSheet_181: -647416957
       Brown Book SpriteSheet_182: 976754697
@@ -4854,7 +4885,6 @@ TextureImporter:
       Brown Book SpriteSheet_187: -774757280
       Brown Book SpriteSheet_188: -609548256
       Brown Book SpriteSheet_189: -263744348
-      Brown Book SpriteSheet_19: 653609715
       Brown Book SpriteSheet_190: -1981125287
       Brown Book SpriteSheet_191: -383419481
       Brown Book SpriteSheet_192: 782511769
@@ -4866,7 +4896,6 @@ TextureImporter:
       Brown Book SpriteSheet_198: 930224711
       Brown Book SpriteSheet_199: 1671733946
       Brown Book SpriteSheet_2: 981958856
-      Brown Book SpriteSheet_20: 643640815
       Brown Book SpriteSheet_200: -1157635388
       Brown Book SpriteSheet_201: 1246474004
       Brown Book SpriteSheet_202: -742338039
@@ -4877,10 +4906,7 @@ TextureImporter:
       Brown Book SpriteSheet_207: -1428373293
       Brown Book SpriteSheet_208: 1783875243
       Brown Book SpriteSheet_209: 1474224500
-      Brown Book SpriteSheet_21: 814676158
       Brown Book SpriteSheet_210: 808293125
-      Brown Book SpriteSheet_22: -825904899
-      Brown Book SpriteSheet_23: 517004594
       Brown Book SpriteSheet_25: -859815039
       Brown Book SpriteSheet_26: 1543817013
       Brown Book SpriteSheet_27: -40577770

@@ -177,7 +177,7 @@ public class TravelSystem : MonoBehaviour
         EventManager.Instance.SetContext(false);
         SoundtrackManager.Instance.PlayMusic("MainMusic");
         m_environment.SetSailSpeed(1f);
-        UiNotification.instance.TriggerNotification($"Arrive at destination{m_currentIsland.m_islandName}");
+        UiNotification.instance.TriggerNotification($"Destination Reach{m_currentIsland.m_islandName}");
 
         //Anchor
         SfxManager.PlaySfx("anchorDrop");

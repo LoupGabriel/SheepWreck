@@ -113,7 +113,7 @@ public class SheepController : MonoBehaviour, ISelectable
         {
 
             m_isGrab = true;
-
+            CursorManager.Instance.SetCursorType(ECursorType.SheepGrab);
             if (!m_sfxPlayed)
             {
                 SfxManager.PlaySfx("Sheep");

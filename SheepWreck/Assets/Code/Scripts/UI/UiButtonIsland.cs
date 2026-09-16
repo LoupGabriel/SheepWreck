@@ -1,7 +1,8 @@
 
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
-public class UiButtonIsland : MonoBehaviour
+public class UiButtonIsland : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler
 {
     [SerializeField] string m_panelName;
     
@@ -31,5 +32,15 @@ public class UiButtonIsland : MonoBehaviour
         
         
         UiPanelManager.Instance.OpenPanelByName(m_panelName);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        CursorManager.Instance.SetCursorType(ECursorType.InteractUI);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        CursorManager.Instance.SetCursorType(ECursorType.Default);
     }
 }

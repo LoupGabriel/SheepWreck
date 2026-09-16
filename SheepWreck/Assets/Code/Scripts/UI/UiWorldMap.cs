@@ -39,7 +39,7 @@ public class UiWorldMap : MonoBehaviour
         }
         else
         {
-            m_remainingTimeText.text = "Arrive in :" +  Mathf.FloorToInt(m_travelSystem.m_travelTime).ToString();
+            m_remainingTimeText.text = "Destination reach in :" +  Mathf.FloorToInt(m_travelSystem.m_travelTime).ToString();
         }
        
         
