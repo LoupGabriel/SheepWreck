@@ -13,6 +13,7 @@ public class SheepController : MonoBehaviour, ISelectable
     public SheepState m_sheepState;
     public SheepInstance m_sheepData;
     private UiSheepPanel m_sheepPanel;
+    
 
     private SpriteRenderer m_sheepRenderer;
 
@@ -30,12 +31,13 @@ public class SheepController : MonoBehaviour, ISelectable
         m_animator = GetComponent<Animator>();
         m_sheepPanel = FindFirstObjectByType<UiSheepPanel>(FindObjectsInactive.Include);
         m_sheepData = GetComponent<SheepInstance>();
-
+        
     }
 
 
     private void Start()
     {
+        
         m_sheepRenderer = GetComponent<SpriteRenderer>();
         m_animator.SetBool("isGrab", m_isGrab);
         if(GameManager.Instance.CurrentGameState is GameManagementState)

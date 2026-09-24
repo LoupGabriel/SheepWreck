@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class UiResourceAnimationManager : MonoBehaviour
 {
-   public static UiResourceAnimationManager Instance { get; private set; }
+    public static UiResourceAnimationManager Instance { get; private set; }
 
     [Header("Reference")]
     [SerializeField] private Canvas m_canvas;
@@ -11,12 +11,15 @@ public class UiResourceAnimationManager : MonoBehaviour
     [SerializeField] private UiResourceParticle m_particlePrefab;
 
     [Header("Resource Target")]
+    [SerializeField] private RectTransform m_goldTarget;
     [SerializeField] private RectTransform m_foodTarget;
     [SerializeField] private RectTransform m_waterTarget;
     [SerializeField] private RectTransform m_energyTarget;
     [SerializeField] private RectTransform m_researchTarget;
 
     [Header("resource icons")]
+
+    [SerializeField] private Sprite m_goldSprite;
     [SerializeField] private Sprite m_foodSprite;
     [SerializeField] private Sprite m_waterSprite;
     [SerializeField] private Sprite m_energySprite;
@@ -32,10 +35,11 @@ public class UiResourceAnimationManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        if(m_canvas.renderMode == RenderMode.ScreenSpaceOverlay)
+        if (m_canvas.renderMode == RenderMode.ScreenSpaceOverlay)
         {
             m_uiCamera = null;
-        }else
+        }
+        else
         {
             m_uiCamera = m_canvas.worldCamera;
         }
@@ -45,13 +49,13 @@ public class UiResourceAnimationManager : MonoBehaviour
 
 
 
-    public void PlayCollectAnimation(Transform worldStart,ERessourceType ressourceType)
+    public void PlayCollectAnimation(Transform worldStart, ERessourceType ressourceType)
     {
         StartCoroutine(CollectionRoutine(worldStart.position, ressourceType));
 
     }
 
-    private IEnumerator CollectionRoutine(Vector3 worldPos,ERessourceType ressourceType)
+    private IEnumerator CollectionRoutine(Vector3 worldPos, ERessourceType ressourceType)
     {
         RectTransform target = GetTarget(ressourceType);
         Sprite sprite = GetSprite(ressourceType);
@@ -63,12 +67,12 @@ public class UiResourceAnimationManager : MonoBehaviour
 
         Vector2 screenPos = Camera.main.WorldToScreenPoint(worldPos);
         RectTransformUtility.ScreenPointToLocalPointInRectangle(m_particleParent, screenPos, m_uiCamera, out Vector2 localPosition);
-        
 
-        for(int i = 0; i < m_particleCount; i++)
+
+        for (int i = 0; i < m_particleCount; i++)
         {
-            UiResourceParticle particle = Instantiate(m_particlePrefab,m_particleParent);
-            particle.Initialize(sprite, localPosition,target,()=> AnimateTarget(target));
+            UiResourceParticle particle = Instantiate(m_particlePrefab, m_particleParent);
+            particle.Initialize(sprite, localPosition, target, () => AnimateTarget(target));
             yield return new WaitForSecondsRealtime(m_delayBetweenParticle);
         }
     }
@@ -77,6 +81,7 @@ public class UiResourceAnimationManager : MonoBehaviour
     {
         switch (ressourceType)
         {
+
             case ERessourceType.FOOD:
                 return m_foodTarget;
 
@@ -88,8 +93,11 @@ public class UiResourceAnimationManager : MonoBehaviour
 
             case ERessourceType.RESEARCH:
                 return m_researchTarget;
-                
-                default: return null;
+
+            case ERessourceType.GOLD:
+                return m_goldTarget;
+
+            default: return null;
         }
     }
     private Sprite GetSprite(ERessourceType ressourceType)
@@ -107,8 +115,11 @@ public class UiResourceAnimationManager : MonoBehaviour
 
             case ERessourceType.RESEARCH:
                 return m_researchSprite;
-                
-                default: return null;
+
+            case ERessourceType.GOLD:
+                return m_goldSprite;
+
+            default: return null;
         }
     }
 

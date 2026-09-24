@@ -203,6 +203,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &5940504955310434372
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 715517791975249456}
+  m_Layer: 7
+  m_Name: FireSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &715517791975249456
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5940504955310434372}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.6, y: 1.03, z: 0.03}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4393799994849613272}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8777958802328474063
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,6 +287,8 @@ Transform:
   - {fileID: 6717255279055345395}
   - {fileID: 2066008898200765374}
   - {fileID: 5798618747604958828}
+  - {fileID: 715517791975249456}
+  - {fileID: 7208316828182458763}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &8207264014835804981
@@ -274,8 +307,12 @@ MonoBehaviour:
   m_assignedSheep: []
   m_sheepSlot: {fileID: 8001592794101219369}
   m_collectIcon: {fileID: 5574614558438988452}
+  m_xpAmount: 1
+  m_fireSpawn:
+  - {fileID: 715517791975249456}
+  - {fileID: 7208316828182458763}
+  m_isGhost: 0
   m_currentStoredResources: 0
-  m_isCurrentRoom: 0
   m_roomProductionTime: 2
 --- !u!23 &4048543962158001959
 MeshRenderer:
@@ -343,6 +380,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5.2001753, y: 2.6317232, z: 5.3594084}
   m_Center: {x: -0.04532528, y: 1.3144432, z: 0.1410203}
+--- !u!1 &8957288654309195763
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7208316828182458763}
+  m_Layer: 7
+  m_Name: FireSpawnPoint (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7208316828182458763
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8957288654309195763}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.757, y: 0.091, z: 1.303}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4393799994849613272}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1916908547400790562
 PrefabInstance:
   m_ObjectHideFlags: 0

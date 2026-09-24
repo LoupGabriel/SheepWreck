@@ -136,7 +136,7 @@ public class TravelSystem : MonoBehaviour
         OnDestinationSet?.Invoke();
         UiPanelManager.Instance.ShowIslandViewButton(false);
         SoundtrackManager.Instance.PlayMusic("SetSail");
-        m_environment.SetSailSpeed(5f);
+        m_environment.SetSailSpeed(10f);
         DestroyIsland();
 
 
@@ -156,6 +156,7 @@ public class TravelSystem : MonoBehaviour
     /// </summary>
     private void ArriveAtDestination()
     {
+       
         foreach (Animator animator in m_sailAnimator)
         {
             animator.SetTrigger("Idle");
@@ -169,6 +170,7 @@ public class TravelSystem : MonoBehaviour
         m_environment.ChangeBackground(m_currentEnvironment);
 
         m_currentIsland = m_destinationIsland;
+        Debug.Log($"ARRIVED : {m_currentIsland.m_gridPos}");
         OnDestinationReach?.Invoke(m_currentIsland.transform.position);
         SpawnIslandVisual();
         m_travelTime = 0f;
@@ -177,6 +179,7 @@ public class TravelSystem : MonoBehaviour
         EventManager.Instance.SetContext(false);
         SoundtrackManager.Instance.PlayMusic("MainMusic");
         m_environment.SetSailSpeed(1f);
+        m_environment.StopSailEffects();
         UiNotification.instance.TriggerNotification($"Destination Reach{m_currentIsland.m_islandName}");
 
         //Anchor
@@ -184,7 +187,7 @@ public class TravelSystem : MonoBehaviour
         DownAnchor();
         UiPanelManager.Instance.ShowIslandViewButton(true);
 
-       
+        GameManager.Instance.ChangeState(new GameManagementState(GameManager.Instance));
     }
 
     /// <summary>

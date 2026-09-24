@@ -7,6 +7,7 @@ public enum ECursorType
     SheepOver,
     SheepGrab,
     InteractUI,
+    Fire,
     Construction
 }
 public class CursorManager : MonoBehaviour
@@ -16,6 +17,7 @@ public class CursorManager : MonoBehaviour
     [SerializeField] private Texture2D m_SheepGrab;
     [SerializeField] private Texture2D m_Interact;
     [SerializeField] private Texture2D m_construction;
+    [SerializeField] private Texture2D m_fire;
 
 
     [SerializeField] private Vector2 clickPosition = Vector2.zero;
@@ -60,6 +62,10 @@ public class CursorManager : MonoBehaviour
             case ECursorType.Construction:
                 Cursor.SetCursor(m_construction, clickPosition, CursorMode.Auto);
                 break;
+            case ECursorType.Fire:
+                Cursor.SetCursor(m_fire, clickPosition, CursorMode.Auto);
+                break;
+
 
         }
 

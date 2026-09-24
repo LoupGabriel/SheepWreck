@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 
@@ -51,7 +52,7 @@ public class SheepInstance : MonoBehaviour
     [SerializeField] private GameObject m_hungryToken;
     [SerializeField] private GameObject m_thirstyToken;
     [SerializeField] private GameObject m_DyingToken;
-
+    private Canvas m_sheepCanvas;
     private bool m_initializedFromRecruit = false;
     private Animator m_animator;
     private Dictionary<ESheepJob, int> m_jobXP = new();
@@ -98,7 +99,7 @@ public class SheepInstance : MonoBehaviour
         m_waitForWorkState = new SheepWaitForWorkState(this, m_stateMachine);
         m_restingState = new SheepRestingState(this, m_stateMachine);
         m_eatingState = new SheepEatingState(this, m_stateMachine);
-
+        m_sheepCanvas = GetComponentInChildren<Canvas>();
         //initialize xp dictionary 
         foreach (ESheepJob job in Enum.GetValues(typeof(ESheepJob)))
         {
@@ -114,7 +115,7 @@ public class SheepInstance : MonoBehaviour
     }
     private void Start()
     {
-
+        m_sheepCanvas.enabled = false;
         m_animator = GetComponent<Animator>();
         m_hungryToken.SetActive(false);
         m_thirstyToken.SetActive(false);
@@ -151,6 +152,16 @@ public class SheepInstance : MonoBehaviour
         Thirst();
         Dying();
         m_currentMorale = (int)GetMorale();
+
+        if(m_stateMachine.m_currentSheepState is SheepWorkingState)
+        {
+            m_sheepCanvas.enabled = true;
+        }
+        else
+        {
+            m_sheepCanvas.enabled = false;
+        }
+        
     }
 
 
@@ -409,5 +420,13 @@ public class SheepInstance : MonoBehaviour
             //UiPanelManager.Instance.closeSheepPanel();
             Destroy(this.gameObject);
         }
+    }
+
+    public void ProductionPopup(float production)
+    {
+        m_sheepCanvas.enabled = false;
+        TMP_Text produceText = m_sheepCanvas.GetComponentInChildren<TMP_Text>();
+        produceText.text = "+" + production.ToString();
+        m_sheepCanvas.enabled = true;
     }
 }

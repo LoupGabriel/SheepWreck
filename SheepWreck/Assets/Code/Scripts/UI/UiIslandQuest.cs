@@ -22,7 +22,7 @@ public class UiIslandQuest : MonoBehaviour
 
         m_DeliveryButton.onClick.AddListener(OnDeliverClicked);
         m_questPanel.SetActive(false);
-        SetupAmountDropdown();
+       
 
 
         //delivery
@@ -37,7 +37,9 @@ public class UiIslandQuest : MonoBehaviour
             options.Add(type.ToString());
 
         }
+       
         m_ressourceDropdown.AddOptions(options);
+        SetupAmountDropdown();
         m_ressourceDropdown.onValueChanged.AddListener(OnResourceChanged);
 
 
@@ -85,8 +87,10 @@ public class UiIslandQuest : MonoBehaviour
         m_DeliveryButton.onClick.RemoveListener(OnDeliverClicked);
     }
 
-    private void OnDeliverClicked()
+    public void OnDeliverClicked()
     {
+      
+        IslandInstance currentIsland = TravelSystem.Instance.m_currentIsland;
         ERessourceType type = GetSelectedResource();
 
         int available = RessourceSystem.Instance.m_ressourceDictionary[type];
@@ -100,7 +104,7 @@ public class UiIslandQuest : MonoBehaviour
         QuestManager.Instance.OnQuestDelivered?.Invoke(
             type,
             amount,
-            m_currentIsland.m_gridPos
+            currentIsland.m_gridPos
         );
     }
 

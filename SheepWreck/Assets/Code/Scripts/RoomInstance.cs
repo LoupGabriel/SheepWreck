@@ -18,6 +18,7 @@ public class RoomInstance : MonoBehaviour, ISelectable
 
     [SerializeField] private GameObject m_collectIcon;
     [SerializeField] private int m_xpAmount = 1;
+    [SerializeField] private List<Transform> m_fireSpawn;
     public bool m_isGhost = false;
 
     private Coroutine m_productionRoutine;
@@ -31,7 +32,7 @@ public class RoomInstance : MonoBehaviour, ISelectable
 
 
 
-
+    public List<Transform> FirePoint => m_fireSpawn;
     public bool IsStorageFull => m_currentStoredResources >= m_roomData.m_capacity;
     private bool m_storageUsed = false;
     private void Start()
@@ -140,7 +141,7 @@ public class RoomInstance : MonoBehaviour, ISelectable
 
             float malus =( GetThirstyMalus(sheep) + GetHungryMalus(sheep)) / 2;
             totalProduction += sheep.m_productionRate * traitMultiplier * specialityMultiplier * levelMultiplier * roomProductionMultiplier * malus;
-
+            sheep.ProductionPopup(totalProduction);
         }
 
 

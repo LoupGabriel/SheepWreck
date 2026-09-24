@@ -13,6 +13,11 @@ public class FireEventState : GameMinigameState
         base.Enter();
         gameManager.FireEventController.SpawnFire();
         SoundtrackManager.Instance.PlayMusic("Fire");
+        foreach(RoomInstance room in ShipSystem.Instance.m_shipCurrentRooms)
+        {
+            BoxCollider boxCollider = room.GetComponent<BoxCollider>();
+            boxCollider.enabled = false;
+        }
     }
 
     public override void Update()
@@ -20,16 +25,17 @@ public class FireEventState : GameMinigameState
         
         Debug.Log("fire");
         m_elapse += Time.deltaTime;
+        if(gameManager.FireEventController.AllFire.Count <= 0)
+        {
+            Win();
+        }
         if (m_elapse >= gameManager.FireEventController.Duration)
         {
             if (gameManager.FireEventController.AllFire.Count > 0)
             {
                 Loose();
             }
-            else
-            {
-                Win();
-            }
+            
             m_elapse = 0;
         }
 
@@ -41,14 +47,24 @@ public class FireEventState : GameMinigameState
         {
             fire.DestroyFire();
         }
+        foreach(Transform t in gameManager.FireEventController.SpawnPoint)
+        {
+            gameManager.FireEventController.SpawnPoint.Remove(t);
+        }
         gameManager.FireEventController.AllFire.Clear();
-        SoundtrackManager.Instance.PlayMusic("MainMusic");
+        SoundtrackManager.Instance.PlayMusic("SetSail");
+        foreach (RoomInstance room in ShipSystem.Instance.m_shipCurrentRooms)
+        {
+            BoxCollider boxCollider = room.GetComponent<BoxCollider>();
+            boxCollider.enabled = true;
+        }
 
     }
+    
     public override void Win()
     {
         base.Win();
-        
+        SfxManager.PlaySfx("Upgrade02");
         //reward
         gameManager.ChangeState(new GameManagementState(gameManager));
     }
