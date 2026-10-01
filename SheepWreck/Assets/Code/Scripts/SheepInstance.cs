@@ -52,6 +52,9 @@ public class SheepInstance : MonoBehaviour
     [SerializeField] private GameObject m_hungryToken;
     [SerializeField] private GameObject m_thirstyToken;
     [SerializeField] private GameObject m_DyingToken;
+
+
+  
     private Canvas m_sheepCanvas;
     private bool m_initializedFromRecruit = false;
     private Animator m_animator;

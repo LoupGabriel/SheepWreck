@@ -1,4 +1,5 @@
-using Unity.VisualScripting;
+
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -13,10 +14,10 @@ public class SheepController : MonoBehaviour, ISelectable
     public SheepState m_sheepState;
     public SheepInstance m_sheepData;
     private UiSheepPanel m_sheepPanel;
-    
+    public Action OnSheepDrop;
 
     private SpriteRenderer m_sheepRenderer;
-
+    
     private Animator m_animator;
     private static bool m_isGrab = false;
 
@@ -26,6 +27,10 @@ public class SheepController : MonoBehaviour, ISelectable
     private float m_timeBeforeDrag = 0.25f;
 
     private bool m_sfxPlayed = false;
+
+    [SerializeField] private GameObject m_dropVfx;
+    [SerializeField] private GameObject m_selectionFeedback;
+    public bool IsGrab => m_isGrab;
     private void Awake()
     {
         m_animator = GetComponent<Animator>();
@@ -39,6 +44,7 @@ public class SheepController : MonoBehaviour, ISelectable
     {
         
         m_sheepRenderer = GetComponent<SpriteRenderer>();
+        m_selectionFeedback.gameObject.SetActive(false);
         m_animator.SetBool("isGrab", m_isGrab);
         if(GameManager.Instance.CurrentGameState is GameManagementState)
         {
@@ -156,9 +162,10 @@ public class SheepController : MonoBehaviour, ISelectable
         m_animator.SetBool("isGrab", m_isGrab);
         m_timeSinceClick = 0;
         m_sfxPlayed = false;
-
+        Instantiate(m_dropVfx, dropPos, Quaternion.identity);
         m_sheepRenderer.material.SetFloat("_oulineOn", 0);
-        if(GameManager.Instance.CurrentGameState is SheepRescueState rescueState)
+        OnSheepDrop?.Invoke();
+        if (GameManager.Instance.CurrentGameState is SheepRescueState rescueState)
         {
             rescueState.Win();
         }
@@ -172,6 +179,7 @@ public class SheepController : MonoBehaviour, ISelectable
         SfxManager.PlaySfx("Error");
         m_isGrab = false;
         transform.position = m_originalPos;
+        OnSheepDrop?.Invoke();
         m_animator.SetBool("isGrab", m_isGrab);
         if (GameManager.Instance.CurrentGameState is SheepRescueState rescueState)
         {
@@ -186,6 +194,11 @@ public class SheepController : MonoBehaviour, ISelectable
        
             m_sheepRenderer.material.SetFloat("_oulineOn", isHovered ? 1:0);
         
+    }
+    
+    public void SetSheepSelect(bool isCurrentlySelect)
+    {
+        m_selectionFeedback.gameObject.SetActive(isCurrentlySelect);
     }
 
 

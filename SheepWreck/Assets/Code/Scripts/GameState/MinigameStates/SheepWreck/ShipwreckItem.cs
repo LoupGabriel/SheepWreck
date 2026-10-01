@@ -6,7 +6,8 @@ public class ShipwreckItem : MonoBehaviour
     [SerializeField] private ERessourceType m_ressourceProduced;
     [SerializeField] private float m_minSpeed = 2f;
     [SerializeField] private float m_maxSpeed = 10f;
-
+    [SerializeField] private int m_amountMin = 1;
+    [SerializeField] private int m_amountMax = 2;
     private float m_currentSpeed;
     private Rigidbody m_rigidbody;
     private Collider m_collider;
@@ -35,8 +36,8 @@ public class ShipwreckItem : MonoBehaviour
 
         SfxManager.PlaySfx("Coin");
       
-
-        RessourceSystem.Instance.GainRessource(50, m_ressourceProduced);
+        int randAmount = Random.Range(m_amountMin, m_amountMax);
+        RessourceSystem.Instance.GainRessource(randAmount, m_ressourceProduced);
 
         UiResourceAnimationManager.Instance.PlayCollectAnimation(transform,m_ressourceProduced);
     

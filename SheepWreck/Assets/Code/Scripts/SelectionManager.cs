@@ -34,11 +34,13 @@ public class SelectionManager : MonoBehaviour
     private void Start()
     {
         CheatManager.Instance.OnKillSheep += KillCurrentSheep;
+
     }
 
     private void OnDestroy()
     {
         CheatManager.Instance.OnKillSheep -= KillCurrentSheep;
+        m_currentSelectedSheep.OnSheepDrop -= OnSheepDropped;
     }
     private void Update()
     {
@@ -188,7 +190,7 @@ public class SelectionManager : MonoBehaviour
             {
                 if (m_fishNetController != null)
                 {
-                   // m_fishNetController.Select();
+                    // m_fishNetController.Select();
                 }
 
             }
@@ -210,7 +212,7 @@ public class SelectionManager : MonoBehaviour
                     GameObject Vfx = Instantiate(m_vfx, m_currentHoveredRoom.transform.position, Quaternion.identity);
                 }
             }
-           
+
 
 
             RaycastHit[] hits = Physics.RaycastAll(m_rayFromCam);
@@ -235,11 +237,27 @@ public class SelectionManager : MonoBehaviour
 
                 if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Sheep"))
                 {
+                    SheepController newSheep = hit.collider.gameObject.GetComponent<SheepController>();
+
+                    if (m_lastSelectedSheep != null && m_lastSelectedSheep != newSheep)
+                    {
+                        m_lastSelectedSheep.SetSheepSelect(false);
+                    }
+                    if (m_currentSelectedSheep != null)
+                    {
+
+                        m_currentSelectedSheep.OnSheepDrop -= OnSheepDropped;
+                    }
 
 
                     m_currentSelectedSheep = hit.collider.gameObject.GetComponent<SheepController>();
+
+                    m_currentSelectedSheep.OnSheepDrop += OnSheepDropped;
+
                     m_lastSelectedSheep = m_currentSelectedSheep;
+                    m_currentSelectedSheep.SetSheepSelect(true);
                     m_currentSelectedSheep.Select();
+
                     return;
                 }
                 else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Room"))
@@ -278,16 +296,21 @@ public class SelectionManager : MonoBehaviour
             {
                 if (m_fishNetController != null)
                 {
-                 //   m_fishNetController.StartGrab();
+                    //   m_fishNetController.StartGrab();
                 }
 
             }
-            
 
 
-                if (m_currentSelectedSheep != null)
+
+            if (m_currentSelectedSheep != null)
             {
                 m_currentSelectedSheep.StartGrab();
+                if (m_currentSelectedSheep.IsGrab)
+                {
+                    ShowAvailableRooms();
+                }
+                
                 m_currentSelectedSheep.m_sheepData.m_assignedRoom.RemoveSheepFromRoom(m_currentSelectedSheep.m_sheepData);
             }
 
@@ -303,7 +326,7 @@ public class SelectionManager : MonoBehaviour
         {
             if (m_fishNetController != null)
             {
-              //  m_fishNetController.Drop();
+                //  m_fishNetController.Drop();
                 m_fishNetController = null;
                 CursorManager.Instance.SetCursorType(ECursorType.Default);
 
@@ -347,12 +370,30 @@ public class SelectionManager : MonoBehaviour
     }
 
 
+    private void ShowAvailableRooms()
+    {
+        foreach (RoomInstance room in ShipSystem.Instance.m_shipCurrentRooms)
+        {
+            room.ShowStatusLight();
+        }
+    }
 
 
-
-
-
-
+    private void OnSheepDropped()
+    {
+        foreach (RoomInstance room in ShipSystem.Instance.m_shipCurrentRooms)
+        {
+            room.HideStatusLight();
+        }
+    }
 
 
 }
+
+
+
+
+
+
+
+

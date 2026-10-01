@@ -19,6 +19,16 @@ public class RoomInstance : MonoBehaviour, ISelectable
     [SerializeField] private GameObject m_collectIcon;
     [SerializeField] private int m_xpAmount = 1;
     [SerializeField] private List<Transform> m_fireSpawn;
+
+
+
+    //FeedBack
+    [SerializeField] private MeshRenderer[] m_wall;
+    [SerializeField] private Material m_offMaterial;
+    [SerializeField] private Material m_onMaterial;
+    [SerializeField] private Material m_flashMaterial;
+    [SerializeField] private Material m_readyMaterial;
+    [SerializeField] private Light m_feedbackLight;
     public bool m_isGhost = false;
 
     private Coroutine m_productionRoutine;
@@ -40,7 +50,7 @@ public class RoomInstance : MonoBehaviour, ISelectable
         m_renderer = GetComponent<MeshRenderer>();
         m_renderer.enabled = false;
         ShipSystem.Instance.AddRoomToList(this);
-
+        m_feedbackLight.gameObject.SetActive(false);
         if (m_isGhost)
             return;
 
@@ -80,6 +90,7 @@ public class RoomInstance : MonoBehaviour, ISelectable
         if (maxSheepReach() != true)
         {
             m_assignedSheep.Add(sheepInstance);
+            Bounce();
         }
 
 
@@ -121,11 +132,17 @@ public class RoomInstance : MonoBehaviour, ISelectable
 
 
         if (IsStorageFull)
+        {
+            RoomReadyVisual();
             return;
+        }
+            
 
 
         if (isEmptyRoom())
             return;
+
+        LightRoom(true);
 
         SetSheepsWorking();
 
@@ -154,6 +171,7 @@ public class RoomInstance : MonoBehaviour, ISelectable
 
         if (m_currentStoredResources >= m_roomData.m_capacity)
         {
+            RoomReadyVisual();
             m_collectIcon.SetActive(true);
             string sfx = null;
 
@@ -197,9 +215,9 @@ public class RoomInstance : MonoBehaviour, ISelectable
         UiResourceAnimationManager.Instance.PlayCollectAnimation(m_collectIcon.transform, m_roomData.m_ressourceProduced);
         m_currentStoredResources = 0;
         m_collectIcon.SetActive(false);
-        
-      
-   
+
+        LightRoom(m_assignedSheep.Count > 0);
+
     }
 
 
@@ -221,9 +239,9 @@ public class RoomInstance : MonoBehaviour, ISelectable
 
     private bool isEmptyRoom()
     {
-
+    
         return m_roomData.m_buildingType == EBuildingType.EMPTY;
-
+       
 
     }
 
@@ -252,6 +270,10 @@ public class RoomInstance : MonoBehaviour, ISelectable
             {
                 Produce();
             }
+            else
+            {
+                LightRoom(false);
+            }
         }
     }
 
@@ -260,6 +282,22 @@ public class RoomInstance : MonoBehaviour, ISelectable
         m_isGhost = isGhost;
     }
 
+    private void LightRoom(bool producing)
+    {
+        foreach (var wall in m_wall)
+        {
+            wall.material = producing ? m_onMaterial : m_offMaterial;
+        }
+    }
+    private void RoomReadyVisual()
+    {
+        foreach (var wall in m_wall)
+        {
+            wall.material = m_readyMaterial;
+        }
+
+        StartCoroutine(RessourceReadyRoutine());
+    }
 
 
     private void GiveXpToSheep()
@@ -366,4 +404,55 @@ public class RoomInstance : MonoBehaviour, ISelectable
         }
     }
 
+    public void ShowStatusLight()
+    {
+        m_feedbackLight.gameObject.SetActive(true);
+        if (!maxSheepReach())
+        {
+            m_feedbackLight.color = Color.yellow;
+        }
+        else
+        {
+            m_feedbackLight.color = Color.red;
+        }
+
+    }
+    public void HideStatusLight()
+    {
+        m_feedbackLight.gameObject.SetActive(false);
+    }
+
+    private void Bounce()
+    {
+        StartCoroutine(BounceRoutine());
+        SfxManager.PlaySfx("SheepAssigned");
+    }
+    private IEnumerator BounceRoutine()
+    {
+        transform.localScale *= 1.05f;
+        foreach(var wall in m_wall)
+        {
+            wall.material = m_flashMaterial;
+        }
+        yield return new WaitForSeconds(0.15f);
+        transform.localScale /= 1.05f;
+        foreach (var wall in m_wall)
+        {
+            wall.material = m_offMaterial;
+        }
+    }
+
+    private IEnumerator RessourceReadyRoutine()
+    {
+        float speed = 1f;
+
+        while (true)
+        {
+            float value = Mathf.PingPong(Time.time * speed, 1f);
+
+            m_readyMaterial.SetFloat("_FresnelPower", value);
+
+            yield return null;
+        }
+    }
 }
