@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using static UnityEngine.Rendering.DebugUI;
 
 
@@ -13,7 +15,8 @@ public class UiPanelManager : MonoBehaviour
     private GameObject m_panelOutside;
     private GameObject m_currentPanel;
 
-
+    [SerializeField] private Volume m_postprocess;
+    private DepthOfField m_depthOfField;
     [SerializeField] GameObject[] m_allPanels;
     [SerializeField] private GameObject m_sheepPanel;
     [SerializeField]
@@ -22,6 +25,10 @@ public class UiPanelManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        if(m_postprocess.profile.TryGet<DepthOfField>(out m_depthOfField))
+        {
+            m_depthOfField.active = false;
+        }
     }
 
     private void Update()
@@ -75,7 +82,7 @@ public class UiPanelManager : MonoBehaviour
         panel.SetActive(true);
         m_panelOutside.SetActive(true);
         m_currentPanel = panel;
-
+        m_depthOfField.active = true;
     }
     public void OpenPanelByName(string panel)
     {
@@ -95,7 +102,7 @@ public class UiPanelManager : MonoBehaviour
     public void CloseCurrentPanel()
     {
         PauseController.IsPaused(false);
-        
+        m_depthOfField.active = false;
         if (m_currentPanel != null)
         {
             m_currentPanel.SetActive(false);
@@ -116,6 +123,7 @@ public class UiPanelManager : MonoBehaviour
     public void closeConstructionPanel()
     {
        m_constructionPanel.SetActive(false);
+       m_depthOfField.active = false;
     }
     public void ShowIslandViewButton(bool condition)
     {

@@ -409,7 +409,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &615515662658017248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -527,6 +527,7 @@ GameObject:
   - component: {fileID: 2853823639862369821}
   - component: {fileID: 8500791619954613846}
   - component: {fileID: 1502636989722408146}
+  - component: {fileID: 3201120421121155951}
   m_Layer: 5
   m_Name: QuestButton
   m_TagString: Untagged
@@ -672,6 +673,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_panelName: QuestPanel
+--- !u!114 &3201120421121155951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5650196977683174014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6411e8af773611d4b976f9aa2e57ace0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_offset: {x: 0, y: 0, z: 0}
+  m_scaleoffset: 1.2
 --- !u!1 &5738317236873879428
 GameObject:
   m_ObjectHideFlags: 0
@@ -772,6 +787,7 @@ GameObject:
   - component: {fileID: 5921646638079307421}
   - component: {fileID: 2404931054397612961}
   - component: {fileID: 641163662653538845}
+  - component: {fileID: 7013076905611632834}
   m_Layer: 5
   m_Name: RecruitButton
   m_TagString: Untagged
@@ -917,6 +933,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_panelName: RecruitAtIslandPanel
+--- !u!114 &7013076905611632834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6738017500171568319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6411e8af773611d4b976f9aa2e57ace0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_offset: {x: 0, y: 0, z: 0}
+  m_scaleoffset: 1.2
 --- !u!1 &7777029707520567862
 GameObject:
   m_ObjectHideFlags: 0
@@ -930,6 +960,7 @@ GameObject:
   - component: {fileID: 4093830027356115823}
   - component: {fileID: 4293468758139537311}
   - component: {fileID: 874452345697537490}
+  - component: {fileID: 4346394314581441961}
   m_Layer: 5
   m_Name: DepotButton
   m_TagString: Untagged
@@ -1075,6 +1106,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_panelName: DeliveryPanel
+--- !u!114 &4346394314581441961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7777029707520567862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6411e8af773611d4b976f9aa2e57ace0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_offset: {x: 0, y: 0, z: 0}
+  m_scaleoffset: 1.2
 --- !u!1 &8545776798444940432
 GameObject:
   m_ObjectHideFlags: 0

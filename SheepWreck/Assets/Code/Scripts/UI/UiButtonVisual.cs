@@ -23,7 +23,7 @@ public class UiButtonVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        transform.position += m_offset;
+        //transform.position += m_offset;
         transform.localScale *= m_scaleoffset;
         SfxManager.PlaySfx("Click");
         CursorManager.Instance.SetCursorType(ECursorType.InteractUI);
@@ -31,7 +31,7 @@ public class UiButtonVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        transform.position -= m_offset;
+        //transform.position -= m_offset;
         transform.localScale /= m_scaleoffset;
         CursorManager.Instance.SetCursorType(ECursorType.Default);
     }
