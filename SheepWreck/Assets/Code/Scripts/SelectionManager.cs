@@ -29,18 +29,19 @@ public class SelectionManager : MonoBehaviour
     private float m_lastClickTime;
 
 
-    private FishNetController m_fishNetController;
+   
     private FireObject m_currentfireObject;
     private void Start()
     {
         CheatManager.Instance.OnKillSheep += KillCurrentSheep;
-
+        
+      
     }
 
     private void OnDestroy()
     {
         CheatManager.Instance.OnKillSheep -= KillCurrentSheep;
-        m_currentSelectedSheep.OnSheepDrop -= OnSheepDropped;
+        
     }
     private void Update()
     {
@@ -79,7 +80,7 @@ public class SelectionManager : MonoBehaviour
         {
             if (GameManager.Instance.CurrentGameState is SheepwreckState)
             {
-                m_fishNetController = hit.collider.GetComponentInParent<FishNetController>();
+               
                 CursorManager.Instance.SetCursorType(ECursorType.SheepOver);
                 Debug.Log("hover fishnet");
             }
@@ -186,15 +187,8 @@ public class SelectionManager : MonoBehaviour
 
 
             float timeSinceLastClick = Time.time - m_lastClickTime;
-            if (GameManager.Instance.CurrentGameState is SheepwreckState)
-            {
-                if (m_fishNetController != null)
-                {
-                    // m_fishNetController.Select();
-                }
-
-            }
-            else if (GameManager.Instance.CurrentGameState is FireEventState)
+           
+            if (GameManager.Instance.CurrentGameState is FireEventState)
             {
                 if (m_currentfireObject != null)
                 {
@@ -292,14 +286,7 @@ public class SelectionManager : MonoBehaviour
     {
         if (Mouse.current.leftButton.isPressed)
         {
-            if (GameManager.Instance.CurrentGameState is SheepwreckState)
-            {
-                if (m_fishNetController != null)
-                {
-                    //   m_fishNetController.StartGrab();
-                }
-
-            }
+            
 
 
 
@@ -324,13 +311,7 @@ public class SelectionManager : MonoBehaviour
     {
         if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
-            if (m_fishNetController != null)
-            {
-                //  m_fishNetController.Drop();
-                m_fishNetController = null;
-                CursorManager.Instance.SetCursorType(ECursorType.Default);
-
-            }
+           
             if (m_currentSelectedSheep != null)
             {
                 if (m_currentHoveredRoom != null && !m_currentHoveredRoom.maxSheepReach())

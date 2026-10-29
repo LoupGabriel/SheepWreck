@@ -216,7 +216,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4089800561655729236, guid: 8212b931b0cfc444498a4a1e540deb1e, type: 3}
       propertyPath: m_PresetInfoIsWorld
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4112754507277994174, guid: 8212b931b0cfc444498a4a1e540deb1e, type: 3}
       propertyPath: m_SortingLayer

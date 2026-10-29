@@ -29,14 +29,14 @@ public class SheepRescueState : GameMinigameState
     public override void Win()
     {
         base.Win();
-        Debug.Log("Sheep Rescued");
+        //Debug.Log("Sheep Rescued");
         gameManager.SheepRescueController.DestroyIsland(m_spawnSheep.gameObject);
         gameManager.ChangeState(new GameManagementState(gameManager));
     }
     public override void Loose()
     {
         base.Loose();
-        Debug.Log("SheepLost");
+       // Debug.Log("SheepLost");
         gameManager.SheepRescueController.DestroyIsland(m_spawnSheep.gameObject);
         gameManager.ChangeState(new GameManagementState(gameManager));
 

@@ -23,7 +23,7 @@ public class FireEventState : GameMinigameState
     public override void Update()
     {
         
-        Debug.Log("fire");
+       
         m_elapse += Time.deltaTime;
         if(gameManager.FireEventController.AllFire.Count <= 0)
         {

@@ -13,7 +13,9 @@ public class QuestManager : MonoBehaviour
 
     public  Action<Quest> OnQuestAccepted;
     public  Action<ERessourceType, int, Vector2Int> OnQuestDelivered;
-
+    //Tutorial event
+    public static event System.Action OnAcceptQuest;
+    public static event System.Action OnAcceptCompleted;
     private void Awake()
     {
         if(Instance != null && Instance != this)
@@ -50,6 +52,7 @@ public class QuestManager : MonoBehaviour
     /// <param name="quest"></param>
     public void AcceptQuest(Quest quest)
     {
+        OnAcceptQuest?.Invoke();
         //only one instance off a quest
        if (IsQuestActive(quest.m_questID)) return;
 
@@ -112,6 +115,7 @@ public class QuestManager : MonoBehaviour
         {
             if (quest.IsCompleted && !quest.m_rewardGiven)
             {
+                OnAcceptCompleted?.Invoke();
                 SfxManager.PlaySfx("Complete");
                 SfxManager.PlaySfx("Coin");
 

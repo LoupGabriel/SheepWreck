@@ -26,7 +26,7 @@ public class UiResourceAnimationManager : MonoBehaviour
     [SerializeField] private Sprite m_researchSprite;
 
     [Header("Animation")]
-    [SerializeField] private int m_particleCount = 8;
+    [SerializeField] private const int m_particleCount = 8;
     [SerializeField] private float m_delayBetweenParticle = 0.04f;
     [SerializeField] private float m_punchScale = 3f;
 
@@ -49,13 +49,13 @@ public class UiResourceAnimationManager : MonoBehaviour
 
 
 
-    public void PlayCollectAnimation(Transform worldStart, ERessourceType ressourceType)
+    public void PlayCollectAnimation(Transform worldStart, ERessourceType ressourceType,int particleCount = m_particleCount)
     {
-        StartCoroutine(CollectionRoutine(worldStart.position, ressourceType));
+        StartCoroutine(CollectionRoutine(worldStart.position, ressourceType, particleCount));
 
     }
 
-    private IEnumerator CollectionRoutine(Vector3 worldPos, ERessourceType ressourceType)
+    private IEnumerator CollectionRoutine(Vector3 worldPos, ERessourceType ressourceType, int particleCount = m_particleCount)
     {
         RectTransform target = GetTarget(ressourceType);
         Sprite sprite = GetSprite(ressourceType);
@@ -69,7 +69,7 @@ public class UiResourceAnimationManager : MonoBehaviour
         RectTransformUtility.ScreenPointToLocalPointInRectangle(m_particleParent, screenPos, m_uiCamera, out Vector2 localPosition);
 
 
-        for (int i = 0; i < m_particleCount; i++)
+        for (int i = 0; i < particleCount; i++)
         {
             UiResourceParticle particle = Instantiate(m_particlePrefab, m_particleParent);
             particle.Initialize(sprite, localPosition, target, () => AnimateTarget(target));

@@ -28,6 +28,8 @@ public class UIRessources : MonoBehaviour
 
     [SerializeField] CrewManager m_crewManager;
 
+    [SerializeField] private Color m_negatifColor;
+    [SerializeField] private Color m_positiveColor;
     private Dictionary<ERessourceType, TMP_Text> m_ressourceText = new Dictionary<ERessourceType, TMP_Text>();
     private Dictionary<ERessourceType, TMP_Text> m_ressourcePopup = new Dictionary<ERessourceType, TMP_Text>();
     private Dictionary<ERessourceType, float> m_ressourceOldAmount = new Dictionary<ERessourceType, float>();
@@ -105,16 +107,21 @@ public class UIRessources : MonoBehaviour
         }
         if (m_ressourcePopup.TryGetValue(ressourceType, out TMP_Text popup))
         {
+            Animator animator = popup.GetComponent<Animator>();
+            
             m_ressourcePopup[ressourceType].gameObject.SetActive(true);
             float difference = (RessourceSystem.Instance.m_ressourceDictionary[ressourceType] - m_ressourceOldAmount[ressourceType]);
-            if( difference > 0 )
+            if( difference >= 0 )
             {
-                popup.color = Color.green;
+                popup.color = m_positiveColor;
+                animator.SetBool("isPositive", true);
+                SfxManager.PlaySfx("NotifPositive");
             }
             else
             {
-                popup.color = Color.red;
-
+                popup.color = m_negatifColor;
+                animator.SetBool("isPositive", false);
+                SfxManager.PlaySfx("NotifNegative");
             }
             popup.text = difference.ToString();
             popup.gameObject.SetActive(true);

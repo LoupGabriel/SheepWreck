@@ -11,7 +11,7 @@ public class GameManagementState : GameState
     public override void Enter()
     {
         base.Enter();
-        Debug.Log("Enter Management Mode");
+        
     }
     public override void Exit()
     {
@@ -21,6 +21,6 @@ public class GameManagementState : GameState
     public override void Update()
     {
         base.Update();
-        Debug.Log("Managment state");
+       
     }
 }

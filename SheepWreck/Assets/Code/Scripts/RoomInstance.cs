@@ -31,6 +31,11 @@ public class RoomInstance : MonoBehaviour, ISelectable
     [SerializeField] private Light m_feedbackLight;
     public bool m_isGhost = false;
 
+    public static event System.Action<RoomInstance> OnFoodRoomBuilt;
+    public static event System.Action<RoomInstance> OnSheepAssigned;
+    public static event System.Action<RoomInstance> OnWaterRoomBuilt;
+    public static event System.Action<RoomInstance> OnEnergyRoomBuilt;
+
     private Coroutine m_productionRoutine;
     public int m_currentStoredResources = 0;
 
@@ -87,12 +92,16 @@ public class RoomInstance : MonoBehaviour, ISelectable
     }
     public void AddSheepToRoom(SheepInstance sheepInstance)
     {
-        if (maxSheepReach() != true)
-        {
-            m_assignedSheep.Add(sheepInstance);
-            Bounce();
-        }
 
+        if (m_isGhost || sheepInstance == null || maxSheepReach())
+            return;
+        if (m_assignedSheep.Contains(sheepInstance))
+            return;
+        Debug.Log($"Sheep assignée à {name} : événement envoyé.", this);
+        m_assignedSheep.Add(sheepInstance);
+        Bounce();
+
+        OnSheepAssigned?.Invoke(this);
 
 
     }
@@ -136,7 +145,7 @@ public class RoomInstance : MonoBehaviour, ISelectable
             RoomReadyVisual();
             return;
         }
-            
+
 
 
         if (isEmptyRoom())
@@ -156,7 +165,7 @@ public class RoomInstance : MonoBehaviour, ISelectable
             float levelMultiplier = GetJobLevelMultipler(sheep);
 
 
-            float malus =( GetThirstyMalus(sheep) + GetHungryMalus(sheep)) / 2;
+            float malus = (GetThirstyMalus(sheep) + GetHungryMalus(sheep)) / 2;
             totalProduction += sheep.m_productionRate * traitMultiplier * specialityMultiplier * levelMultiplier * roomProductionMultiplier * malus;
             sheep.ProductionPopup(totalProduction);
         }
@@ -192,7 +201,7 @@ public class RoomInstance : MonoBehaviour, ISelectable
 
 
             }
-            
+
             SfxManager.PlaySfx(sfx);
         }
 
@@ -239,9 +248,9 @@ public class RoomInstance : MonoBehaviour, ISelectable
 
     private bool isEmptyRoom()
     {
-    
+
         return m_roomData.m_buildingType == EBuildingType.EMPTY;
-       
+
 
     }
 
@@ -299,7 +308,35 @@ public class RoomInstance : MonoBehaviour, ISelectable
         StartCoroutine(RessourceReadyRoutine());
     }
 
+    public void NotifyBuilt()
+    {
+        if (m_isGhost)
+            return;
 
+       
+       
+        if (isRightType(EBuildingType.PRODUCE, ERessourceType.FOOD))
+        {
+            Debug.Log("Food room construite : événement envoyé.", this);
+            OnFoodRoomBuilt?.Invoke(this);
+        }
+        else if ((isRightType(EBuildingType.PRODUCE, ERessourceType.WATER)))
+        {
+            Debug.Log("Water room construite : événement envoyé.", this);
+            OnWaterRoomBuilt?.Invoke(this);
+        }
+        else if ((isRightType(EBuildingType.PRODUCE, ERessourceType.ENERGY)))
+        {
+            Debug.Log("Energy room construite : événement envoyé.", this);
+            OnEnergyRoomBuilt?.Invoke(this);
+        }
+        
+    }
+
+    private bool isRightType(EBuildingType type, ERessourceType ressource)
+    {
+        return m_roomData.m_buildingType == type && m_roomData.m_ressourceProduced == ressource;
+    }
     private void GiveXpToSheep()
     {
         ESheepJob job = GetRoomJob();
@@ -430,7 +467,7 @@ public class RoomInstance : MonoBehaviour, ISelectable
     private IEnumerator BounceRoutine()
     {
         transform.localScale *= 1.05f;
-        foreach(var wall in m_wall)
+        foreach (var wall in m_wall)
         {
             wall.material = m_flashMaterial;
         }

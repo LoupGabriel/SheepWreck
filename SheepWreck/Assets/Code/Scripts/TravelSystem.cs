@@ -19,6 +19,8 @@ public class TravelSystem : MonoBehaviour
     private GameObject m_spawnedIsland;
     private int m_currentEnvironment = 0;
    
+
+
     [SerializeField] private Animator[] m_sailAnimator;
 
     [SerializeField] private int m_energyCostPerTile = 25;
@@ -35,6 +37,10 @@ public class TravelSystem : MonoBehaviour
     private float m_lastEventThreshold = 1f;
     [SerializeField] private Animator m_anchorAnimator;
     [SerializeField] private Transform m_islandVisualParent;
+
+
+    //Tutorial event
+    public static event System.Action OnFirstSail;
     private void Awake()
     {
         Instance = this;
@@ -156,7 +162,7 @@ public class TravelSystem : MonoBehaviour
     /// </summary>
     private void ArriveAtDestination()
     {
-       
+        OnFirstSail?.Invoke();
         foreach (Animator animator in m_sailAnimator)
         {
             animator.SetTrigger("Idle");
@@ -170,7 +176,7 @@ public class TravelSystem : MonoBehaviour
         m_environment.ChangeBackground(m_currentEnvironment);
 
         m_currentIsland = m_destinationIsland;
-        Debug.Log($"ARRIVED : {m_currentIsland.m_gridPos}");
+        
         OnDestinationReach?.Invoke(m_currentIsland.transform.position);
         SpawnIslandVisual();
         m_travelTime = 0f;

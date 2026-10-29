@@ -74,7 +74,8 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         PauseController.IsPaused(true);
-        m_gameOverPanel.SetActive(true);
+        if(m_gameOverPanel != null)
+            m_gameOverPanel.SetActive(true);
     }
 
 

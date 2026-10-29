@@ -273,7 +273,7 @@ public class RessourceSystem : MonoBehaviour
         m_ressourceDictionary.Add(ERessourceType.WATER, 100);
         m_ressourceDictionary.Add(ERessourceType.ENERGY, 100);
         m_ressourceDictionary.Add(ERessourceType.MORALE, 0);
-        m_ressourceDictionary.Add(ERessourceType.RESEARCH, 10);
+        m_ressourceDictionary.Add(ERessourceType.RESEARCH, 0);
 
 
     }

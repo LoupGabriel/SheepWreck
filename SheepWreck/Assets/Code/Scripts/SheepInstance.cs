@@ -179,7 +179,7 @@ public class SheepInstance : MonoBehaviour
         transform.gameObject.name = m_sheepName;
     }
 
-
+    //for debugging 
     private void GenerateColorByTrait()
     {
         Color color = Color.white;

@@ -9,8 +9,8 @@ public class ShipwreckItem : MonoBehaviour
     [SerializeField] private int m_amountMin = 1;
     [SerializeField] private int m_amountMax = 2;
     private float m_currentSpeed;
-    private Rigidbody m_rigidbody;
-    private Collider m_collider;
+    
+    
 
     private void Start()
     {
