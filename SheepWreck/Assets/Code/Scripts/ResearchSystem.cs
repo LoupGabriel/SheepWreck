@@ -15,7 +15,7 @@ public class ResearchSystem : MonoBehaviour
     [SerializeField] private List<RoomData> m_upgradableSheepSlot;
     private ResearchProgress m_currentResearch;
 
-
+    public static event System.Action OnFirstResearch;
     [SerializeField] private Transform m_roomPanelContainer;
 
     private int m_currentShipUpgrade = 0;
@@ -84,6 +84,7 @@ public class ResearchSystem : MonoBehaviour
 
         ApplyReward(progress.researchData);
         m_currentResearch = null;
+        OnFirstResearch?.Invoke();
         UiNotification.instance.TriggerNotification($"Completed: {progress.researchData.name}");
     }
 

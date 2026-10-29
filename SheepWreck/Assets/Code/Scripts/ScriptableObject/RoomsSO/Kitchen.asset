@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Kitchen
   m_EditorClassIdentifier: 
   m_roomName: Kitchen
-  m_description: Produce food over Time
+  m_description: 
   m_roomIcon: {fileID: 1191969467, guid: 28f0b48e99cfd93499df39ce82aa83ae, type: 3}
   m_ressourceProduced: 1
   m_buildingType: 0

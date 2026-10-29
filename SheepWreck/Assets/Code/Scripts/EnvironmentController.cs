@@ -12,7 +12,9 @@ public enum EEnvironment
 }
 public class EnvironmentController : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem m_islandVfx;
     [SerializeField] private ParticleSystem m_windSwirl;
+    [SerializeField] private ParticleSystem m_windSwirlShip;
     [SerializeField] private ParticleSystem m_clouds;
     [SerializeField] private float m_transitionDuration = 5;
     [SerializeField] private Material m_runtimeSkybox;
@@ -28,6 +30,9 @@ public class EnvironmentController : MonoBehaviour
 
     private void Awake()
     {
+        m_islandVfx.gameObject.SetActive(false);
+        m_windSwirl.gameObject.SetActive(false);
+        m_windSwirlShip.gameObject.SetActive(false);
         m_runtimeSkybox = Instantiate(RenderSettings.skybox);
         RenderSettings.skybox = m_runtimeSkybox;
     }
@@ -36,6 +41,9 @@ public class EnvironmentController : MonoBehaviour
     /// </summary>
     public void SetSailSpeed(float newSpeed)
     {
+        m_islandVfx.gameObject.SetActive(true);
+        m_windSwirl.gameObject.SetActive(true);
+        m_windSwirlShip.gameObject.SetActive(true);
         var velocitySwirl = m_windSwirl.velocityOverLifetime;
         velocitySwirl.speedModifier = newSpeed;
 
@@ -43,6 +51,13 @@ public class EnvironmentController : MonoBehaviour
         velocityCloud.speedModifier = newSpeed;
 
 
+    }
+
+    public void StopSailEffects()
+    {
+        m_windSwirl.gameObject.SetActive(false);
+        m_windSwirlShip.gameObject.SetActive(false);
+        m_islandVfx.gameObject.SetActive(false);
     }
 
     /// <summary>

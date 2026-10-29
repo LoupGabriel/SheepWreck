@@ -13,7 +13,9 @@ public class QuestManager : MonoBehaviour
 
     public  Action<Quest> OnQuestAccepted;
     public  Action<ERessourceType, int, Vector2Int> OnQuestDelivered;
-
+    //Tutorial event
+    public static event System.Action OnAcceptQuest;
+    public static event System.Action OnAcceptCompleted;
     private void Awake()
     {
         if(Instance != null && Instance != this)
@@ -50,6 +52,7 @@ public class QuestManager : MonoBehaviour
     /// <param name="quest"></param>
     public void AcceptQuest(Quest quest)
     {
+        OnAcceptQuest?.Invoke();
         //only one instance off a quest
        if (IsQuestActive(quest.m_questID)) return;
 
@@ -66,8 +69,11 @@ public class QuestManager : MonoBehaviour
 
     public bool IsQuestCompleted(string questID)
     {
+        //look for the activequest and return the one with the same id
         QuestProgress quest = m_activesQuests.Find(q => q.QuestID == questID);
 
+
+        //return true if all objective are complete
         return quest != null && quest.m_objectives.TrueForAll(o => o.IsCompleted);
     }
 
@@ -77,24 +83,29 @@ public class QuestManager : MonoBehaviour
     /// <param name="type">type of ressource</param>
     /// <param name="amount">amount deliver</param>
     /// <param name="isLandPos">is at the same island as the quest</param>
-    public void HandleDelivery(ERessourceType type,int amount , Vector2Int isLandPos)
+    public void HandleDelivery(ERessourceType type, int amount, Vector2Int isLandPos)
     {
-        foreach(var quest in m_activesQuests)
-        {
-            foreach(var obj in quest.m_objectives)
-            {
-                if (obj.m_type != EObjectiveType.DeliverItem) continue;
-                if (obj.m_ressource != type) continue;
-                if (obj.m_questDestination != isLandPos) continue;
+        
 
+        foreach (var quest in m_activesQuests)
+        {
+            foreach (var obj in quest.m_objectives)
+            {
+                
+                if (obj.m_type != EObjectiveType.DeliverItem) continue;
+                if (obj.m_ressource != type) continue;         
+                if (obj.m_questDestination != isLandPos) continue;
+               
                 obj.m_currentAmount += amount;
+
+              
             }
         }
 
         CheckQuestCompletion();
     }
 
-   
+
     /// <summary>
     /// Complete a quest and get the reward.Cant get the reward twice
     /// </summary>
@@ -104,6 +115,7 @@ public class QuestManager : MonoBehaviour
         {
             if (quest.IsCompleted && !quest.m_rewardGiven)
             {
+                OnAcceptCompleted?.Invoke();
                 SfxManager.PlaySfx("Complete");
                 SfxManager.PlaySfx("Coin");
 

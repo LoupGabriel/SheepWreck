@@ -16,15 +16,18 @@ public class StormEvent : GameEvent
     public override void Trigger(GameContext context)
     {
 
-        PauseController.IsPaused(true);
-       // GameManager.Instance.SetTimePause();
+        //PauseController.IsPaused(true);
+        // GameManager.Instance.SetTimePause();
         //trigger Ui void showMessage
-        context.ui.ShowMessage(m_description + $"Food:{-m_foodLost}  Water:{-m_waterLost}  Gold:{-m_goldLost}");
+        //context.ui.ShowMessage(m_description + $"Food:{-m_foodLost}  Water:{-m_waterLost}  Gold:{-m_goldLost}");
         //trigger lost ressource
 
-        RessourceSystem.Instance.GainRessource(-m_foodLost, ERessourceType.FOOD);
-        RessourceSystem.Instance.GainRessource(-m_waterLost, ERessourceType.WATER);
-       //trigger lost ship hp 
+        //RessourceSystem.Instance.GainRessource(-m_foodLost, ERessourceType.FOOD);
+        //RessourceSystem.Instance.GainRessource(-m_waterLost, ERessourceType.WATER);
+        //trigger lost ship hp 
+
+        GameManager.Instance.ChangeState(new SheepwreckState(GameManager.Instance));
+
     }
 
 

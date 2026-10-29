@@ -18,7 +18,23 @@ public class RoomInstance : MonoBehaviour, ISelectable
 
     [SerializeField] private GameObject m_collectIcon;
     [SerializeField] private int m_xpAmount = 1;
+    [SerializeField] private List<Transform> m_fireSpawn;
+
+
+
+    //FeedBack
+    [SerializeField] private MeshRenderer[] m_wall;
+    [SerializeField] private Material m_offMaterial;
+    [SerializeField] private Material m_onMaterial;
+    [SerializeField] private Material m_flashMaterial;
+    [SerializeField] private Material m_readyMaterial;
+    [SerializeField] private Light m_feedbackLight;
     public bool m_isGhost = false;
+
+    public static event System.Action<RoomInstance> OnFoodRoomBuilt;
+    public static event System.Action<RoomInstance> OnSheepAssigned;
+    public static event System.Action<RoomInstance> OnWaterRoomBuilt;
+    public static event System.Action<RoomInstance> OnEnergyRoomBuilt;
 
     private Coroutine m_productionRoutine;
     public int m_currentStoredResources = 0;
@@ -31,7 +47,7 @@ public class RoomInstance : MonoBehaviour, ISelectable
 
 
 
-
+    public List<Transform> FirePoint => m_fireSpawn;
     public bool IsStorageFull => m_currentStoredResources >= m_roomData.m_capacity;
     private bool m_storageUsed = false;
     private void Start()
@@ -39,7 +55,7 @@ public class RoomInstance : MonoBehaviour, ISelectable
         m_renderer = GetComponent<MeshRenderer>();
         m_renderer.enabled = false;
         ShipSystem.Instance.AddRoomToList(this);
-
+        m_feedbackLight.gameObject.SetActive(false);
         if (m_isGhost)
             return;
 
@@ -76,11 +92,16 @@ public class RoomInstance : MonoBehaviour, ISelectable
     }
     public void AddSheepToRoom(SheepInstance sheepInstance)
     {
-        if (maxSheepReach() != true)
-        {
-            m_assignedSheep.Add(sheepInstance);
-        }
 
+        if (m_isGhost || sheepInstance == null || maxSheepReach())
+            return;
+        if (m_assignedSheep.Contains(sheepInstance))
+            return;
+        Debug.Log($"Sheep assignée à {name} : événement envoyé.", this);
+        m_assignedSheep.Add(sheepInstance);
+        Bounce();
+
+        OnSheepAssigned?.Invoke(this);
 
 
     }
@@ -120,11 +141,17 @@ public class RoomInstance : MonoBehaviour, ISelectable
 
 
         if (IsStorageFull)
+        {
+            RoomReadyVisual();
             return;
+        }
+
 
 
         if (isEmptyRoom())
             return;
+
+        LightRoom(true);
 
         SetSheepsWorking();
 
@@ -138,9 +165,9 @@ public class RoomInstance : MonoBehaviour, ISelectable
             float levelMultiplier = GetJobLevelMultipler(sheep);
 
 
-            float malus =( GetThirstyMalus(sheep) + GetHungryMalus(sheep)) / 2;
+            float malus = (GetThirstyMalus(sheep) + GetHungryMalus(sheep)) / 2;
             totalProduction += sheep.m_productionRate * traitMultiplier * specialityMultiplier * levelMultiplier * roomProductionMultiplier * malus;
-
+            sheep.ProductionPopup(totalProduction);
         }
 
 
@@ -153,6 +180,7 @@ public class RoomInstance : MonoBehaviour, ISelectable
 
         if (m_currentStoredResources >= m_roomData.m_capacity)
         {
+            RoomReadyVisual();
             m_collectIcon.SetActive(true);
             string sfx = null;
 
@@ -173,7 +201,7 @@ public class RoomInstance : MonoBehaviour, ISelectable
 
 
             }
-            
+
             SfxManager.PlaySfx(sfx);
         }
 
@@ -196,9 +224,9 @@ public class RoomInstance : MonoBehaviour, ISelectable
         UiResourceAnimationManager.Instance.PlayCollectAnimation(m_collectIcon.transform, m_roomData.m_ressourceProduced);
         m_currentStoredResources = 0;
         m_collectIcon.SetActive(false);
-        
-      
-   
+
+        LightRoom(m_assignedSheep.Count > 0);
+
     }
 
 
@@ -251,6 +279,10 @@ public class RoomInstance : MonoBehaviour, ISelectable
             {
                 Produce();
             }
+            else
+            {
+                LightRoom(false);
+            }
         }
     }
 
@@ -259,8 +291,52 @@ public class RoomInstance : MonoBehaviour, ISelectable
         m_isGhost = isGhost;
     }
 
+    private void LightRoom(bool producing)
+    {
+        foreach (var wall in m_wall)
+        {
+            wall.material = producing ? m_onMaterial : m_offMaterial;
+        }
+    }
+    private void RoomReadyVisual()
+    {
+        foreach (var wall in m_wall)
+        {
+            wall.material = m_readyMaterial;
+        }
 
+        StartCoroutine(RessourceReadyRoutine());
+    }
 
+    public void NotifyBuilt()
+    {
+        if (m_isGhost)
+            return;
+
+       
+       
+        if (isRightType(EBuildingType.PRODUCE, ERessourceType.FOOD))
+        {
+            Debug.Log("Food room construite : événement envoyé.", this);
+            OnFoodRoomBuilt?.Invoke(this);
+        }
+        else if ((isRightType(EBuildingType.PRODUCE, ERessourceType.WATER)))
+        {
+            Debug.Log("Water room construite : événement envoyé.", this);
+            OnWaterRoomBuilt?.Invoke(this);
+        }
+        else if ((isRightType(EBuildingType.PRODUCE, ERessourceType.ENERGY)))
+        {
+            Debug.Log("Energy room construite : événement envoyé.", this);
+            OnEnergyRoomBuilt?.Invoke(this);
+        }
+        
+    }
+
+    private bool isRightType(EBuildingType type, ERessourceType ressource)
+    {
+        return m_roomData.m_buildingType == type && m_roomData.m_ressourceProduced == ressource;
+    }
     private void GiveXpToSheep()
     {
         ESheepJob job = GetRoomJob();
@@ -365,4 +441,55 @@ public class RoomInstance : MonoBehaviour, ISelectable
         }
     }
 
+    public void ShowStatusLight()
+    {
+        m_feedbackLight.gameObject.SetActive(true);
+        if (!maxSheepReach())
+        {
+            m_feedbackLight.color = Color.yellow;
+        }
+        else
+        {
+            m_feedbackLight.color = Color.red;
+        }
+
+    }
+    public void HideStatusLight()
+    {
+        m_feedbackLight.gameObject.SetActive(false);
+    }
+
+    private void Bounce()
+    {
+        StartCoroutine(BounceRoutine());
+        SfxManager.PlaySfx("SheepAssigned");
+    }
+    private IEnumerator BounceRoutine()
+    {
+        transform.localScale *= 1.05f;
+        foreach (var wall in m_wall)
+        {
+            wall.material = m_flashMaterial;
+        }
+        yield return new WaitForSeconds(0.15f);
+        transform.localScale /= 1.05f;
+        foreach (var wall in m_wall)
+        {
+            wall.material = m_offMaterial;
+        }
+    }
+
+    private IEnumerator RessourceReadyRoutine()
+    {
+        float speed = 1f;
+
+        while (true)
+        {
+            float value = Mathf.PingPong(Time.time * speed, 1f);
+
+            m_readyMaterial.SetFloat("_FresnelPower", value);
+
+            yield return null;
+        }
+    }
 }

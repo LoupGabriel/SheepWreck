@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using static UnityEngine.Rendering.DebugUI;
 
 
@@ -13,15 +15,24 @@ public class UiPanelManager : MonoBehaviour
     private GameObject m_panelOutside;
     private GameObject m_currentPanel;
 
+    [SerializeField] private Volume m_postprocess;
+    private DepthOfField m_depthOfField;
 
     [SerializeField] GameObject[] m_allPanels;
     [SerializeField] private GameObject m_sheepPanel;
     [SerializeField]
     private GameObject m_constructionModeEffect;
     [SerializeField] private GameObject m_worldGui;
+
+    //Tutorial event
+    public static event System.Action OnOpenBook;
     private void Awake()
     {
         Instance = this;
+        if(m_postprocess.profile.TryGet<DepthOfField>(out m_depthOfField))
+        {
+            m_depthOfField.active = false;
+        }
     }
 
     private void Update()
@@ -50,6 +61,7 @@ public class UiPanelManager : MonoBehaviour
         }
 
         //if we click on the same button 
+      
         if (m_currentPanel == panel)
         {
            
@@ -57,6 +69,7 @@ public class UiPanelManager : MonoBehaviour
             m_panelOutside.SetActive(false);
             GameManager.Instance.SetConstructionMode(false);
             PauseController.IsPaused(false);
+            m_depthOfField.active = false;
             m_currentPanel = null;
             return;
         }
@@ -73,8 +86,16 @@ public class UiPanelManager : MonoBehaviour
         PauseController.IsPaused(true);
       
         panel.SetActive(true);
+       
+        
         m_panelOutside.SetActive(true);
         m_currentPanel = panel;
+        m_depthOfField.active = true;
+        //tutorial
+        if (panel.name == "Menu")
+        {
+            OnOpenBook?.Invoke();
+        }
 
     }
     public void OpenPanelByName(string panel)
@@ -95,7 +116,7 @@ public class UiPanelManager : MonoBehaviour
     public void CloseCurrentPanel()
     {
         PauseController.IsPaused(false);
-        
+        m_depthOfField.active = false;
         if (m_currentPanel != null)
         {
             m_currentPanel.SetActive(false);
@@ -116,6 +137,7 @@ public class UiPanelManager : MonoBehaviour
     public void closeConstructionPanel()
     {
        m_constructionPanel.SetActive(false);
+       m_depthOfField.active = false;
     }
     public void ShowIslandViewButton(bool condition)
     {

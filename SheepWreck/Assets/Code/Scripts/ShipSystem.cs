@@ -62,12 +62,32 @@ public class ShipSystem : MonoBehaviour
     /// <param name="currentRoom">current hovered room</param>
     public void SwitchRoom(RoomInstance currentRoom)
     {
-        RoomInstance temp = currentRoom;
+        if (currentRoom == null || m_tempRoomPrefab == null)
+            return;
+        Vector3 position = currentRoom.transform.position;
+        Quaternion rotation = currentRoom.transform.rotation;
+
         Destroy(currentRoom.gameObject);
-        GameObject room = Instantiate(m_tempRoomPrefab, temp.gameObject.transform.position, temp.gameObject.transform.rotation, m_roomParent);
+
+        GameObject room = Instantiate(
+            m_tempRoomPrefab,
+            position,
+            rotation,
+            m_roomParent
+        );
+
+        RoomInstance newRoom = room.GetComponent<RoomInstance>();
+        newRoom.SetIsGhost(false);
+
         OnRoomSwitch?.Invoke(false);
-        OnRoomSwitchRessource?.Invoke(m_tempRoomPrefab.GetComponent<RoomInstance>().m_roomData.m_ressourceProduced);
+        OnRoomSwitchRessource?.Invoke(
+            newRoom.m_roomData.m_ressourceProduced
+        );
+
         StopConstructionMode();
+
+        // notify tutorial
+        newRoom.NotifyBuilt();
     }
 
 

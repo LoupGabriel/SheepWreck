@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec1cc760962513747831e74eec0dfd3a, type: 3}
   m_Name: BasicRoom
   m_EditorClassIdentifier: 
-  m_roomName: EmptyRoom
-  m_description: Empty Room
-  m_roomIcon: {fileID: 0}
-  m_ressourceProduced: 5
+  m_roomName: Empty Room
+  m_description: 
+  m_roomIcon: {fileID: -576646168, guid: 2ab89d33543cb3948a02b1fe91a2a1fe, type: 3}
+  m_ressourceProduced: 3
   m_buildingType: 2
   m_buildCost: 0
   m_upkeepCost: 0
