@@ -34,12 +34,7 @@ public class GameManager : MonoBehaviour
         ShipSystem.Instance.OnRoomSwitch += SetConstructionMode;
         CheatManager.Instance.OnChangeSpeed += SetCustomTime;
     }
-    private void Start()
-    {
-        SoundtrackManager.Instance.PlayMusic("MainMusic");
-        
-        
-    }
+   
     private void OnDisable()
     {
         ShipSystem.Instance.OnRoomSwitch -= SetConstructionMode;

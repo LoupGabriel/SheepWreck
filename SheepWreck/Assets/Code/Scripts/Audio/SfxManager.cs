@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SfxManager : MonoBehaviour
+public class SfxManager : Singleton<SfxManager>
 {
-    private static SfxManager Instance;
+   // private static SfxManager Instance;
 
     private static AudioSource m_audioSource;
     private static SfxLibrary m_sfxLibrary;
@@ -13,10 +13,10 @@ public class SfxManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        //Instance = this;
         m_audioSource = GetComponent<AudioSource>();
         m_sfxLibrary = GetComponent<SfxLibrary>();
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     private void Start()

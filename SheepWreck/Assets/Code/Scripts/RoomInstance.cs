@@ -11,17 +11,11 @@ public class RoomInstance : MonoBehaviour, ISelectable
 
 
     [SerializeField] public RoomData m_roomData;
-
     [SerializeField] public List<SheepInstance> m_assignedSheep = new();
-
     [SerializeField] public Transform m_sheepSlot;
-
     [SerializeField] private GameObject m_collectIcon;
     [SerializeField] private int m_xpAmount = 1;
     [SerializeField] private List<Transform> m_fireSpawn;
-
-
-
     //FeedBack
     [SerializeField] private MeshRenderer[] m_wall;
     [SerializeField] private Material m_offMaterial;
@@ -29,21 +23,18 @@ public class RoomInstance : MonoBehaviour, ISelectable
     [SerializeField] private Material m_flashMaterial;
     [SerializeField] private Material m_readyMaterial;
     [SerializeField] private Light m_feedbackLight;
+    [SerializeField] private float m_roomProductionTime = 2f;
     public bool m_isGhost = false;
-
     public static event System.Action<RoomInstance> OnFoodRoomBuilt;
     public static event System.Action<RoomInstance> OnSheepAssigned;
     public static event System.Action<RoomInstance> OnWaterRoomBuilt;
     public static event System.Action<RoomInstance> OnEnergyRoomBuilt;
-
     private Coroutine m_productionRoutine;
     public int m_currentStoredResources = 0;
-
     private MeshRenderer m_renderer;
-
     private bool m_isCurrentRoom = false;
 
-    [SerializeField] private float m_roomProductionTime = 2f;
+   
 
 
 
@@ -206,12 +197,6 @@ public class RoomInstance : MonoBehaviour, ISelectable
         }
 
     }
-
-
-
-
-
-
     private void CollectRessource()
     {
 

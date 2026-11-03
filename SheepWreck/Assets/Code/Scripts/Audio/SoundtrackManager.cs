@@ -3,9 +3,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SoundtrackManager : MonoBehaviour
+public class SoundtrackManager : Singleton<SoundtrackManager>
 {
-   public static SoundtrackManager Instance { get; private set; }
+  // public static SoundtrackManager Instance { get; private set; }
     [SerializeField]
     private SoundTrackLibrary m_soundLibrary;
     [SerializeField]
@@ -14,16 +14,20 @@ public class SoundtrackManager : MonoBehaviour
     [SerializeField]
     private Slider m_musicSlider;
 
+    [SerializeField] private string m_startingSountrack;
 
     private Coroutine m_fadeRoutine;
     private void Awake()
     {
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
+        //Instance = this;
+        //DontDestroyOnLoad(gameObject);
         m_musicSlider.onValueChanged.AddListener(delegate { OnValueChanged(); });
     }
 
-
+    private void Start()
+    {
+        PlayMusic(m_startingSountrack);
+    }
     public void PlayMusic(string trackName,float fadeDuration = 0.5f)
     {
         if (m_fadeRoutine != null)
