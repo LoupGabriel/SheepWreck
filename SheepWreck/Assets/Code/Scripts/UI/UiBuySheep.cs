@@ -9,7 +9,7 @@ public class UiBuySheep : MonoBehaviour
     public void OnBuySheep()
     {
         
-        if (RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.GOLD] < m_sheepCost) { return; }
+        if (RessourceSystem.Instance.RessourceDictionary[ERessourceType.GOLD] < m_sheepCost) { return; }
         //pay the gold amount
         RessourceSystem.Instance.GainRessource(m_sheepCost * -1, ERessourceType.GOLD);
         Instantiate(m_sheep, m_parent);

@@ -6,61 +6,51 @@ using UnityEngine.InputSystem;
 
 public class SheepController : MonoBehaviour, ISelectable
 {
-
-
-
-
-
-    public SheepState m_sheepState;
-    public SheepInstance m_sheepData;
-    private UiSheepPanel m_sheepPanel;
-    public Action OnSheepDrop;
-
-    private SpriteRenderer m_sheepRenderer;
-    
-    private Animator m_animator;
-    private static bool m_isGrab = false;
-
-    private Vector3 m_originalPos;
-
-    private float m_timeSinceClick = 0;
-    private float m_timeBeforeDrag = 0.25f;
-
-    private bool m_sfxPlayed = false;
-
     [SerializeField] private GameObject m_dropVfx;
     [SerializeField] private GameObject m_selectionFeedback;
+    public Action OnSheepDrop;
+
+    private SheepState m_sheepState;
+    private SheepInstance m_sheepData;
+    private UiSheepPanel m_sheepPanel;
+    private SpriteRenderer m_sheepRenderer;
+    private Animator m_animator;
+    private static bool m_isGrab = false;
+    private Vector3 m_originalPos;
+    private float m_timeSinceClick = 0;
+    private float m_timeBeforeDrag = 0.25f;
+    private bool m_sfxPlayed = false;
+
+    //Getter
     public bool IsGrab => m_isGrab;
+    public SheepInstance SheepData => m_sheepData;
     private void Awake()
     {
         m_animator = GetComponent<Animator>();
         m_sheepPanel = FindFirstObjectByType<UiSheepPanel>(FindObjectsInactive.Include);
         m_sheepData = GetComponent<SheepInstance>();
-        
-    }
 
+    }
 
     private void Start()
     {
-        
+
         m_sheepRenderer = GetComponent<SpriteRenderer>();
         m_selectionFeedback.gameObject.SetActive(false);
         m_animator.SetBool("isGrab", m_isGrab);
-        if(GameManager.Instance.CurrentGameState is GameManagementState)
+        if (GameManager.Instance.CurrentGameState is GameManagementState)
         {
             SetParent();
         }
-        
+
         if (m_sheepData != null)
         {
             m_sheepState = m_sheepData.m_stateMachine.m_currentSheepState;
         }
-      
+
         m_originalPos = transform.position;
-       
+
     }
-
-
 
     /// <summary>
     /// Automaticly set sheep parent for cleaner project
@@ -70,10 +60,6 @@ public class SheepController : MonoBehaviour, ISelectable
         GameObject parent = GameObject.Find("Sheeps");
         gameObject.transform.SetParent(parent.transform);
     }
-
-
-
-
     //Get the current mouse position in world space
     private Vector3 GetMousePosition()
     {
@@ -84,10 +70,6 @@ public class SheepController : MonoBehaviour, ISelectable
         mousePos.z = transform.position.z - Camera.main.transform.position.z;
         return Camera.main.ScreenToWorldPoint(mousePos);
     }
-
-
-    
-
 
     /// <summary>
     /// ISelectable implementation
@@ -102,13 +84,13 @@ public class SheepController : MonoBehaviour, ISelectable
 
         if (m_sheepPanel == null || m_sheepData == null)
         {
-            
+
             return;
         }
         m_timeSinceClick = 0;
 
 
-        
+
         m_sheepPanel.EnableSheepPanel(m_sheepData.m_sheepName, m_sheepData);
         m_sheepRenderer.material.SetFloat("_oulineOn", 1);
 
@@ -117,7 +99,7 @@ public class SheepController : MonoBehaviour, ISelectable
 
     public void StartGrab()
     {
-        
+
         m_timeSinceClick += Time.deltaTime;
         m_sheepData.SetIdle();
         //little delay before grabing 
@@ -141,7 +123,6 @@ public class SheepController : MonoBehaviour, ISelectable
         }
 
     }
-
 
     /// <summary>
     /// Add sheep to the new room 
@@ -188,14 +169,13 @@ public class SheepController : MonoBehaviour, ISelectable
         }
     }
 
-
     public void SetHover(bool isHovered)
     {
-       
-            m_sheepRenderer.material.SetFloat("_oulineOn", isHovered ? 1:0);
-        
+
+        m_sheepRenderer.material.SetFloat("_oulineOn", isHovered ? 1 : 0);
+
     }
-    
+
     public void SetSheepSelect(bool isCurrentlySelect)
     {
         m_selectionFeedback.gameObject.SetActive(isCurrentlySelect);

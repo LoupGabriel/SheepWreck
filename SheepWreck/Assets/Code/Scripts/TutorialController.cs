@@ -3,6 +3,7 @@ using UnityEngine;
 
 public enum ETutorialStep
 {
+    StartTutorial,
     BuildFoodRoom,
     AssignSheep,
     BuildWaterRoom,
@@ -18,6 +19,7 @@ public class TutorialController : MonoBehaviour
 {
     [SerializeField] private UiInfo m_uiInfo;
     [SerializeField] private GameObject m_tutorialCompleted;
+    [SerializeField] private UiButtonVisual[] m_uiButtonVisuals;
     private ETutorialStep m_currentStep;
 
     private RoomInstance m_foodRoom;
@@ -36,6 +38,7 @@ public class TutorialController : MonoBehaviour
         UiPanelManager.OnOpenBook += HandleOpenBook;
         QuestManager.OnAcceptCompleted += HandleFirstQuestCompleted;
         UiInfo.OnCompleteTutorial += HandleCompleteTutorial;
+        UiInfo.OnFirstInfo += HandleTutorialStart;
     }
     private void OnDisable()
     {
@@ -49,13 +52,23 @@ public class TutorialController : MonoBehaviour
         UiPanelManager.OnOpenBook -= HandleOpenBook;
         QuestManager.OnAcceptCompleted -= HandleFirstQuestCompleted;
         UiInfo.OnCompleteTutorial -= HandleCompleteTutorial;
+        UiInfo.OnFirstInfo += HandleTutorialStart;
     }
 
     private void Start()
     {
         m_tutorialCompleted.SetActive(false);
-        m_currentStep = ETutorialStep.BuildFoodRoom;
+        m_currentStep = ETutorialStep.StartTutorial;
         m_uiInfo.ShowInfo(0);
+
+    }
+
+    private void HandleTutorialStart()
+    {
+        if (m_currentStep != ETutorialStep.StartTutorial)
+            return;
+        m_currentStep = ETutorialStep.BuildFoodRoom;
+        m_uiButtonVisuals[0].StartBlinkingAnimation();
     }
 
     private void HandleFoodRoomBuilt(RoomInstance room)
@@ -65,8 +78,8 @@ public class TutorialController : MonoBehaviour
 
         m_foodRoom = room;
         m_currentStep = ETutorialStep.AssignSheep;
-
         m_uiInfo.ShowInfo(1);
+        
     }
     private void HandleWaterRoomBuilt(RoomInstance room)
     {
@@ -110,7 +123,7 @@ public class TutorialController : MonoBehaviour
         
         m_currentStep = ETutorialStep.FirstSail;
         m_uiInfo.ShowInfo(5);
-        
+        m_uiButtonVisuals[2].StartBlinkingAnimation();
     }
     private void HandleFirstSail()
     {

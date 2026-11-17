@@ -3,17 +3,12 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class ShipSystem : MonoBehaviour
+public class ShipSystem : Singleton<ShipSystem>
 {
-
-
-    public static ShipSystem Instance;
     [SerializeField] public List<RoomInstance> m_shipCurrentRooms = new();
     [SerializeField] private Transform m_roomParent;
     [SerializeField] private Material m_ghostMaterial;
     [SerializeField] private SelectionManager m_selectionManager;
-
-
 
     [SerializeField] private GameObject[] m_upgradeFrame;
     [SerializeField] private GameObject[] m_baseFrame;
@@ -26,35 +21,27 @@ public class ShipSystem : MonoBehaviour
     
     public Action<bool> OnRoomSwitch;
     public Action<ERessourceType> OnRoomSwitchRessource;
-    private void Awake()
-    {
-        Instance = this;
-    }
+   
 
     private void Update()
     {
-        if (!GameManager.Instance.m_isConstructionModeActive || m_ghostRoom == null || m_selectionManager.m_currentHoveredRoom == null)
+        if (!GameManager.Instance.m_isConstructionModeActive || m_ghostRoom == null || m_selectionManager.CurrentHoveredRoom == null)
         {
             return;
-        }
-
-
-        
-        GameObject hoveredTransform = m_selectionManager.m_currentHoveredRoom.gameObject;
+        }    
+        GameObject hoveredTransform = m_selectionManager.CurrentHoveredRoom.gameObject;
 
         m_ghostRoom.transform.position = hoveredTransform.gameObject.transform.position;
         m_ghostRoom.transform.rotation = hoveredTransform.gameObject.transform.rotation;
     }
     public void AddRoomToList(RoomInstance room)
     {
-
         m_shipCurrentRooms.Add(room);
     }
     public void RemoveRoomFromList(RoomInstance room)
     {
         m_shipCurrentRooms.Remove(room);
     }
-
 
     /// <summary>
     /// Change the current hovered room with the select one
@@ -90,7 +77,6 @@ public class ShipSystem : MonoBehaviour
         newRoom.NotifyBuilt();
     }
 
-
     /// <summary>
     /// Set the choosen room to place
     /// </summary>
@@ -105,7 +91,6 @@ public class ShipSystem : MonoBehaviour
             Destroy(m_ghostRoom);
         }
 
-        
         m_ghostRoom = Instantiate(roomPrefab);
         m_ghostRoom.GetComponent<RoomInstance>().SetIsGhost(true);
 

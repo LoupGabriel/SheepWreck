@@ -54,6 +54,10 @@ public class UiPanelManager : MonoBehaviour
     }
     public void OpenPanel(GameObject panel)
     {
+        if (PauseController.m_isPaused)
+        {
+            return;
+        }
         //if panel equal construction panel
         if(panel == m_constructionPanel)
         {

@@ -20,7 +20,6 @@ public class UiResourceParticle : MonoBehaviour
     private void Awake()
     {
         m_rectTransform = GetComponent<RectTransform>();
-
     }
 
     /// <summary>

@@ -7,18 +7,12 @@ using UnityEngine;
 public class UIQuest : MonoBehaviour
 {
     [SerializeField] private Transform m_questListContent;
-   
-
     [SerializeField] private GameObject m_questEntryPrefab;
-
     [SerializeField] private GameObject m_objectiveTextPrefab;
-
 
     private void Start()
     {
-        
         UpdateQuestUi();
-
     }
 
     public void UpdateQuestUi()
@@ -32,7 +26,7 @@ public class UIQuest : MonoBehaviour
         }
 
 
-        foreach (var quest in QuestManager.Instance.m_activesQuests)
+        foreach (var quest in QuestManager.Instance.ActivesQuests)
         {
             
             GameObject entry = Instantiate(m_questEntryPrefab, m_questListContent);

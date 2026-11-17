@@ -1,52 +1,45 @@
 using System;
 using UnityEngine;
 
-public class TravelSystem : MonoBehaviour
+public class TravelSystem : Singleton<TravelSystem>
 {
-
-
-
-    public static TravelSystem Instance { get; private set; }
-
     public Action<Vector3> OnDestinationReach;
     public Action OnDestinationSet;
+    //Tutorial event
+    public static event System.Action OnFirstSail;
 
-    public IslandInstance m_currentIsland;
-
-    public IslandInstance m_destinationIsland;
-
-    public GameObject m_islandPanel;
-    private GameObject m_spawnedIsland;
-    private int m_currentEnvironment = 0;
-   
-
-
-    [SerializeField] private Animator[] m_sailAnimator;
-
+    [Header("Game Settings")]
+    [SerializeField] private IslandInstance m_startingIsland;
     [SerializeField] private int m_energyCostPerTile = 25;
+
+    [Header("Visual")]
+    [SerializeField] private Animator[] m_sailAnimator;
     [SerializeField] private EnvironmentController m_environment;
-    public bool m_isTraveling = false;
-
-    public float m_distanceToTravel;
-    public float m_travelTime =0;
-
-
-    public float m_timePerTile = 5f;
-
-    public bool m_canTravel = false;
-    private float m_lastEventThreshold = 1f;
     [SerializeField] private Animator m_anchorAnimator;
     [SerializeField] private Transform m_islandVisualParent;
 
+    private IslandInstance m_currentIsland;
+    private IslandInstance m_destinationIsland;
+    private GameObject m_spawnedIsland;
+    private int m_currentEnvironment = 0;
+    private bool m_isTraveling = false;
+    private float m_distanceToTravel;
+    private float m_travelTime =0;
+    private float m_timePerTile = 5f;
+    private bool m_canTravel = false;
+    private float m_lastEventThreshold = 1f;
 
-    //Tutorial event
-    public static event System.Action OnFirstSail;
+    //Getter
+    public bool IsTraveling => m_isTraveling;
+    public float TravelTime => m_travelTime;
+    public IslandInstance CurrentIsland => m_currentIsland;
+    
+
     private void Awake()
     {
-        Instance = this;
+        base.Awake();
+        m_currentIsland = m_startingIsland;
     }
-
-
     private void Update()
     {
         if (!m_isTraveling)
@@ -62,19 +55,12 @@ public class TravelSystem : MonoBehaviour
 
             float progress = 1f - (m_travelTime / m_distanceToTravel);
             TryTravelEvent(progress);
-           
-
 
         }
 
-
-
-
-
         if (m_travelTime <= 0f && m_isTraveling)
         {
-            ArriveAtDestination();
-            
+            ArriveAtDestination();   
         }
     }
 
@@ -96,18 +82,16 @@ public class TravelSystem : MonoBehaviour
             }
         }
     }
-
-    
-    public void SetDestination(IslandInstance targetIstland)
+    public void SetDestination(IslandInstance targetIsland)
     {
-        if (m_isTraveling || targetIstland == null) return;
+        if (m_isTraveling || targetIsland == null) return;
 
       
-        int distance = GetManhattanDistance(m_currentIsland.m_gridPos, targetIstland.m_gridPos);
+        int distance = GetManhattanDistance(m_currentIsland.GridPos, targetIsland.GridPos);
 
-        int energyCost = GetEnergyCost(targetIstland);
+        int energyCost = GetEnergyCost(targetIsland);
 
-        int currentEnergy = RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.ENERGY];
+        int currentEnergy = RessourceSystem.Instance.RessourceDictionary[ERessourceType.ENERGY];
 
 
         m_lastEventThreshold = 0f;
@@ -128,10 +112,10 @@ public class TravelSystem : MonoBehaviour
             animator.SetTrigger("Sailing");
         }
        
-        RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.ENERGY] -= energyCost;
+        RessourceSystem.Instance.RessourceDictionary[ERessourceType.ENERGY] -= energyCost;
         RessourceSystem.Instance.OnRessourceChange?.Invoke(ERessourceType.ENERGY);
 
-        m_destinationIsland = targetIstland;
+        m_destinationIsland = targetIsland;
       
         m_travelTime = distance * m_timePerTile;
 
@@ -141,17 +125,11 @@ public class TravelSystem : MonoBehaviour
         EventManager.Instance.SetContext(true);
         OnDestinationSet?.Invoke();
         UiPanelManager.Instance.ShowIslandViewButton(false);
+       
         SoundtrackManager.Instance.PlayMusic("SetSail");
         m_environment.SetSailSpeed(10f);
         DestroyIsland();
-
-
-
     }
-
-
-
-
     private int GetManhattanDistance(Vector2Int a, Vector2Int b)
     {
         return Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y);
@@ -186,7 +164,7 @@ public class TravelSystem : MonoBehaviour
         SoundtrackManager.Instance.PlayMusic("MainMusic");
         m_environment.SetSailSpeed(1f);
         m_environment.StopSailEffects();
-        UiNotification.instance.TriggerNotification($"Destination Reach{m_currentIsland.m_islandName}");
+        UiNotification.instance.TriggerNotification($"Destination Reach{m_currentIsland.IslandName}");
 
         //Anchor
         SfxManager.PlaySfx("anchorDrop");
@@ -205,14 +183,14 @@ public class TravelSystem : MonoBehaviour
     {
         if(targetIsland == null ||m_currentIsland == null) return 0;
 
-        int distance = GetManhattanDistance(m_currentIsland.m_gridPos, targetIsland.m_gridPos);
+        int distance = GetManhattanDistance(m_currentIsland.GridPos, targetIsland.GridPos);
 
         return distance * m_energyCostPerTile;
     }
 
     private void SpawnIslandVisual()
     {
-        GameObject visual = m_destinationIsland.m_islandVisual;
+        GameObject visual = m_destinationIsland.IslandVisual;
         m_spawnedIsland = Instantiate(visual, m_islandVisualParent);
     }
 
@@ -221,7 +199,6 @@ public class TravelSystem : MonoBehaviour
         Destroy(m_spawnedIsland);
         m_spawnedIsland = null;
     }
-
 
     public void UpAnchor()
     {

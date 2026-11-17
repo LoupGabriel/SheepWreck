@@ -1,23 +1,11 @@
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
-public class CrewManager : MonoBehaviour
+public class CrewManager : Singleton<CrewManager>
 {
-    
-
-    public static CrewManager Instance;
-
     [SerializeField] public List<SheepInstance> m_currentSheepOnBoard = new();
     [SerializeField] public Transform m_sheepSpawnPosition;
-
-
-
-    private void Awake()
-    {
-        Instance = this;
-
-
-    }
 
     private void Start()
     {
@@ -28,7 +16,6 @@ public class CrewManager : MonoBehaviour
         CheatManager.Instance.OnKillAllSheep -= KillAllSheep;
     }
 
-
     /// <summary>
     /// Add sheep to the list 
     /// </summary>
@@ -38,8 +25,51 @@ public class CrewManager : MonoBehaviour
         m_currentSheepOnBoard.Add(sheep);
 
     }
+    public void FillFood(int quantity)
+    {
+        if (RessourceSystem.Instance.RessourceDictionary[ERessourceType.FOOD] < quantity)
+            return;
+        foreach (SheepInstance sheep in m_currentSheepOnBoard)
+        {
+            sheep.ConsumeFood(quantity);
+            RessourceSystem.Instance.GainRessource(-quantity, ERessourceType.FOOD);
+            UiResourceAnimationManager.Instance?.PlayConsumeAnimation(sheep.transform, ERessourceType.FOOD, 50f, particleCount: 1);
+        }
 
+    }
 
+    public void FillWater(int quantity)
+    {
+        if (RessourceSystem.Instance.RessourceDictionary[ERessourceType.WATER] < quantity)
+            return;
+        foreach (SheepInstance sheep in m_currentSheepOnBoard)
+        {
+            sheep.ConsumeWater(quantity);
+            RessourceSystem.Instance.GainRessource(-quantity, ERessourceType.WATER);
+            UiResourceAnimationManager.Instance?.PlayConsumeAnimation(sheep.transform, ERessourceType.WATER, 50f, particleCount: 1);
+        }
+    }
+
+    public void FillWaterSpecific(int quantity)
+    {
+        if (RessourceSystem.Instance.RessourceDictionary[ERessourceType.WATER] < quantity)
+            return;
+        SheepInstance sheep = SelectionManager.Instance.LastSelectedSheep.GetComponent<SheepInstance>();
+        sheep.ConsumeWater(quantity);
+        RessourceSystem.Instance.GainRessource(-quantity, ERessourceType.WATER);
+        UiResourceAnimationManager.Instance?.PlayConsumeAnimation(sheep.transform, ERessourceType.WATER, 50f, particleCount: 1);
+
+    }
+    public void FillFoodSpecific(int quantity)
+    {
+        if (RessourceSystem.Instance.RessourceDictionary[ERessourceType.FOOD] < quantity)
+            return;
+        SheepInstance sheep = SelectionManager.Instance.LastSelectedSheep.GetComponent<SheepInstance>();
+        sheep.ConsumeFood(quantity);
+        RessourceSystem.Instance.GainRessource(-quantity, ERessourceType.FOOD);
+        UiResourceAnimationManager.Instance?.PlayConsumeAnimation(sheep.transform, ERessourceType.FOOD, 50f, particleCount: 1);
+
+    }
     /// <summary>
     /// Remove Sheep from the list
     /// </summary>
@@ -51,13 +81,12 @@ public class CrewManager : MonoBehaviour
         CheckForEndGame();
     }
 
-
     /// <summary>
     /// Game over when the crew is empty
     /// </summary>
     private void CheckForEndGame()
     {
-        if(m_currentSheepOnBoard.Count <= 0)
+        if (m_currentSheepOnBoard.Count <= 0)
         {
             GameManager.Instance.GameOver();
         }
@@ -67,9 +96,12 @@ public class CrewManager : MonoBehaviour
     /// </summary>
     private void KillAllSheep()
     {
-        foreach(SheepInstance sheep in m_currentSheepOnBoard)
+        foreach (SheepInstance sheep in m_currentSheepOnBoard)
         {
             Destroy(sheep.gameObject);
         }
     }
+
+
+
 }

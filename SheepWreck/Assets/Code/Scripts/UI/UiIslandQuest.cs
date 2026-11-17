@@ -79,7 +79,7 @@ public class UiIslandQuest : MonoBehaviour
     {
         ERessourceType type = GetSelectedResource();
 
-        return RessourceSystem.Instance.m_ressourceDictionary[type];
+        return RessourceSystem.Instance.RessourceDictionary[type];
     }
 
     private void OnDestroy()
@@ -90,21 +90,21 @@ public class UiIslandQuest : MonoBehaviour
     public void OnDeliverClicked()
     {
       
-        IslandInstance currentIsland = TravelSystem.Instance.m_currentIsland;
+        IslandInstance currentIsland = TravelSystem.Instance.CurrentIsland;
         ERessourceType type = GetSelectedResource();
 
-        int available = RessourceSystem.Instance.m_ressourceDictionary[type];
+        int available = RessourceSystem.Instance.RessourceDictionary[type];
 
         int amount = GetSelectedAmount(available);
         if (amount <= 0) return;
 
-        RessourceSystem.Instance.m_ressourceDictionary[type] -= amount;
+        RessourceSystem.Instance.RessourceDictionary[type] -= amount;
         RessourceSystem.Instance.OnRessourceChange?.Invoke(type);
 
         QuestManager.Instance.OnQuestDelivered?.Invoke(
             type,
             amount,
-            currentIsland.m_gridPos
+            currentIsland.GridPos
         );
     }
 
@@ -120,13 +120,24 @@ public class UiIslandQuest : MonoBehaviour
     public void ActiveQuestPanel()
     {
         m_questPanel.SetActive(!m_questPanel.activeSelf);
-        m_currentIsland = TravelSystem.Instance.m_currentIsland;
+        m_currentIsland = TravelSystem.Instance.CurrentIsland;
         UpdateCurrentQuest();
 
     }
 
     private void UpdateCurrentQuest()
     {
+        if (m_currentIsland == null)
+        {
+            Debug.LogError("TravelSystem.CurrentIsland est null à l'ouverture du panneau.", this);
+            return;
+        }
+
+        if (m_currentIsland.AvailableQuest == null)
+        {
+            Debug.LogError($"AvailableQuest est null sur l'île {m_currentIsland.name}.", this);
+            return;
+        }
         foreach (Transform child in m_questContainer)
         {
 
@@ -135,7 +146,7 @@ public class UiIslandQuest : MonoBehaviour
         }
 
 
-        foreach (var quest in m_currentIsland.m_availableQuest)
+        foreach (var quest in m_currentIsland.AvailableQuest)
         {
             GameObject entry = Instantiate(m_questPrefab, m_questContainer);
             TMP_Text questNameText = entry.transform.Find("QuestNameText").GetComponent<TMP_Text>();

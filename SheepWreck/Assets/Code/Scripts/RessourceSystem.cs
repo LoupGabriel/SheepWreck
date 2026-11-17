@@ -15,41 +15,26 @@ public enum ERessourceType
 
 }
 
-public class RessourceSystem : MonoBehaviour
+public class RessourceSystem : Singleton<RessourceSystem>
 {
-
-    public static RessourceSystem Instance;
-
-    public Dictionary<ERessourceType, int> m_ressourceDictionary = new Dictionary<ERessourceType, int>();
-
+    private Dictionary<ERessourceType, int> m_ressourceDictionary = new Dictionary<ERessourceType, int>();
+    public Dictionary<ERessourceType, int> RessourceDictionary => m_ressourceDictionary;
     public Action<ERessourceType> OnRessourceChange;
     public Action<ERessourceType, int> OnRessourceAdded;
 
-    [SerializeField]
-    private int m_maxGoldStock = 250;
-
-    [SerializeField]
-    private int m_maxFoodStock = 100;
-
-    [SerializeField]
-    private int m_maxWaterStock = 100;
-
-    [SerializeField]
-    private int m_maxEnergy = 100;
-
-    [SerializeField]
-    private int m_maxResearch = 100;
-
-    private int m_currentNumberOfSheep = 15;
-    [SerializeField]
-    private int m_foodConsumptionBySheep = 2;
-    private int m_WaterConsumptionBySheep = 5;
-
-    private ShipSystem m_shipSystem;
-    public int m_totalUpkeep;
-
+    [SerializeField] private int m_maxGoldStock = 250;
+    [SerializeField] private int m_maxFoodStock = 100;
+    [SerializeField] private int m_maxWaterStock = 100;
+    [SerializeField] private int m_maxEnergy = 100;
+    [SerializeField] private int m_maxResearch = 100;
+    [SerializeField] private int m_foodConsumptionBySheep = 2;
     [SerializeField] private UIRessources m_ressourcesUI;
 
+    [SerializeField] private Transform m_foodRessourceIcon;
+    private int m_currentNumberOfSheep = 15;
+    private int m_WaterConsumptionBySheep = 5;
+    private ShipSystem m_shipSystem;
+    private int m_totalUpkeep;
     public int GetRessource(ERessourceType type)
     {
         int amount = 0;
@@ -79,7 +64,7 @@ public class RessourceSystem : MonoBehaviour
     }
     private void Awake()
     {
-        Instance = this;
+        base.Awake();
         InitializeDictionnary();
         m_shipSystem = ShipSystem.Instance;
 
@@ -105,10 +90,7 @@ public class RessourceSystem : MonoBehaviour
     }
     private void Update()
     {
-
         m_currentNumberOfSheep = CrewManager.Instance.m_currentSheepOnBoard.Count;
-
-
     }
 
     /// <summary>
@@ -122,9 +104,7 @@ public class RessourceSystem : MonoBehaviour
         if (m_ressourceDictionary[ERessourceType.FOOD] <= 0)
             return;
 
-
         int totalFoodConsumption = 0;
-
 
         foreach (SheepInstance sheep in CrewManager.Instance.m_currentSheepOnBoard)
         {
@@ -133,6 +113,7 @@ public class RessourceSystem : MonoBehaviour
             totalFoodConsumption += amount;
 
             sheep.ConsumeFood(amount);
+            UiResourceAnimationManager.Instance?.PlayConsumeAnimation(sheep.transform,ERessourceType.FOOD,50f, particleCount: 1);
         }
 
         // current food minus food consumption time number of sheep
@@ -140,14 +121,8 @@ public class RessourceSystem : MonoBehaviour
         m_ressourceDictionary[ERessourceType.FOOD] -= totalFoodConsumption;
         m_ressourceDictionary[ERessourceType.FOOD] = Mathf.Clamp(m_ressourceDictionary[ERessourceType.FOOD], 0, m_maxFoodStock);
 
-
         //notify Hud
-
         OnRessourceChange?.Invoke(ERessourceType.FOOD);
-
-
-
-
     }
 
     /// <summary>
@@ -162,22 +137,16 @@ public class RessourceSystem : MonoBehaviour
         if (m_ressourceDictionary[ERessourceType.WATER] != 0)
         {
             // current water minus water consumption time number of sheep
-
-
             m_ressourceDictionary[ERessourceType.WATER] -= m_WaterConsumptionBySheep * m_currentNumberOfSheep;
             //clamp the value at 0 
             m_ressourceDictionary[ERessourceType.WATER] = Mathf.Clamp(m_ressourceDictionary[ERessourceType.WATER], 0, m_maxWaterStock);
-
-
-
             //notify Hud
             OnRessourceChange?.Invoke(ERessourceType.WATER);
-
-
             //call ConsumeWater for each sheep
             foreach (SheepInstance sheep in CrewManager.Instance.m_currentSheepOnBoard)
             {
                 sheep.ConsumeWater(m_WaterConsumptionBySheep);
+                UiResourceAnimationManager.Instance?.PlayConsumeAnimation(sheep.transform, ERessourceType.WATER, 50f, particleCount: 1);
             }
         }
 
@@ -192,26 +161,25 @@ public class RessourceSystem : MonoBehaviour
     /// <param name="days">action param</param>
     private void UpkeepPayment(int months, int weeks, int days)
     {
-
-
         foreach (RoomInstance room in m_shipSystem.m_shipCurrentRooms)
         {
 
             m_totalUpkeep += room.m_roomData.m_upkeepCost;
         }
 
-
         m_ressourceDictionary[ERessourceType.GOLD] -= m_totalUpkeep;
         m_ressourceDictionary[ERessourceType.GOLD] = Mathf.Clamp(m_ressourceDictionary[ERessourceType.GOLD], 0, m_maxGoldStock);
-
         //notify Hud
         OnRessourceChange?.Invoke(ERessourceType.GOLD);
-
         //reset upkeep
         m_totalUpkeep = 0;
+        foreach (RoomInstance room in m_shipSystem.m_shipCurrentRooms)
+        {
 
+            UiResourceAnimationManager.Instance?.PlayConsumeAnimation(room.transform, ERessourceType.GOLD, 50f, particleCount: 1);
 
-
+        }
+        
     }
 
     /// <summary>
@@ -221,8 +189,6 @@ public class RessourceSystem : MonoBehaviour
     /// <param name="type">Key ( EressourceType</param>
     public void GainRessource(int ressourceAmount, ERessourceType type)
     {
-
-
         switch (type)
         {
             case ERessourceType.GOLD:
@@ -258,13 +224,10 @@ public class RessourceSystem : MonoBehaviour
                 m_ressourceDictionary[ERessourceType.RESEARCH] =
              Mathf.Clamp(m_ressourceDictionary[ERessourceType.RESEARCH], 0, m_maxResearch);
                 break;
-
         }
         OnRessourceChange?.Invoke(type);
         OnRessourceAdded?.Invoke(type, ressourceAmount);
     }
-
-
 
     private void InitializeDictionnary()
     {
@@ -274,10 +237,7 @@ public class RessourceSystem : MonoBehaviour
         m_ressourceDictionary.Add(ERessourceType.ENERGY, 100);
         m_ressourceDictionary.Add(ERessourceType.MORALE, 0);
         m_ressourceDictionary.Add(ERessourceType.RESEARCH, 0);
-
-
     }
-
 
     public void UpdateMaxCapacity(int amount, ERessourceType type)
     {
@@ -302,10 +262,8 @@ public class RessourceSystem : MonoBehaviour
                 type = ERessourceType.ENERGY;
                 m_maxEnergy += amount;
                 break;
-
         }
     }
-
 
     private float GetConsumptionMultiplierByTrait(SheepInstance sheep)
     {
@@ -320,6 +278,4 @@ public class RessourceSystem : MonoBehaviour
         }
     }
 
-
-   
 }

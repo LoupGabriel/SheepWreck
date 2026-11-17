@@ -22,7 +22,6 @@ public class EnvironmentController : MonoBehaviour
     private static readonly int m_bottomColor = Shader.PropertyToID("_BottomColor");
     private Coroutine m_coroutine;
     [SerializeField] private EEnvironment m_currentEnvironment;
-    
     [SerializeField] private Color32[] m_topColorIndexes;
     [SerializeField] private Color32[] m_bottomColorIndexes;
 

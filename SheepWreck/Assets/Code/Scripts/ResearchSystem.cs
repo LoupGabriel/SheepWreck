@@ -2,28 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResearchSystem : MonoBehaviour
+public class ResearchSystem : Singleton<ResearchSystem>
 {
-    public static ResearchSystem Instance;
-
-
-    [SerializeField]
-    private List<ResearchProgress> m_researchProgress = new();
-
-
+    [SerializeField] private List<ResearchProgress> m_researchProgress = new();
     [SerializeField] private List<RoomData> m_upgradableCapacity;
     [SerializeField] private List<RoomData> m_upgradableSheepSlot;
-    private ResearchProgress m_currentResearch;
-
-    public static event System.Action OnFirstResearch;
     [SerializeField] private Transform m_roomPanelContainer;
 
-    private int m_currentShipUpgrade = 0;
+    public static event System.Action OnFirstResearch;
 
-    private void Awake()
-    {
-        Instance = this;
-    }
+    private ResearchProgress m_currentResearch;
+    private int m_currentShipUpgrade = 0;
 
     private void Update()
     {
@@ -38,7 +27,6 @@ public class ResearchSystem : MonoBehaviour
         }
     }
 
-
     /// <summary>
     /// Start the selected research if condition are check
     /// </summary>
@@ -50,7 +38,7 @@ public class ResearchSystem : MonoBehaviour
 
         if (!CanResearch(research))
             return;
-        int researchPoint = RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.RESEARCH];
+        int researchPoint = RessourceSystem.Instance.RessourceDictionary[ERessourceType.RESEARCH];
         if (researchPoint < research.researchCost)
         {
             UiNotification.instance.TriggerNotification("Not enough Research points");
@@ -88,8 +76,6 @@ public class ResearchSystem : MonoBehaviour
         UiNotification.instance.TriggerNotification($"Completed: {progress.researchData.name}");
     }
 
-
-
     /// <summary>
     /// Apply the research reward
     /// </summary>
@@ -100,9 +86,7 @@ public class ResearchSystem : MonoBehaviour
         {
             case EResearchRewardType.INCREASE_STORAGE:
 
-                UpgradeCapacity((int)research.rewardValue,research.m_ressourceType);
-
-
+                UpgradeCapacity((int)research.rewardValue, research.m_ressourceType);
 
                 break;
 
@@ -187,34 +171,24 @@ public class ResearchSystem : MonoBehaviour
         return m_researchProgress.Find(x => x.researchData == research);
     }
 
-
-
-    private void UpgradeCapacity(int amount,ERessourceType type)
+    private void UpgradeCapacity(int amount, ERessourceType type)
     {
-        foreach(RoomData room in m_upgradableCapacity)
+        foreach (RoomData room in m_upgradableCapacity)
         {
-            if(room.m_ressourceProduced == type)
+            if (room.m_ressourceProduced == type)
             {
                 room.m_capacity += amount;
             }
-            
-               
-            
-            
         }
     }
-    private void UpgradeSheepCapacity(int amount,ERessourceType type)
+    private void UpgradeSheepCapacity(int amount, ERessourceType type)
     {
-        foreach(RoomData room in m_upgradableSheepSlot)
+        foreach (RoomData room in m_upgradableSheepSlot)
         {
-            if(room.m_ressourceProduced == type)
+            if (room.m_ressourceProduced == type)
             {
                 room.m_maxSheepCapacity += amount;
             }
-            
-               
-            
-            
         }
     }
 }

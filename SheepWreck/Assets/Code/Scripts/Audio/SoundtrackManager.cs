@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class SoundtrackManager : Singleton<SoundtrackManager>
 {
-  // public static SoundtrackManager Instance { get; private set; }
+ 
     [SerializeField]
     private SoundTrackLibrary m_soundLibrary;
     [SerializeField]
@@ -13,14 +13,12 @@ public class SoundtrackManager : Singleton<SoundtrackManager>
 
     [SerializeField]
     private Slider m_musicSlider;
-
     [SerializeField] private string m_startingSountrack;
 
     private Coroutine m_fadeRoutine;
     private void Awake()
     {
-        //Instance = this;
-        //DontDestroyOnLoad(gameObject);
+        base.Awake();
         m_musicSlider.onValueChanged.AddListener(delegate { OnValueChanged(); });
     }
 

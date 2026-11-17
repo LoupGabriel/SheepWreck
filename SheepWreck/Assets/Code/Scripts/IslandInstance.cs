@@ -5,14 +5,21 @@ using UnityEngine;
 
 public class IslandInstance : MonoBehaviour
 {
-    public string m_islandName;
-    [SerializeField] public Vector2Int m_gridPos;
+    private string m_islandName;
+    
+    [SerializeField] private Vector2Int m_gridPos;
     [SerializeField] private SheepNamesDataBase m_nameData;
     [SerializeField] private int m_recruitCount = 3;
-    [SerializeField] public GameObject m_islandVisual;
-    public List<Quest> m_availableQuest;
-    public List<SheepRecruitData> m_availableRecruits = new();
-    
+    [SerializeField] private GameObject m_islandVisual;
+
+    [SerializeField] private List<Quest> m_availableQuest = new();
+    private List<SheepRecruitData> m_availableRecruits = new();
+    //Getter
+    public List<SheepRecruitData> AvailableRecruits => m_availableRecruits;
+    public string IslandName => m_islandName;
+    public Vector2Int GridPos => m_gridPos;
+    public GameObject IslandVisual => m_islandVisual;
+    public List<Quest> AvailableQuest => m_availableQuest;
     private void Start()
     {
         m_islandName = $"{m_gridPos.x}/{m_gridPos.y}";

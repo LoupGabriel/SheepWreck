@@ -5,7 +5,6 @@ using UnityEngine.EventSystems;
 public class UItooltipContainer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private UiToolTips m_toolTip;
-
     [SerializeField] private TMP_Text m_text;
     [SerializeField] private ETooltipType m_tooltipType;
     public void OnPointerEnter(PointerEventData eventData)

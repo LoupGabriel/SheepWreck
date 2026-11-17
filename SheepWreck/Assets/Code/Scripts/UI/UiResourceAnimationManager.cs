@@ -47,14 +47,78 @@ public class UiResourceAnimationManager : MonoBehaviour
 
     }
 
-
-
     public void PlayCollectAnimation(Transform worldStart, ERessourceType ressourceType,int particleCount = m_particleCount)
     {
         StartCoroutine(CollectionRoutine(worldStart.position, ressourceType, particleCount));
 
     }
+    public void PlayConsumeAnimation(Transform worldDestination,ERessourceType ressourceType, float particleSize,int particleCount = m_particleCount)
+    {
+        RectTransform source = GetTarget(ressourceType);
+        Sprite sprite = GetSprite(ressourceType);
+        Camera worldCamera = Camera.main;
 
+        if (worldDestination == null || source == null || sprite == null ||
+            worldCamera == null || particleCount <= 0)
+        {
+            return;
+        }
+
+        Vector3 destinationScreen = worldCamera.WorldToScreenPoint(worldDestination.position);
+
+        if (destinationScreen.z <= 0f)
+        {
+            return;
+        }
+
+        Vector2 sourceScreen = RectTransformUtility.WorldToScreenPoint(
+            m_uiCamera, source.TransformPoint(source.rect.center));
+
+        if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(m_particleParent, sourceScreen, m_uiCamera, out Vector2 startLocal) 
+            ||!RectTransformUtility.ScreenPointToLocalPointInRectangle(m_particleParent, destinationScreen, m_uiCamera, out Vector2 endLocal))
+        {
+            return;
+        }
+
+        StartCoroutine(ConsumeRoutine(sprite, startLocal, endLocal, particleCount, particleSize));
+    }
+
+    private IEnumerator ConsumeRoutine(Sprite sprite, Vector2 startLocal,Vector2 endLocal, int particleCount,float particleSize)
+    {
+        RectTransform destination = new GameObject("Consume Particle Target", typeof(RectTransform)).GetComponent<RectTransform>();
+
+        destination.SetParent(m_particleParent, false);
+        destination.sizeDelta = Vector2.zero;
+        destination.localPosition = endLocal;
+
+        int particlesRemaining = particleCount;
+        var spawnDelay = new WaitForSecondsRealtime(m_delayBetweenParticle);
+
+        
+        for (int i = 0; i < particleCount; i++)
+        {
+            
+            UiResourceParticle particle = Instantiate(m_particlePrefab, m_particleParent);
+           
+            particle.Initialize(sprite, startLocal, destination, () =>
+            {
+                particlesRemaining--;
+
+                if (particlesRemaining == 0)
+                {
+                    Destroy(destination.gameObject);
+                }
+            });
+            //scale particles
+            RectTransform rect = (RectTransform)particle.transform;
+            rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, particleSize);
+            rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, particleSize);
+            if (i < particleCount - 1)
+            {
+                yield return spawnDelay;
+            }
+        }
+    }
     private IEnumerator CollectionRoutine(Vector3 worldPos, ERessourceType ressourceType, int particleCount = m_particleCount)
     {
         RectTransform target = GetTarget(ressourceType);

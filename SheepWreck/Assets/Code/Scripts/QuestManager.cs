@@ -3,29 +3,24 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QuestManager : MonoBehaviour
+public class QuestManager : Singleton<QuestManager>
 {
-    public static QuestManager Instance { get; private set; }
+    //public static QuestManager Instance { get; private set; }
 
-    public List<QuestProgress> m_activesQuests = new();
-
+    private List<QuestProgress> m_activesQuests = new();
+    
     private UIQuest m_questUi;
 
     public  Action<Quest> OnQuestAccepted;
     public  Action<ERessourceType, int, Vector2Int> OnQuestDelivered;
+    public List<QuestProgress> ActivesQuests => m_activesQuests;
     //Tutorial event
     public static event System.Action OnAcceptQuest;
     public static event System.Action OnAcceptCompleted;
-    private void Awake()
+    protected override void Awake()
     {
-        if(Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
         
+        base.Awake();
         m_questUi = FindAnyObjectByType<UIQuest>();
     }
 
@@ -33,18 +28,13 @@ public class QuestManager : MonoBehaviour
     {
         OnQuestAccepted += AcceptQuest;
         OnQuestDelivered += HandleDelivery;
-
     }
-
-   
 
     private void OnDisable()
     {
         OnQuestAccepted -= AcceptQuest;
         OnQuestDelivered -= HandleDelivery;
-      
     }
-
 
     /// <summary>
     /// Add quest to active quest list.Cant accepted a same quest twice.
@@ -59,14 +49,11 @@ public class QuestManager : MonoBehaviour
         m_activesQuests.Add(new QuestProgress(quest));
         m_questUi.UpdateQuestUi();
 
-
     }
 
-
-    
     //look in the list for an active quest with the same id
     public bool IsQuestActive(string questID) => m_activesQuests.Exists(q => q.QuestID == questID);
-
+     
     public bool IsQuestCompleted(string questID)
     {
         //look for the activequest and return the one with the same id
@@ -104,7 +91,6 @@ public class QuestManager : MonoBehaviour
 
         CheckQuestCompletion();
     }
-
 
     /// <summary>
     /// Complete a quest and get the reward.Cant get the reward twice

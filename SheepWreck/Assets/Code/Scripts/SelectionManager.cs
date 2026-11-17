@@ -5,37 +5,28 @@ using UnityEngine.InputSystem;
 using static RoomData;
 
 
-public class SelectionManager : MonoBehaviour
+public class SelectionManager : Singleton<SelectionManager>
 {
-    //Manager for all selectionMode
-
-
     [SerializeField] private Camera m_cam;
-
-    public GameObject m_currentSelectedObject;
-    public SheepController m_currentSelectedSheep = null;
-    public RoomInstance m_currentSelectedRoom = null;
-    public RoomInstance m_currentHoveredRoom;
-    private Ray m_rayFromCam;
-    public SheepController m_lastSelectedSheep;
-    public SheepController m_currentHoverSheeep;
-
-
     [SerializeField] private GameObject m_vfx;
-
-
-
     [SerializeField] private float m_doubleClickTime = 0.3f;
+
+    private GameObject m_currentSelectedObject;
+    private SheepController m_currentSelectedSheep = null;
+    private RoomInstance m_currentSelectedRoom = null;
+    private RoomInstance m_currentHoveredRoom;
+    private SheepController m_lastSelectedSheep;
+    private SheepController m_currentHoverSheeep;
+    private Ray m_rayFromCam;
     private float m_lastClickTime;
-
-
-   
     private FireObject m_currentfireObject;
+
+    public SheepController LastSelectedSheep => m_lastSelectedSheep;
+    public SheepController CurrentSheep => m_currentSelectedSheep;
+    public RoomInstance CurrentHoveredRoom => m_currentHoveredRoom;
     private void Start()
     {
-        CheatManager.Instance.OnKillSheep += KillCurrentSheep;
-        
-      
+        CheatManager.Instance.OnKillSheep += KillCurrentSheep;  
     }
 
     private void OnDestroy()
@@ -56,10 +47,6 @@ public class SelectionManager : MonoBehaviour
             HandleDrag();
         }
         HandleReleaseClick();
-
-
-
-
     }
 
     /// <summary>
@@ -298,7 +285,7 @@ public class SelectionManager : MonoBehaviour
                     ShowAvailableRooms();
                 }
                 
-                m_currentSelectedSheep.m_sheepData.m_assignedRoom.RemoveSheepFromRoom(m_currentSelectedSheep.m_sheepData);
+                m_currentSelectedSheep.SheepData.AssignedRoom.RemoveSheepFromRoom(m_currentSelectedSheep.SheepData);
             }
 
 
@@ -318,8 +305,8 @@ public class SelectionManager : MonoBehaviour
                 {
                     m_currentSelectedSheep.Drop(m_currentHoveredRoom.transform.position);
 
-                    m_currentHoveredRoom.AddSheepToRoom(m_currentSelectedSheep.m_sheepData);
-                    m_currentSelectedSheep.m_sheepData.SetSheepAssignedRoom(m_currentHoveredRoom);
+                    m_currentHoveredRoom.AddSheepToRoom(m_currentSelectedSheep.SheepData);
+                    m_currentSelectedSheep.SheepData.SetSheepAssignedRoom(m_currentHoveredRoom);
                 }
                 else
                 {

@@ -14,7 +14,6 @@ public class UITabController : MonoBehaviour
     public void ActivateTab(int tabsIndex)
     {
 
-
         for (int i = 0; i < m_pages.Length; i++)
         {
             m_pages[i].SetActive(false);

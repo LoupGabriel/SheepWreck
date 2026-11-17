@@ -2,19 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventManager : MonoBehaviour
+public class EventManager : Singleton<EventManager>
 {
     [SerializeField] private List<GameEvent> m_allEvents;
     [SerializeField] private float m_eventChance = 0.2f;//module with time too travel
     private GameContext m_context;
-    public static EventManager Instance {  get; private set; }
-
-    private void Awake()
-    {
-        Instance = this;
-        
-    }
-
     private void Start()
     {
         m_context = new GameContext();

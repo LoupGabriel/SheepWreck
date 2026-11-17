@@ -17,7 +17,6 @@ public class UiToolTips : MonoBehaviour
     [SerializeField] private GameObject m_tooltipPanel;
     [SerializeField] private SelectionManager m_selectionManager;
 
-    
     private void Awake()
     {
         m_tooltipPanel.SetActive(false);
@@ -29,13 +28,13 @@ public class UiToolTips : MonoBehaviour
         {
             case ETooltipType.Trait:
                 {
-                    m_tooltipsText.text = GetTraitText(m_selectionManager.m_lastSelectedSheep.m_sheepData.Trait);
+                    m_tooltipsText.text = GetTraitText(m_selectionManager.LastSelectedSheep.SheepData.Trait);
                     break;
                 }
 
             case ETooltipType.Speciality:
                 {
-                    m_tooltipsText.text = GetSpeciality(m_selectionManager.m_lastSelectedSheep.m_sheepData.Speciality);
+                    m_tooltipsText.text = GetSpeciality(m_selectionManager.LastSelectedSheep.SheepData.Speciality);
                     break;
                 }
             

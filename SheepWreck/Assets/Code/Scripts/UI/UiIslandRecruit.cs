@@ -9,17 +9,14 @@ public class UiIslandRecruit : MonoBehaviour
     [SerializeField] private GameObject m_recruitIslandPanel;
     [SerializeField] private GameObject m_RecruitPanel;
    
-
-   
     public void ActiveRecruitPanel()
     {
        // m_recruitIslandPanel.SetActive(!m_recruitIslandPanel.activeSelf);
 
-        m_currentIsland = TravelSystem.Instance.m_currentIsland;
+        m_currentIsland = TravelSystem.Instance.CurrentIsland;
         UpdateCurrentRecruit();
 
     }
-
 
     private void UpdateCurrentRecruit()
     {
@@ -29,7 +26,7 @@ public class UiIslandRecruit : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        foreach(SheepRecruitData recruit in m_currentIsland.m_availableRecruits)
+        foreach(SheepRecruitData recruit in m_currentIsland.AvailableRecruits)
         {
             GameObject entry = Instantiate(m_RecruitPanel, m_RecruitContainer);
 
@@ -52,7 +49,7 @@ public class UiIslandRecruit : MonoBehaviour
 
             recruitButton.onClick.AddListener(() =>
             {
-                if (RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.GOLD] < recruit.cost)
+                if (RessourceSystem.Instance.RessourceDictionary[ERessourceType.GOLD] < recruit.cost)
                 {
                    
                     return;
@@ -61,7 +58,7 @@ public class UiIslandRecruit : MonoBehaviour
                   
                 SfxManager.PlaySfx("Click");
                 recruitPanel.Recruit();
-                m_currentIsland.m_availableRecruits.Remove(recruit);
+                m_currentIsland.AvailableRecruits.Remove(recruit);
                 Destroy(entry);
 
             });

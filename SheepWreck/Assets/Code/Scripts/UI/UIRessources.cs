@@ -26,7 +26,7 @@ public class UIRessources : MonoBehaviour
     [SerializeField] private TMP_Text m_currentSheepPopup;
     [SerializeField] private TMP_Text m_currentResearchPopup;
 
-    [SerializeField] CrewManager m_crewManager;
+    [SerializeField] private CrewManager m_crewManager;
 
     [SerializeField] private Color m_negatifColor;
     [SerializeField] private Color m_positiveColor;
@@ -62,19 +62,19 @@ public class UIRessources : MonoBehaviour
         m_ressourcePopup.Add(ERessourceType.MORALE, m_currentMoralePopup);
         m_ressourcePopup.Add(ERessourceType.RESEARCH, m_currentResearchPopup);
 
-        m_ressourceOldAmount.Add(ERessourceType.GOLD, RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.GOLD]);
-        m_ressourceOldAmount.Add(ERessourceType.FOOD, RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.FOOD]);
-        m_ressourceOldAmount.Add(ERessourceType.WATER, RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.WATER]);
-        m_ressourceOldAmount.Add(ERessourceType.ENERGY, RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.ENERGY]);
-        m_ressourceOldAmount.Add(ERessourceType.MORALE, RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.MORALE]);
-        m_ressourceOldAmount.Add(ERessourceType.RESEARCH, RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.RESEARCH]);
+        m_ressourceOldAmount.Add(ERessourceType.GOLD, RessourceSystem.Instance.RessourceDictionary[ERessourceType.GOLD]);
+        m_ressourceOldAmount.Add(ERessourceType.FOOD, RessourceSystem.Instance.RessourceDictionary[ERessourceType.FOOD]);
+        m_ressourceOldAmount.Add(ERessourceType.WATER, RessourceSystem.Instance.RessourceDictionary[ERessourceType.WATER]);
+        m_ressourceOldAmount.Add(ERessourceType.ENERGY, RessourceSystem.Instance.RessourceDictionary[ERessourceType.ENERGY]);
+        m_ressourceOldAmount.Add(ERessourceType.MORALE, RessourceSystem.Instance.RessourceDictionary[ERessourceType.MORALE]);
+        m_ressourceOldAmount.Add(ERessourceType.RESEARCH, RessourceSystem.Instance.RessourceDictionary[ERessourceType.RESEARCH]);
 
 
-        m_currentGoldText.text = RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.GOLD].ToString() + "/" + RessourceSystem.Instance.GetRessource(ERessourceType.GOLD);
-        m_currentFoodText.text = RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.FOOD].ToString() + "/" + RessourceSystem.Instance.GetRessource(ERessourceType.FOOD);
-        m_currentWaterText.text = RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.WATER].ToString() + "/" + RessourceSystem.Instance.GetRessource(ERessourceType.WATER);
-        m_currentEnergyText.text = RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.ENERGY].ToString() + "/" + RessourceSystem.Instance.GetRessource(ERessourceType.ENERGY);
-        m_currentResearchText.text = RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.RESEARCH].ToString() + "/" + RessourceSystem.Instance.GetRessource(ERessourceType.RESEARCH);
+        m_currentGoldText.text = RessourceSystem.Instance.RessourceDictionary[ERessourceType.GOLD].ToString() + "/" + RessourceSystem.Instance.GetRessource(ERessourceType.GOLD);
+        m_currentFoodText.text = RessourceSystem.Instance.RessourceDictionary[ERessourceType.FOOD].ToString() + "/" + RessourceSystem.Instance.GetRessource(ERessourceType.FOOD);
+        m_currentWaterText.text = RessourceSystem.Instance.RessourceDictionary[ERessourceType.WATER].ToString() + "/" + RessourceSystem.Instance.GetRessource(ERessourceType.WATER);
+        m_currentEnergyText.text = RessourceSystem.Instance.RessourceDictionary[ERessourceType.ENERGY].ToString() + "/" + RessourceSystem.Instance.GetRessource(ERessourceType.ENERGY);
+        m_currentResearchText.text = RessourceSystem.Instance.RessourceDictionary[ERessourceType.RESEARCH].ToString() + "/" + RessourceSystem.Instance.GetRessource(ERessourceType.RESEARCH);
 
 
         m_ressourcePopup[ERessourceType.GOLD].gameObject.SetActive(false);
@@ -82,14 +82,7 @@ public class UIRessources : MonoBehaviour
         m_ressourcePopup[ERessourceType.WATER].gameObject.SetActive(false);
         m_ressourcePopup[ERessourceType.ENERGY].gameObject.SetActive(false);
         m_ressourcePopup[ERessourceType.MORALE].gameObject.SetActive(false);
-        m_ressourcePopup[ERessourceType.RESEARCH].gameObject.SetActive(false);
-
-
-
-
-
-
-        
+        m_ressourcePopup[ERessourceType.RESEARCH].gameObject.SetActive(false);   
     }
 
 
@@ -103,14 +96,14 @@ public class UIRessources : MonoBehaviour
         if (m_ressourceText.TryGetValue(ressourceType, out TMP_Text text))
         {
 
-            text.text = RessourceSystem.Instance.m_ressourceDictionary[ressourceType].ToString() + "/" + RessourceSystem.Instance.GetRessource(ressourceType);
+            text.text = RessourceSystem.Instance.RessourceDictionary[ressourceType].ToString() + "/" + RessourceSystem.Instance.GetRessource(ressourceType);
         }
         if (m_ressourcePopup.TryGetValue(ressourceType, out TMP_Text popup))
         {
             Animator animator = popup.GetComponent<Animator>();
             
             m_ressourcePopup[ressourceType].gameObject.SetActive(true);
-            float difference = (RessourceSystem.Instance.m_ressourceDictionary[ressourceType] - m_ressourceOldAmount[ressourceType]);
+            float difference = (RessourceSystem.Instance.RessourceDictionary[ressourceType] - m_ressourceOldAmount[ressourceType]);
             if( difference >= 0 )
             {
                 popup.color = m_positiveColor;
@@ -121,11 +114,29 @@ public class UIRessources : MonoBehaviour
             {
                 popup.color = m_negatifColor;
                 animator.SetBool("isPositive", false);
-                SfxManager.PlaySfx("NotifNegative");
+                switch (ressourceType)
+                {
+                    case ERessourceType.GOLD:
+                        SfxManager.PlaySfx("NotifNegativeGold");
+                        break;
+                    case ERessourceType.FOOD:
+                        SfxManager.PlaySfx("NotifNegativeFood");
+                        break;
+                    case ERessourceType.WATER:
+                        SfxManager.PlaySfx("NotifNegativeWater");
+                        break;
+                    case ERessourceType.MORALE:
+                        break;
+                    case ERessourceType.ENERGY:
+                        break;
+                    case ERessourceType.RESEARCH:
+                        break;
+                }
+                
             }
             popup.text = difference.ToString();
             popup.gameObject.SetActive(true);
-            m_ressourceOldAmount[ressourceType] = RessourceSystem.Instance.m_ressourceDictionary[ressourceType];
+            m_ressourceOldAmount[ressourceType] = RessourceSystem.Instance.RessourceDictionary[ressourceType];
         }
     }
 
@@ -140,14 +151,10 @@ public class UIRessources : MonoBehaviour
     /// </summary>
     public int GetAverageMorale()
     {
-
-
         int total = 0;
         for (int i = 0; i < m_crewManager.m_currentSheepOnBoard.Count; i++)
         {
-
             total += m_crewManager.m_currentSheepOnBoard[i].m_currentMorale;
-
         }
 
         if (m_crewManager.m_currentSheepOnBoard.Count != 0)
@@ -155,8 +162,5 @@ public class UIRessources : MonoBehaviour
             return total / m_crewManager.m_currentSheepOnBoard.Count;
         }
         else { return 0; }
-
-
     }
-
 }

@@ -5,12 +5,10 @@ public class UIMenu : MonoBehaviour
 {
     [SerializeField] private GameObject m_menuPanel;
 
-
     private void Start()
     {
         m_menuPanel.SetActive(false);
     }
-
 
     private void Update()
     {

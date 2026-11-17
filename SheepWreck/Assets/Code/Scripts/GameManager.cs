@@ -1,33 +1,29 @@
 using System.Collections;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
-    public static GameManager Instance { get; private set; }
-
     private GameState m_currentState;
-    public float m_currentTimeScale;
+    private float m_currentTimeScale;
 
     [SerializeField] private GameObject m_gameOverPanel;
     [SerializeField] private SheepRescueController m_rescueController;
     [SerializeField] private SheepWreckController m_sheepWreckController;
     [SerializeField] private FireEventController m_fireEventController;
+
     public bool m_isConstructionModeActive { get; private set; } = false;
-
-
     public GameState CurrentGameState => m_currentState;
-
     public FireEventController FireEventController => m_fireEventController;
     public SheepWreckController SheepWreckController => m_sheepWreckController;
     public SheepRescueController SheepRescueController => m_rescueController;
-    private void Awake()
+    protected override void Awake()
     {
-        Instance = this;
+        base.Awake();
         m_currentTimeScale = Time.timeScale;
         Time.timeScale = 1;
         m_gameOverPanel.SetActive(false);
         m_currentState = new GameManagementState(this);
-       
+   
     }
     private void OnEnable()
     {
@@ -72,7 +68,6 @@ public class GameManager : MonoBehaviour
         if(m_gameOverPanel != null)
             m_gameOverPanel.SetActive(true);
     }
-
 
     public void  ChangeState(GameState newState)
     {

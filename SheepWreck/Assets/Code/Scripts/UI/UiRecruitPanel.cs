@@ -1,8 +1,6 @@
 
 using TMPro;
-
 using UnityEngine;
-
 using UnityEngine.UI;
 
 [System.Serializable]
@@ -20,8 +18,6 @@ public class SheepRecruitData
 }
 public class UiRecruitPanel : MonoBehaviour
 {
-
-    
     public SheepRecruitData m_currentRecruit;
    
     [SerializeField] private TMP_Text m_name;
@@ -31,9 +27,6 @@ public class UiRecruitPanel : MonoBehaviour
     [SerializeField] private GameObject m_sheepPrefab;
   
     private Transform m_spawnPosition;
-
-
-
 
     private void Start()
     {
@@ -52,15 +45,13 @@ public class UiRecruitPanel : MonoBehaviour
         m_goldCost.text = m_currentRecruit.cost.ToString();
     }
 
-
     public void Recruit()
     {
        
-
         if (m_currentRecruit == null) return;
 
         //if doesnt have enought gold
-        if (RessourceSystem.Instance.m_ressourceDictionary[ERessourceType.GOLD] < m_currentRecruit.cost)
+        if (RessourceSystem.Instance.RessourceDictionary[ERessourceType.GOLD] < m_currentRecruit.cost)
             return;
 
         RessourceSystem.Instance.GainRessource(-m_currentRecruit.cost, ERessourceType.GOLD);
@@ -69,10 +60,6 @@ public class UiRecruitPanel : MonoBehaviour
         SheepInstance sheep = sheepObject.GetComponent<SheepInstance>();
         sheep.InitializeFromRecruitData(m_currentRecruit);
 
-
-        
-        gameObject.SetActive(false);
-        
-
+        gameObject.SetActive(false);       
     }
 }

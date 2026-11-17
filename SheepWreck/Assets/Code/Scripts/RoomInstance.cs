@@ -7,9 +7,6 @@ using static RoomData;
 
 public class RoomInstance : MonoBehaviour, ISelectable
 {
-    //This is a Room instance 
-
-
     [SerializeField] public RoomData m_roomData;
     [SerializeField] public List<SheepInstance> m_assignedSheep = new();
     [SerializeField] public Transform m_sheepSlot;
@@ -24,23 +21,21 @@ public class RoomInstance : MonoBehaviour, ISelectable
     [SerializeField] private Material m_readyMaterial;
     [SerializeField] private Light m_feedbackLight;
     [SerializeField] private float m_roomProductionTime = 2f;
-    public bool m_isGhost = false;
+    
+
     public static event System.Action<RoomInstance> OnFoodRoomBuilt;
     public static event System.Action<RoomInstance> OnSheepAssigned;
     public static event System.Action<RoomInstance> OnWaterRoomBuilt;
     public static event System.Action<RoomInstance> OnEnergyRoomBuilt;
+
+    private bool m_isGhost = false;
     private Coroutine m_productionRoutine;
-    public int m_currentStoredResources = 0;
+    private int m_currentStoredResources = 0;
     private MeshRenderer m_renderer;
     private bool m_isCurrentRoom = false;
 
-   
-
-
-
     public List<Transform> FirePoint => m_fireSpawn;
     public bool IsStorageFull => m_currentStoredResources >= m_roomData.m_capacity;
-    private bool m_storageUsed = false;
     private void Start()
     {
         m_renderer = GetComponent<MeshRenderer>();
@@ -116,28 +111,16 @@ public class RoomInstance : MonoBehaviour, ISelectable
         if (m_currentStoredResources >= m_roomData.m_capacity && m_roomData.m_capacity != 0)
         {
             CollectRessource();
-
         }
-
-
-
-
-
     }
-
-
     // Produce X ressource per sheep each m_roomProductionTime
     private void Produce()
     {
-
-
         if (IsStorageFull)
         {
             RoomReadyVisual();
             return;
         }
-
-
 
         if (isEmptyRoom())
             return;
@@ -190,7 +173,6 @@ public class RoomInstance : MonoBehaviour, ISelectable
                     sfx = "researchReady";
                     break;
 
-
             }
 
             SfxManager.PlaySfx(sfx);
@@ -214,46 +196,27 @@ public class RoomInstance : MonoBehaviour, ISelectable
 
     }
 
-
     private void SetSheepsWorking()
     {
-
-
         foreach (SheepInstance sheep in m_assignedSheep)
         {
-
             sheep.RequestWork();
-
         }
-
-
     }
-
-
 
     private bool isEmptyRoom()
     {
-
         return m_roomData.m_buildingType == EBuildingType.EMPTY;
-
-
     }
-
 
     public bool maxSheepReach()
     {
-
         return m_assignedSheep.Count >= m_roomData.m_maxSheepCapacity;
-
     }
-
-
     private void Stock(int amount, ERessourceType ressource)
     {
         RessourceSystem.Instance.UpdateMaxCapacity(amount, ressource);
     }
-
-
     private IEnumerator ProductionRoutine()
     {
         while (true)
@@ -270,12 +233,10 @@ public class RoomInstance : MonoBehaviour, ISelectable
             }
         }
     }
-
     public void SetIsGhost(bool isGhost)
     {
         m_isGhost = isGhost;
     }
-
     private void LightRoom(bool producing)
     {
         foreach (var wall in m_wall)
@@ -292,14 +253,11 @@ public class RoomInstance : MonoBehaviour, ISelectable
 
         StartCoroutine(RessourceReadyRoutine());
     }
-
     public void NotifyBuilt()
     {
         if (m_isGhost)
             return;
 
-       
-       
         if (isRightType(EBuildingType.PRODUCE, ERessourceType.FOOD))
         {
             Debug.Log("Food room construite : événement envoyé.", this);
@@ -317,7 +275,6 @@ public class RoomInstance : MonoBehaviour, ISelectable
         }
         
     }
-
     private bool isRightType(EBuildingType type, ERessourceType ressource)
     {
         return m_roomData.m_buildingType == type && m_roomData.m_ressourceProduced == ressource;
@@ -331,8 +288,6 @@ public class RoomInstance : MonoBehaviour, ISelectable
             sheep.AddJobXp(job, m_xpAmount);
         }
     }
-
-
     private ESheepJob GetRoomJob()
     {
         switch (m_roomData.m_ressourceProduced)

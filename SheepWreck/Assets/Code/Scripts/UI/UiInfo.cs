@@ -15,6 +15,7 @@ public class UiInfo : MonoBehaviour
     private string m_currentInfo;
     private bool m_isActive;
     public static event System.Action OnCompleteTutorial;
+    public static event System.Action OnFirstInfo;
     private void Awake()
     {
         m_panelManager = GetComponent<UiPanelManager>();
@@ -52,6 +53,7 @@ public class UiInfo : MonoBehaviour
 
     public void OnClickOK()
     {
+        OnFirstInfo?.Invoke();
         OnCompleteTutorial?.Invoke();
         m_isActive = false;
         m_discutionPanel.SetActive(false);

@@ -8,11 +8,10 @@ using UnityEngine.UIElements;
 
 public class UiSheepPanel : MonoBehaviour
 {
-    [SerializeField] private TMP_Text m_sheepName;
+    
     private SheepInstance m_currentSheep;
 
-
-
+    [SerializeField] private TMP_Text m_sheepName;
     //stats
     [SerializeField] private TMP_Text m_currentMoraleText;
     [SerializeField] private TMP_Text m_currentHungerText;
@@ -69,11 +68,6 @@ public class UiSheepPanel : MonoBehaviour
         m_panelIsActive = true;
         gameObject.SetActive(true);
        
-        
-      
-       
-
-
     }
 
     private void UpdateStats(int hunger, int thirst, float morale)

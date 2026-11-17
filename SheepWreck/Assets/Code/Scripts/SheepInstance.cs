@@ -12,8 +12,6 @@ public enum ESheepTrait
     Lazy,
     Glutton,
     Frugal
-    
-
 }
 
 public enum ESheepSpeciality
@@ -36,11 +34,6 @@ public enum ESheepJob
 }
 public class SheepInstance : MonoBehaviour
 {
-
-
-
-
-
     [SerializeField] private SheepNamesDataBase m_sheepNames;
     [SerializeField] public string m_sheepName;
     [SerializeField] private ESheepTrait m_trait;
@@ -52,7 +45,7 @@ public class SheepInstance : MonoBehaviour
     [SerializeField] private GameObject m_hungryToken;
     [SerializeField] private GameObject m_thirstyToken;
     [SerializeField] private GameObject m_DyingToken;
-
+    [SerializeField] private GameObject m_lvlUpVfx;
 
   
     private Canvas m_sheepCanvas;
@@ -78,21 +71,18 @@ public class SheepInstance : MonoBehaviour
 
     public int level;
 
-
-
     //ressource
     public int m_currentMorale;
-
     public int m_hunger;
     public int m_thirst;
 
-    public RoomInstance m_assignedRoom;
+    private RoomInstance m_assignedRoom;
     private float m_hungerElapse = 0;
     private float m_thirstElapse = 0;
     private float m_dyingElapse = 0;
 
     public bool IsWorking => m_stateMachine != null && m_stateMachine.m_currentSheepState == m_workinState;
-
+    public RoomInstance AssignedRoom => m_assignedRoom;
     private void Awake()
     {
         m_stateMachine = new SheepStateMachine();
@@ -103,18 +93,12 @@ public class SheepInstance : MonoBehaviour
         m_restingState = new SheepRestingState(this, m_stateMachine);
         m_eatingState = new SheepEatingState(this, m_stateMachine);
         m_sheepCanvas = GetComponentInChildren<Canvas>();
+        m_lvlUpVfx.SetActive(false);
         //initialize xp dictionary 
         foreach (ESheepJob job in Enum.GetValues(typeof(ESheepJob)))
         {
             m_jobXP[job] = 0;
-
-
-
         }
-
-
-
-
     }
     private void Start()
     {
@@ -128,24 +112,15 @@ public class SheepInstance : MonoBehaviour
 
         m_spriteRenderer = GetComponent<SpriteRenderer>();
 
-       
-
         if (m_initializedFromRecruit == false)
         {
             GenerateRandomName();
             AssignedRandomTraitAndSpeciality();
            
         }
-
-
-
-
         //add sheep to the crew list
         CrewManager.Instance.AddSheep(this);
         m_assignedRoom = GetRoomInstance();
-
-
-
 
     }
 
@@ -167,11 +142,8 @@ public class SheepInstance : MonoBehaviour
         
     }
 
-
     private void GenerateRandomName()
     {
-
-
         int index = UnityEngine.Random.Range(0, m_sheepNames.m_sheepNamesDataBase.Count);
 
         m_sheepName = m_sheepNames.m_sheepNamesDataBase[index];
@@ -227,9 +199,7 @@ public class SheepInstance : MonoBehaviour
     private void Hunger()
     {
 
-
         m_hungerElapse += Time.deltaTime;
-
         m_hunger = Mathf.Clamp(m_hunger, 0, 100);
         if (m_hungerElapse >= m_hungerTimer)
         {
@@ -277,10 +247,7 @@ public class SheepInstance : MonoBehaviour
 
         m_hunger += ressource;
 
-
     }
-
-
 
     public void ConsumeWater(int ressource)
     {
@@ -311,15 +278,11 @@ public class SheepInstance : MonoBehaviour
         return (m_hunger + m_thirst) / 2;
     }
 
-
-
     public void SetSheepAssignedRoom(RoomInstance newAssignedRoom)
     {
 
         m_assignedRoom = newAssignedRoom;
     }
-
-
 
     private RoomInstance GetRoomInstance()
     {
@@ -337,7 +300,6 @@ public class SheepInstance : MonoBehaviour
 
         }
         return null;
-
 
     }
 
@@ -359,7 +321,14 @@ public class SheepInstance : MonoBehaviour
 
     public void AddJobXp(ESheepJob job,int amount)
     {
+       
+        int previousLvl = GetJobLevel(job);
         m_jobXP[job] += amount;
+        if (GetJobLevel(job) > previousLvl)
+        {
+            SfxManager.PlaySfx("lvlUp");
+            m_lvlUpVfx.SetActive(true);
+        }
     }
 
     private void AssignedRandomTraitAndSpeciality()
@@ -376,10 +345,26 @@ public class SheepInstance : MonoBehaviour
         int xp = m_jobXP[job];
 
 
-        if (xp >= 500) return 5;
-        if (xp >= 250) return 4;
-        if (xp >= 100) return 3;
-        if (xp >= 25) return 2;
+        if (xp >= 500)
+        {
+            
+            return 5;
+        }
+        if (xp >= 250) 
+        {
+            
+            return 4; 
+        }
+        if (xp >= 100) 
+        {
+           
+            return 3; 
+        }
+        if (xp >= 25) 
+        {
+            
+            return 2; 
+        }
 
         return 1;
     }
@@ -398,7 +383,6 @@ public class SheepInstance : MonoBehaviour
         m_jobXP[ESheepJob.Engineer] = recruitData.engineerXp;
         m_jobXP[ESheepJob.Sailor] = recruitData.sailorXp;
     }
-
 
     public void Dying()
     {

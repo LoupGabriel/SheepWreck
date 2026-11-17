@@ -3,20 +3,15 @@ using UnityEngine.UI;
 
 public class SfxManager : Singleton<SfxManager>
 {
-   // private static SfxManager Instance;
-
     private static AudioSource m_audioSource;
     private static SfxLibrary m_sfxLibrary;
 
     [SerializeField] private  Slider m_sfxSlider;
-
-
-    private void Awake()
+    protected override void Awake()
     {
-        //Instance = this;
+        base.Awake();
         m_audioSource = GetComponent<AudioSource>();
-        m_sfxLibrary = GetComponent<SfxLibrary>();
-        //DontDestroyOnLoad(gameObject);
+        m_sfxLibrary = GetComponent<SfxLibrary>();   
     }
 
     private void Start()
@@ -31,7 +26,6 @@ public class SfxManager : Singleton<SfxManager>
             m_audioSource.PlayOneShot(audioClip);
         }
     }
-
     public static void SetVolume(float volume)
     {
         m_audioSource.volume = volume;

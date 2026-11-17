@@ -14,7 +14,6 @@ public class UIResearchNode : MonoBehaviour
 
     private Button m_button;
 
-
     private void Start()
     {
         m_button = GetComponent<Button>();
@@ -69,11 +68,6 @@ public class UIResearchNode : MonoBehaviour
             {
                 return m_inProgress;
             }
-           
-         
-
-
-           
 
         }
         return null;
