@@ -35,6 +35,34 @@ public class RessourceSystem : Singleton<RessourceSystem>
     private int m_WaterConsumptionBySheep = 5;
     private ShipSystem m_shipSystem;
     private int m_totalUpkeep;
+
+    private bool m_foodConsumption = true;
+    private bool m_waterConsumption = true;
+    private bool m_goldConsumption = true;
+
+
+    public bool FoodConsumption => m_foodConsumption;
+    public bool WaterConsumption => m_waterConsumption;
+    public bool GoldConsumption => m_goldConsumption;
+
+    public static System.Action<bool> OnFoodConsumptionChange;
+    public static System.Action<bool> OnWaterConsumptionChange;
+    public static System.Action<bool> OnGoldConsumptionChange;
+    public void stopFoodConsumption()
+    {
+        m_foodConsumption = !m_foodConsumption;
+        OnFoodConsumptionChange?.Invoke(m_foodConsumption);
+    }
+    public void stopWaterConsumption()
+    {
+        m_waterConsumption = !m_waterConsumption;
+        OnWaterConsumptionChange?.Invoke(m_waterConsumption);
+    }
+    public void stopGoldConsumption()
+    {
+        m_goldConsumption = !m_goldConsumption;
+        OnGoldConsumptionChange?.Invoke(m_goldConsumption);
+    }
     public int GetRessource(ERessourceType type)
     {
         int amount = 0;
@@ -76,6 +104,7 @@ public class RessourceSystem : Singleton<RessourceSystem>
         TimeManager.Instance.OnDayPast += GlobalFoodConsumption;
         TimeManager.Instance.OnDayPast += GlobalWaterConsumption;
         TimeManager.Instance.OnWeekPast += UpkeepPayment;
+        TimeManager.Instance.OnWeekPast += GlobalPayConsumption;
         CheatManager.Instance.OnAddRessource += GainRessource;
     }
 
@@ -85,6 +114,7 @@ public class RessourceSystem : Singleton<RessourceSystem>
         TimeManager.Instance.OnDayPast -= GlobalFoodConsumption;
         TimeManager.Instance.OnDayPast -= GlobalWaterConsumption;
         TimeManager.Instance.OnWeekPast -= UpkeepPayment;
+        TimeManager.Instance.OnWeekPast -= GlobalPayConsumption;
         CheatManager.Instance.OnAddRessource -= GainRessource;
 
     }
@@ -92,7 +122,37 @@ public class RessourceSystem : Singleton<RessourceSystem>
     {
         m_currentNumberOfSheep = CrewManager.Instance.m_currentSheepOnBoard.Count;
     }
+    public void GlobalPayConsumption(int months, int weeks, int days)
+    {
+       
 
+        int totalGoldConsumption = 0;
+
+        foreach (SheepInstance sheep in CrewManager.Instance.m_currentSheepOnBoard)
+        {
+
+            int amount = sheep.GetPayCost();
+            if (m_ressourceDictionary[ERessourceType.GOLD] < amount || !m_goldConsumption)
+            {
+                sheep.m_haBeenPaidThisWeek = false;
+                continue;
+            }
+            else if (m_ressourceDictionary[ERessourceType.GOLD] >= amount && m_goldConsumption)
+            {
+                sheep.m_haBeenPaidThisWeek = true;
+            }
+            totalGoldConsumption += amount;
+            UiResourceAnimationManager.Instance?.PlayConsumeAnimation(sheep.transform, ERessourceType.GOLD, 50f, particleCount: 1);
+        }
+
+        
+
+        m_ressourceDictionary[ERessourceType.GOLD] -= totalGoldConsumption;
+        m_ressourceDictionary[ERessourceType.GOLD] = Mathf.Clamp(m_ressourceDictionary[ERessourceType.GOLD], 0, m_maxGoldStock);
+
+        //notify Hud
+        OnRessourceChange?.Invoke(ERessourceType.GOLD);
+    }
     /// <summary>
     /// Consume food each days
     /// </summary>
@@ -101,7 +161,7 @@ public class RessourceSystem : Singleton<RessourceSystem>
     /// <param name="days">action param</param>
     private void GlobalFoodConsumption(int months, int weeks, int days)
     {
-        if (m_ressourceDictionary[ERessourceType.FOOD] <= 0)
+        if (m_ressourceDictionary[ERessourceType.FOOD] <= 0 || !m_foodConsumption)
             return;
 
         int totalFoodConsumption = 0;
@@ -133,6 +193,10 @@ public class RessourceSystem : Singleton<RessourceSystem>
     /// <param name="days">action param</param>
     private void GlobalWaterConsumption(int months, int weeks, int days)
     {
+        if (!m_waterConsumption)
+        {
+            return;
+        }
 
         if (m_ressourceDictionary[ERessourceType.WATER] != 0)
         {

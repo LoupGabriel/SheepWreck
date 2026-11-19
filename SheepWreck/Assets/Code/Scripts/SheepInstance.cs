@@ -45,13 +45,15 @@ public class SheepInstance : MonoBehaviour
     [SerializeField] private GameObject m_hungryToken;
     [SerializeField] private GameObject m_thirstyToken;
     [SerializeField] private GameObject m_DyingToken;
+    [SerializeField] private GameObject m_payToken;
     [SerializeField] private GameObject m_lvlUpVfx;
 
-  
+    [SerializeField] private static int m_payPerLevel = 10;
     private Canvas m_sheepCanvas;
     private bool m_initializedFromRecruit = false;
     private Animator m_animator;
     private Dictionary<ESheepJob, int> m_jobXP = new();
+    public bool m_haBeenPaidThisWeek = false;
     public ESheepTrait Trait => m_trait;
     public ESheepSpeciality Speciality => m_speciality;
     #region State Machine Variables
@@ -106,6 +108,7 @@ public class SheepInstance : MonoBehaviour
         m_animator = GetComponent<Animator>();
         m_hungryToken.SetActive(false);
         m_thirstyToken.SetActive(false);
+        m_payToken.SetActive(false);
         m_DyingToken.SetActive(false);
         //initialize state machine
         m_stateMachine.Initialize(m_idleState, m_animator);
@@ -130,8 +133,8 @@ public class SheepInstance : MonoBehaviour
         Thirst();
         Dying();
         m_currentMorale = (int)GetMorale();
-
-        if(m_stateMachine.m_currentSheepState is SheepWorkingState)
+        m_payToken.SetActive(!m_haBeenPaidThisWeek);
+        if (m_stateMachine.m_currentSheepState is SheepWorkingState)
         {
             m_sheepCanvas.enabled = true;
         }
@@ -242,6 +245,7 @@ public class SheepInstance : MonoBehaviour
 
 
     }
+    
     public void ConsumeFood(int ressource)
     {
 
@@ -267,6 +271,15 @@ public class SheepInstance : MonoBehaviour
     {
         return m_thirst;
     }
+    public int GetPayCost()
+    {
+        int farmer = GetJobLevel(ESheepJob.Farmer);
+        int Engineer = GetJobLevel(ESheepJob.Engineer);
+
+        //return pay * greater skill level
+        return m_payPerLevel * (int)MathF.Max(farmer, Engineer);
+
+    }
 
 
     //Return the average of hunger and thirst 
@@ -274,8 +287,8 @@ public class SheepInstance : MonoBehaviour
     //make a better system with a paycheck
     public float GetMorale()
     {
-
-        return (m_hunger + m_thirst) / 2;
+        float payMultiplier = m_haBeenPaidThisWeek ? 1 : 0.5f;
+        return payMultiplier * ((m_hunger + m_thirst) / 2);
     }
 
     public void SetSheepAssignedRoom(RoomInstance newAssignedRoom)

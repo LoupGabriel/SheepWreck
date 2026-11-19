@@ -139,7 +139,7 @@ public class RoomInstance : MonoBehaviour, ISelectable
             float levelMultiplier = GetJobLevelMultipler(sheep);
 
 
-            float malus = (GetThirstyMalus(sheep) + GetHungryMalus(sheep)) / 2;
+            float malus = (GetThirstyMalus(sheep) + GetHungryMalus(sheep)) / 2 * GetPaidMalus(sheep);
             totalProduction += sheep.m_productionRate * traitMultiplier * specialityMultiplier * levelMultiplier * roomProductionMultiplier * malus;
             sheep.ProductionPopup(totalProduction);
         }
@@ -374,6 +374,17 @@ public class RoomInstance : MonoBehaviour, ISelectable
         if (sheep.m_hunger <= 30)
         {
             return 0.5f;
+        }
+        else
+        {
+            return 1;
+        }
+    }
+    private float GetPaidMalus(SheepInstance sheep)
+    {
+        if (!sheep.m_haBeenPaidThisWeek )
+        {
+            return 0.8f;
         }
         else
         {

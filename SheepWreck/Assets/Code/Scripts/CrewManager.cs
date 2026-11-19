@@ -50,11 +50,35 @@ public class CrewManager : Singleton<CrewManager>
         }
     }
 
+    public void PayAll()
+    {
+        RessourceSystem.Instance.GlobalPayConsumption(1, 1, 1);
+    }
+    public void PaySelected()
+    {
+        SheepInstance sheep = SelectionManager.Instance.LastSelectedSheep.GetComponent<SheepInstance>();
+        int amount = sheep.GetPayCost();
+        if (RessourceSystem.Instance.RessourceDictionary[ERessourceType.GOLD] < amount)
+        {
+            sheep.m_haBeenPaidThisWeek = false;
+            return;
+        }
+        else
+        {
+            sheep.m_haBeenPaidThisWeek = true;
+            RessourceSystem.Instance.GainRessource(-sheep.GetPayCost(),ERessourceType.GOLD);
+        }
+       
+        UiResourceAnimationManager.Instance?.PlayConsumeAnimation(sheep.transform, ERessourceType.GOLD, 50f, particleCount: 1);
+    }
+
     public void FillWaterSpecific(int quantity)
     {
         if (RessourceSystem.Instance.RessourceDictionary[ERessourceType.WATER] < quantity)
             return;
         SheepInstance sheep = SelectionManager.Instance.LastSelectedSheep.GetComponent<SheepInstance>();
+        if (sheep == null) return;
+       
         sheep.ConsumeWater(quantity);
         RessourceSystem.Instance.GainRessource(-quantity, ERessourceType.WATER);
         UiResourceAnimationManager.Instance?.PlayConsumeAnimation(sheep.transform, ERessourceType.WATER, 50f, particleCount: 1);
@@ -64,10 +88,13 @@ public class CrewManager : Singleton<CrewManager>
     {
         if (RessourceSystem.Instance.RessourceDictionary[ERessourceType.FOOD] < quantity)
             return;
-        SheepInstance sheep = SelectionManager.Instance.LastSelectedSheep.GetComponent<SheepInstance>();
-        sheep.ConsumeFood(quantity);
-        RessourceSystem.Instance.GainRessource(-quantity, ERessourceType.FOOD);
-        UiResourceAnimationManager.Instance?.PlayConsumeAnimation(sheep.transform, ERessourceType.FOOD, 50f, particleCount: 1);
+        if(SelectionManager.Instance.LastSelectedSheep.GetComponent<SheepInstance>() != null)
+        {
+            SheepInstance sheep = SelectionManager.Instance.LastSelectedSheep.GetComponent<SheepInstance>();
+            sheep.ConsumeFood(quantity);
+            RessourceSystem.Instance.GainRessource(-quantity, ERessourceType.FOOD);
+            UiResourceAnimationManager.Instance?.PlayConsumeAnimation(sheep.transform, ERessourceType.FOOD, 50f, particleCount: 1);
+        }
 
     }
     /// <summary>

@@ -66,7 +66,7 @@ Material:
     - _BUILTIN_ZTest: 4
     - _BUILTIN_ZWrite: 1
     - _BUILTIN_ZWriteControl: 0
-    - _FresnelPower: 0.9497223
+    - _FresnelPower: 0.6224823
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
